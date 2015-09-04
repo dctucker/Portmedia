@@ -1,0 +1,839 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D0C4E8D0486CD37000505A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */; };
+		8D0C4E8E0486CD37000505A6 /* main.nib in Resources */ = {isa = PBXBuildFile; fileRef = 02345980000FD03B11CA0E72 /* main.nib */; };
+		8D0C4E920486CD37000505A6 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Carbon.framework */; };
+		B8293D560F6C5FCD006123CD /* wxmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8293D4C0F6C5F43006123CD /* wxmain.cpp */; };
+		B83254F411193CA300F4B68C /* delay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B83254F311193CA300F4B68C /* delay.cpp */; };
+		B83255F4111D329400F4B68C /* bus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B83255F3111D329400F4B68C /* bus.cpp */; };
+		B836605E11854D7A0058459E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B836605D11854D7A0058459E /* OpenGL.framework */; };
+		B83660A611854FCF0058459E /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83660A511854FCF0058459E /* AGL.framework */; };
+		B83C04A7112C930C00AF13DA /* Bitmaps in Resources */ = {isa = PBXBuildFile; fileRef = B83C049D112C930C00AF13DA /* Bitmaps */; };
+		B83C086610C1CE90001D0F79 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B83C086510C1CE90001D0F79 /* libsndfile.a */; };
+		B84758F5119A7DEA0049276F /* canvas3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84758F3119A7DEA0049276F /* canvas3d.cpp */; };
+		B84D694C0F5F748E00F9ABAC /* RtMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84D693F0F5F748E00F9ABAC /* RtMidi.cpp */; };
+		B84D69990F5F74BF00F9ABAC /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B84D69940F5F74BF00F9ABAC /* CoreAudio.framework */; };
+		B84D699A0F5F74BF00F9ABAC /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B84D69950F5F74BF00F9ABAC /* CoreFoundation.framework */; };
+		B84D699B0F5F74BF00F9ABAC /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B84D69960F5F74BF00F9ABAC /* CoreMIDI.framework */; };
+		B84D699C0F5F74BF00F9ABAC /* libportaudiocpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B84D69970F5F74BF00F9ABAC /* libportaudiocpp.a */; };
+		B84D699D0F5F74C000F9ABAC /* libportaudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B84D69980F5F74BF00F9ABAC /* libportaudio.a */; };
+		B851858B10B0D0ED005B00DC /* recording.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B851858A10B0D0ED005B00DC /* recording.cpp */; };
+		B861F76B11521C5D005DAC29 /* Conceptual model.xcclassmodel in Resources */ = {isa = PBXBuildFile; fileRef = B861F76A11521C5D005DAC29 /* Conceptual model.xcclassmodel */; };
+		B87F782B1191E6260018E6EF /* textures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B87F782A1191E6260018E6EF /* textures.cpp */; };
+		B88079F0110E5343000EDD99 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = B8807995110E5343000EDD99 /* Samples */; };
+		B88EA0B20F7EF90800B8123F /* dnbMedia.icns in Resources */ = {isa = PBXBuildFile; fileRef = B88EA0B10F7EF90800B8123F /* dnbMedia.icns */; };
+		B898018C11E8FD6100349EB9 /* ladder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B898FF9911E69EDD00349EB9 /* ladder.cpp */; };
+		B898FF9A11E69EDD00349EB9 /* ladder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B898FF9911E69EDD00349EB9 /* ladder.cpp */; };
+		B8B49D4410FE820900245B46 /* piano.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8B49D4310FE820900245B46 /* piano.cpp */; };
+		B8B49EC210FFFB8600245B46 /* libsamplerate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B49EC110FFFB8600245B46 /* libsamplerate.a */; };
+		B8B49F291102566400245B46 /* filterIIR00.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8B49F281102566400245B46 /* filterIIR00.cpp */; };
+		B8BF4C060F68630D0072097B /* dnbMedia2.icns in Resources */ = {isa = PBXBuildFile; fileRef = B8BF4C050F68630D0072097B /* dnbMedia2.icns */; };
+		B8CE6A4411095EB100CC1005 /* hammond.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8CE6A4311095EB100CC1005 /* hammond.cpp */; };
+		B8D9795511813DEE004D2AF5 /* joystick.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8D9795411813DEE004D2AF5 /* joystick.cpp */; };
+		B8EE6C94111E6AF10004CDAF /* reese.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8EE6C93111E6AF10004CDAF /* reese.cpp */; };
+		B8EEECDC1162A0CF00950B4D /* adsr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8EEECDB1162A0CF00950B4D /* adsr.cpp */; };
+		B8F494AA11117CB600BA8614 /* biquad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8F494A911117CB600BA8614 /* biquad.cpp */; };
+		B8F49B3A11163BCF00BA8614 /* oscillator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8F49B3911163BCF00BA8614 /* oscillator.cpp */; };
+		B8F49B3D11163BE200BA8614 /* midi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8F49B3B11163BE200BA8614 /* midi.cpp */; };
+		B8F49B591116430500BA8614 /* temperament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8F49B571116430500BA8614 /* temperament.cpp */; };
+		B8F9154110B15714004F64CE /* libfftw3f.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F9154010B15714004F64CE /* libfftw3f.a */; };
+		C9F902AC1250433E00113916 /* libwx_macu_gl-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F902AA1250433E00113916 /* libwx_macu_gl-2.8.dylib */; };
+		C9F902AD1250433E00113916 /* libwx_macu-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F902AB1250433E00113916 /* libwx_macu-2.8.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B861F6481151F807005DAC29 /* Copy frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Copy frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0867D6ABFE840B52C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1870340FFE93FCAF11CA0CD7 /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/main.nib; sourceTree = "<group>"; };
+		20286C33FDCF999611CA2CEA /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		32DBCF6D0370B57F00C91783 /* wxHello_Prefix.pch */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; path = wxHello_Prefix.pch; sourceTree = "<group>"; };
+		5048396D09E3307300765E4B /* wxHelloProj.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = wxHelloProj.xcconfig; sourceTree = "<group>"; };
+		5048396E09E3307300765E4B /* wxHelloTarget.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = wxHelloTarget.xcconfig; sourceTree = "<group>"; };
+		508344B209E5C41E0093A071 /* dnbMedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dnbMedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D0C4E960486CD37000505A6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B8293D4C0F6C5F43006123CD /* wxmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wxmain.cpp; path = src/wxmain.cpp; sourceTree = "<group>"; };
+		B83254F211193CA300F4B68C /* delay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = delay.h; path = src/delay.h; sourceTree = "<group>"; };
+		B83254F311193CA300F4B68C /* delay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = delay.cpp; path = src/delay.cpp; sourceTree = "<group>"; };
+		B83255F2111D329400F4B68C /* bus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bus.h; path = src/bus.h; sourceTree = "<group>"; };
+		B83255F3111D329400F4B68C /* bus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bus.cpp; path = src/bus.cpp; sourceTree = "<group>"; };
+		B836605D11854D7A0058459E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		B83660A511854FCF0058459E /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
+		B83C049D112C930C00AF13DA /* Bitmaps */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Bitmaps; sourceTree = "<group>"; };
+		B83C086510C1CE90001D0F79 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile.a; path = /usr/local/lib/libsndfile.a; sourceTree = "<absolute>"; };
+		B83C088010C1E3AF001D0F79 /* wxmain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wxmain.h; path = src/wxmain.h; sourceTree = "<group>"; };
+		B83C0B8F112BBF2100C59D74 /* adsrui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = adsrui.h; path = src/adsrui.h; sourceTree = "<group>"; };
+		B84758F3119A7DEA0049276F /* canvas3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvas3d.cpp; path = src/canvas3d.cpp; sourceTree = "<group>"; };
+		B84758F4119A7DEA0049276F /* canvas3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvas3d.h; path = src/canvas3d.h; sourceTree = "<group>"; };
+		B84D693D0F5F748E00F9ABAC /* RtMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RtMidi.h; path = "../rtmidi-1.0.8/RtMidi.h"; sourceTree = SOURCE_ROOT; };
+		B84D693E0F5F748E00F9ABAC /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RtError.h; path = "../rtmidi-1.0.8/RtError.h"; sourceTree = SOURCE_ROOT; };
+		B84D693F0F5F748E00F9ABAC /* RtMidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RtMidi.cpp; path = "../rtmidi-1.0.8/RtMidi.cpp"; sourceTree = SOURCE_ROOT; };
+		B84D69400F5F748E00F9ABAC /* butterworth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = butterworth.h; path = ../portaudio/PortSample/PortObjectTest/butterworth.h; sourceTree = SOURCE_ROOT; };
+		B84D69410F5F748E00F9ABAC /* butterworth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = butterworth.cpp; path = ../portaudio/PortSample/PortObjectTest/butterworth.cpp; sourceTree = SOURCE_ROOT; };
+		B84D694A0F5F748E00F9ABAC /* butterworth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = butterworth2.h; path = ../portaudio/PortSample/PortObjectTest/butterworth2.h; sourceTree = SOURCE_ROOT; };
+		B84D694B0F5F748E00F9ABAC /* butterworth2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = butterworth2.cpp; path = ../portaudio/PortSample/PortObjectTest/butterworth2.cpp; sourceTree = SOURCE_ROOT; };
+		B84D69940F5F74BF00F9ABAC /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
+		B84D69950F5F74BF00F9ABAC /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		B84D69960F5F74BF00F9ABAC /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<absolute>"; };
+		B84D69970F5F74BF00F9ABAC /* libportaudiocpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libportaudiocpp.a; path = /usr/local/lib/libportaudiocpp.a; sourceTree = "<absolute>"; };
+		B84D69980F5F74BF00F9ABAC /* libportaudio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libportaudio.a; path = /usr/local/lib/libportaudio.a; sourceTree = "<absolute>"; };
+		B84D6C950F60709D00F9ABAC /* midigui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = midigui.h; path = src/midigui.h; sourceTree = "<group>"; };
+		B84D6C990F60712200F9ABAC /* processing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = processing.h; path = src/processing.h; sourceTree = "<group>"; };
+		B851858910B0D0ED005B00DC /* recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = recording.h; path = src/recording.h; sourceTree = "<group>"; };
+		B851858A10B0D0ED005B00DC /* recording.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = recording.cpp; path = src/recording.cpp; sourceTree = "<group>"; };
+		B861F76A11521C5D005DAC29 /* Conceptual model.xcclassmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcclassmodel; path = "Conceptual model.xcclassmodel"; sourceTree = "<group>"; };
+		B87F78291191E6260018E6EF /* textures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textures.h; sourceTree = "<group>"; };
+		B87F782A1191E6260018E6EF /* textures.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = textures.cpp; sourceTree = "<group>"; };
+		B8807995110E5343000EDD99 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Samples; path = ../_instrument/Samples; sourceTree = SOURCE_ROOT; };
+		B88EA0B10F7EF90800B8123F /* dnbMedia.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = dnbMedia.icns; sourceTree = "<group>"; };
+		B898018711E8FD3D00349EB9 /* wxMoog-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "wxMoog-Info.plist"; sourceTree = "<group>"; };
+		B898FCE211E5AD2800349EB9 /* chord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = chord.h; path = src/chord.h; sourceTree = "<group>"; };
+		B898FF7811E69CD300349EB9 /* filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = filter.h; path = src/filter.h; sourceTree = "<group>"; };
+		B898FF9811E69EDD00349EB9 /* ladder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ladder.h; path = src/ladder.h; sourceTree = "<group>"; };
+		B898FF9911E69EDD00349EB9 /* ladder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ladder.cpp; path = src/ladder.cpp; sourceTree = "<group>"; };
+		B8A6DDAE111EA1DC003A4A4E /* scope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scope.h; path = src/scope.h; sourceTree = "<group>"; };
+		B8B49D4210FE820900245B46 /* piano.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = piano.h; path = src/piano.h; sourceTree = "<group>"; };
+		B8B49D4310FE820900245B46 /* piano.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = piano.cpp; path = src/piano.cpp; sourceTree = "<group>"; };
+		B8B49EC110FFFB8600245B46 /* libsamplerate.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsamplerate.a; path = /usr/local/lib/libsamplerate.a; sourceTree = "<absolute>"; };
+		B8B49F281102566400245B46 /* filterIIR00.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = filterIIR00.cpp; path = src/filterIIR00.cpp; sourceTree = "<group>"; };
+		B8B49F2C1102573700245B46 /* filterIIR00.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = filterIIR00.h; path = src/filterIIR00.h; sourceTree = "<group>"; };
+		B8B6002C10AD390A0081107B /* wavepanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wavepanel.h; path = src/wavepanel.h; sourceTree = "<group>"; };
+		B8B6002D10AD390A0081107B /* wavepanel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = wavepanel.cpp; path = src/wavepanel.cpp; sourceTree = "<group>"; };
+		B8B6003210AD41F50081107B /* mydevices.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = mydevices.h; path = src/mydevices.h; sourceTree = "<group>"; };
+		B8BF4C050F68630D0072097B /* dnbMedia2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = dnbMedia2.icns; sourceTree = "<group>"; };
+		B8CE6A4211095EB100CC1005 /* hammond.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hammond.h; path = src/hammond.h; sourceTree = "<group>"; };
+		B8CE6A4311095EB100CC1005 /* hammond.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hammond.cpp; path = src/hammond.cpp; sourceTree = "<group>"; };
+		B8D9795311813DEE004D2AF5 /* joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = joystick.h; path = src/joystick.h; sourceTree = "<group>"; };
+		B8D9795411813DEE004D2AF5 /* joystick.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = joystick.cpp; path = src/joystick.cpp; sourceTree = "<group>"; };
+		B8EE6C92111E6AF10004CDAF /* reese.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = reese.h; path = src/reese.h; sourceTree = "<group>"; };
+		B8EE6C93111E6AF10004CDAF /* reese.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = reese.cpp; path = src/reese.cpp; sourceTree = "<group>"; };
+		B8EEECDA1162A0CE00950B4D /* adsr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = adsr.h; path = src/adsr.h; sourceTree = "<group>"; };
+		B8EEECDB1162A0CF00950B4D /* adsr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = adsr.cpp; path = src/adsr.cpp; sourceTree = "<group>"; };
+		B8F494A811117CB600BA8614 /* biquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = biquad.h; path = src/biquad.h; sourceTree = "<group>"; };
+		B8F494A911117CB600BA8614 /* biquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = biquad.cpp; path = src/biquad.cpp; sourceTree = "<group>"; };
+		B8F49B3811163BCF00BA8614 /* oscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = oscillator.h; path = src/oscillator.h; sourceTree = "<group>"; };
+		B8F49B3911163BCF00BA8614 /* oscillator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = oscillator.cpp; path = src/oscillator.cpp; sourceTree = "<group>"; };
+		B8F49B3B11163BE200BA8614 /* midi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = midi.cpp; path = src/midi.cpp; sourceTree = "<group>"; };
+		B8F49B3C11163BE200BA8614 /* midi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = midi.h; path = src/midi.h; sourceTree = "<group>"; };
+		B8F49B56111642EE00BA8614 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = main.h; path = src/main.h; sourceTree = "<group>"; };
+		B8F49B571116430500BA8614 /* temperament.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = temperament.cpp; path = src/temperament.cpp; sourceTree = "<group>"; };
+		B8F49B581116430500BA8614 /* temperament.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = temperament.h; path = src/temperament.h; sourceTree = "<group>"; };
+		B8F9154010B15714004F64CE /* libfftw3f.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3f.a; path = /usr/local/lib/libfftw3f.a; sourceTree = "<absolute>"; };
+		C9188EEB12540B850015FFD5 /* wxMoog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wxMoog.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9242A12123F277300B6B395 /* param.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = param.h; path = src/param.h; sourceTree = "<group>"; };
+		C9F3244E12501BB600708784 /* draw_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_keys.h; path = src/draw_keys.h; sourceTree = "<group>"; };
+		C9F3244F12501BB600708784 /* draw_flag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_flag.h; path = src/draw_flag.h; sourceTree = "<group>"; };
+		C9F3245012501BB600708784 /* draw_filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_filter.h; path = src/draw_filter.h; sourceTree = "<group>"; };
+		C9F3245112501BB600708784 /* draw_drums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_drums.h; path = src/draw_drums.h; sourceTree = "<group>"; };
+		C9F3245212501BB600708784 /* draw_chord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_chord.h; path = src/draw_chord.h; sourceTree = "<group>"; };
+		C9F3245312501BB600708784 /* draw_bcr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_bcr.h; path = src/draw_bcr.h; sourceTree = "<group>"; };
+		C9F3245412501BB600708784 /* draw_signal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_signal.h; path = src/draw_signal.h; sourceTree = "<group>"; };
+		C9F3245512501BB600708784 /* draw_led.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_led.h; path = src/draw_led.h; sourceTree = "<group>"; };
+		C9F902AA1250433E00113916 /* libwx_macu_gl-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_macu_gl-2.8.dylib"; path = "../../wxMac-2.8.11/wxmono/lib/libwx_macu_gl-2.8.dylib"; sourceTree = SOURCE_ROOT; };
+		C9F902AB1250433E00113916 /* libwx_macu-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_macu-2.8.dylib"; path = "../../wxMac-2.8.11/wxmono/lib/libwx_macu-2.8.dylib"; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D0C4E910486CD37000505A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D0C4E920486CD37000505A6 /* Carbon.framework in Frameworks */,
+				B84D69990F5F74BF00F9ABAC /* CoreAudio.framework in Frameworks */,
+				B84D699A0F5F74BF00F9ABAC /* CoreFoundation.framework in Frameworks */,
+				B84D699B0F5F74BF00F9ABAC /* CoreMIDI.framework in Frameworks */,
+				B84D699C0F5F74BF00F9ABAC /* libportaudiocpp.a in Frameworks */,
+				B84D699D0F5F74C000F9ABAC /* libportaudio.a in Frameworks */,
+				B8F9154110B15714004F64CE /* libfftw3f.a in Frameworks */,
+				B83C086610C1CE90001D0F79 /* libsndfile.a in Frameworks */,
+				B8B49EC210FFFB8600245B46 /* libsamplerate.a in Frameworks */,
+				B836605E11854D7A0058459E /* OpenGL.framework in Frameworks */,
+				B83660A611854FCF0058459E /* AGL.framework in Frameworks */,
+				C9F902AC1250433E00113916 /* libwx_macu_gl-2.8.dylib in Frameworks */,
+				C9F902AD1250433E00113916 /* libwx_macu-2.8.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B898018311E8FD3D00349EB9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		195DF8CFFE9D517E11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				508344B209E5C41E0093A071 /* dnbMedia.app */,
+				C9188EEB12540B850015FFD5 /* wxMoog.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		20286C29FDCF999611CA2CEA /* wxHello */ = {
+			isa = PBXGroup;
+			children = (
+				B861F76A11521C5D005DAC29 /* Conceptual model.xcclassmodel */,
+				5048396909E3304600765E4B /* Configuration Files */,
+				20286C2AFDCF999611CA2CEA /* Sources */,
+				20286C2CFDCF999611CA2CEA /* Resources */,
+				20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */,
+				195DF8CFFE9D517E11CA2CBB /* Products */,
+				B898018711E8FD3D00349EB9 /* wxMoog-Info.plist */,
+			);
+			name = wxHello;
+			sourceTree = "<group>";
+		};
+		20286C2AFDCF999611CA2CEA /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32DBCF6D0370B57F00C91783 /* wxHello_Prefix.pch */,
+				B8F499601112D72500BA8614 /* Inactive */,
+				B84D693C0F5F748E00F9ABAC /* RtMidi */,
+				B84D6CD20F608FA600F9ABAC /* GUI */,
+				B84D6C980F6070CF00F9ABAC /* Engine */,
+				B8F49B56111642EE00BA8614 /* main.h */,
+				B8B6003210AD41F50081107B /* mydevices.h */,
+				B83C088010C1E3AF001D0F79 /* wxmain.h */,
+				B8293D4C0F6C5F43006123CD /* wxmain.cpp */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		20286C2CFDCF999611CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B83C049D112C930C00AF13DA /* Bitmaps */,
+				B8807995110E5343000EDD99 /* Samples */,
+				B8BF4C050F68630D0072097B /* dnbMedia2.icns */,
+				B88EA0B10F7EF90800B8123F /* dnbMedia.icns */,
+				8D0C4E960486CD37000505A6 /* Info.plist */,
+				0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */,
+				02345980000FD03B11CA0E72 /* main.nib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				B83660A511854FCF0058459E /* AGL.framework */,
+				B836605D11854D7A0058459E /* OpenGL.framework */,
+				20286C33FDCF999611CA2CEA /* Carbon.framework */,
+				B84D69940F5F74BF00F9ABAC /* CoreAudio.framework */,
+				B84D69950F5F74BF00F9ABAC /* CoreFoundation.framework */,
+				B84D69960F5F74BF00F9ABAC /* CoreMIDI.framework */,
+				B84D69970F5F74BF00F9ABAC /* libportaudiocpp.a */,
+				B84D69980F5F74BF00F9ABAC /* libportaudio.a */,
+				B8B49EC110FFFB8600245B46 /* libsamplerate.a */,
+				C9F902AA1250433E00113916 /* libwx_macu_gl-2.8.dylib */,
+				C9F902AB1250433E00113916 /* libwx_macu-2.8.dylib */,
+				B83C086510C1CE90001D0F79 /* libsndfile.a */,
+				B8F9154010B15714004F64CE /* libfftw3f.a */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		5048396909E3304600765E4B /* Configuration Files */ = {
+			isa = PBXGroup;
+			children = (
+				5048396D09E3307300765E4B /* wxHelloProj.xcconfig */,
+				5048396E09E3307300765E4B /* wxHelloTarget.xcconfig */,
+			);
+			name = "Configuration Files";
+			sourceTree = "<group>";
+		};
+		B83254F0111935E800F4B68C /* Instrument */ = {
+			isa = PBXGroup;
+			children = (
+				B8F49B581116430500BA8614 /* temperament.h */,
+				B8F49B571116430500BA8614 /* temperament.cpp */,
+				B8EEECDA1162A0CE00950B4D /* adsr.h */,
+				B8EEECDB1162A0CF00950B4D /* adsr.cpp */,
+				B8F49B3811163BCF00BA8614 /* oscillator.h */,
+				B8F49B3911163BCF00BA8614 /* oscillator.cpp */,
+				B8B49D4210FE820900245B46 /* piano.h */,
+				B8B49D4310FE820900245B46 /* piano.cpp */,
+				B8CE6A4211095EB100CC1005 /* hammond.h */,
+				B8CE6A4311095EB100CC1005 /* hammond.cpp */,
+				B8EE6C92111E6AF10004CDAF /* reese.h */,
+				B8EE6C93111E6AF10004CDAF /* reese.cpp */,
+			);
+			name = Instrument;
+			sourceTree = "<group>";
+		};
+		B83254F11119393500F4B68C /* Effect */ = {
+			isa = PBXGroup;
+			children = (
+				B8B49F2C1102573700245B46 /* filterIIR00.h */,
+				B8B49F281102566400245B46 /* filterIIR00.cpp */,
+				B898FF7811E69CD300349EB9 /* filter.h */,
+				B898FF9811E69EDD00349EB9 /* ladder.h */,
+				B898FF9911E69EDD00349EB9 /* ladder.cpp */,
+				B8F494A811117CB600BA8614 /* biquad.h */,
+				B8F494A911117CB600BA8614 /* biquad.cpp */,
+				B83254F211193CA300F4B68C /* delay.h */,
+				B83254F311193CA300F4B68C /* delay.cpp */,
+			);
+			name = Effect;
+			sourceTree = "<group>";
+		};
+		B83C054B112E54C800AF13DA /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				B898FCE211E5AD2800349EB9 /* chord.h */,
+				B851858910B0D0ED005B00DC /* recording.h */,
+				B851858A10B0D0ED005B00DC /* recording.cpp */,
+				B8F49B3C11163BE200BA8614 /* midi.h */,
+				B8F49B3B11163BE200BA8614 /* midi.cpp */,
+				B83255F2111D329400F4B68C /* bus.h */,
+				B83255F3111D329400F4B68C /* bus.cpp */,
+				B8D9795311813DEE004D2AF5 /* joystick.h */,
+				B8D9795411813DEE004D2AF5 /* joystick.cpp */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		B84D693C0F5F748E00F9ABAC /* RtMidi */ = {
+			isa = PBXGroup;
+			children = (
+				B84D693D0F5F748E00F9ABAC /* RtMidi.h */,
+				B84D693E0F5F748E00F9ABAC /* RtError.h */,
+				B84D693F0F5F748E00F9ABAC /* RtMidi.cpp */,
+			);
+			name = RtMidi;
+			sourceTree = "<group>";
+		};
+		B84D6C980F6070CF00F9ABAC /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				C9242A12123F277300B6B395 /* param.h */,
+				B83C054B112E54C800AF13DA /* Base */,
+				B83254F11119393500F4B68C /* Effect */,
+				B83254F0111935E800F4B68C /* Instrument */,
+			);
+			name = Engine;
+			sourceTree = "<group>";
+		};
+		B84D6CD20F608FA600F9ABAC /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				B8F9C56C11F80B8C00D81749 /* Old */,
+				B87F78291191E6260018E6EF /* textures.h */,
+				B87F782A1191E6260018E6EF /* textures.cpp */,
+				B84758F4119A7DEA0049276F /* canvas3d.h */,
+				B84758F3119A7DEA0049276F /* canvas3d.cpp */,
+				C9F3244E12501BB600708784 /* draw_keys.h */,
+				C9F3244F12501BB600708784 /* draw_flag.h */,
+				C9F3245012501BB600708784 /* draw_filter.h */,
+				C9F3245112501BB600708784 /* draw_drums.h */,
+				C9F3245212501BB600708784 /* draw_chord.h */,
+				C9F3245312501BB600708784 /* draw_bcr.h */,
+				C9F3245412501BB600708784 /* draw_signal.h */,
+				C9F3245512501BB600708784 /* draw_led.h */,
+			);
+			name = GUI;
+			sourceTree = "<group>";
+		};
+		B8F499601112D72500BA8614 /* Inactive */ = {
+			isa = PBXGroup;
+			children = (
+				B84D69400F5F748E00F9ABAC /* butterworth.h */,
+				B84D69410F5F748E00F9ABAC /* butterworth.cpp */,
+				B84D694A0F5F748E00F9ABAC /* butterworth2.h */,
+				B84D694B0F5F748E00F9ABAC /* butterworth2.cpp */,
+			);
+			name = Inactive;
+			sourceTree = "<group>";
+		};
+		B8F9C56C11F80B8C00D81749 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				B8B6002C10AD390A0081107B /* wavepanel.h */,
+				B8B6002D10AD390A0081107B /* wavepanel.cpp */,
+				B8A6DDAE111EA1DC003A4A4E /* scope.h */,
+				B83C0B8F112BBF2100C59D74 /* adsrui.h */,
+				B84D6C990F60712200F9ABAC /* processing.h */,
+				B84D6C950F60709D00F9ABAC /* midigui.h */,
+			);
+			name = Old;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D0C4E890486CD37000505A6 /* wxMedia */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0E91AC508A95435008D54AB /* Build configuration list for PBXNativeTarget "wxMedia" */;
+			buildPhases = (
+				B861F6481151F807005DAC29 /* Copy frameworks */,
+				8D0C4E8C0486CD37000505A6 /* Resources */,
+				8D0C4E8F0486CD37000505A6 /* Sources */,
+				8D0C4E910486CD37000505A6 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = wxMedia;
+			productInstallPath = "$(HOME)/Applications";
+			productName = wxHello;
+			productReference = 508344B209E5C41E0093A071 /* dnbMedia.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B898018411E8FD3D00349EB9 /* wxMoog */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B898018B11E8FD4100349EB9 /* Build configuration list for PBXNativeTarget "wxMoog" */;
+			buildPhases = (
+				B898018111E8FD3D00349EB9 /* Resources */,
+				B898018211E8FD3D00349EB9 /* Sources */,
+				B898018311E8FD3D00349EB9 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = wxMoog;
+			productName = wxMoog;
+			productReference = C9188EEB12540B850015FFD5 /* wxMoog.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		20286C28FDCF999611CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C0E91AC908A95435008D54AB /* Build configuration list for PBXProject "wxMedia" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 20286C29FDCF999611CA2CEA /* wxHello */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D0C4E890486CD37000505A6 /* wxMedia */,
+				B898018411E8FD3D00349EB9 /* wxMoog */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D0C4E8C0486CD37000505A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D0C4E8D0486CD37000505A6 /* InfoPlist.strings in Resources */,
+				8D0C4E8E0486CD37000505A6 /* main.nib in Resources */,
+				B8BF4C060F68630D0072097B /* dnbMedia2.icns in Resources */,
+				B88EA0B20F7EF90800B8123F /* dnbMedia.icns in Resources */,
+				B88079F0110E5343000EDD99 /* Samples in Resources */,
+				B83C04A7112C930C00AF13DA /* Bitmaps in Resources */,
+				B861F76B11521C5D005DAC29 /* Conceptual model.xcclassmodel in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B898018111E8FD3D00349EB9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D0C4E8F0486CD37000505A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B84D694C0F5F748E00F9ABAC /* RtMidi.cpp in Sources */,
+				B8293D560F6C5FCD006123CD /* wxmain.cpp in Sources */,
+				B851858B10B0D0ED005B00DC /* recording.cpp in Sources */,
+				B8B49D4410FE820900245B46 /* piano.cpp in Sources */,
+				B8B49F291102566400245B46 /* filterIIR00.cpp in Sources */,
+				B8CE6A4411095EB100CC1005 /* hammond.cpp in Sources */,
+				B8F494AA11117CB600BA8614 /* biquad.cpp in Sources */,
+				B8F49B3A11163BCF00BA8614 /* oscillator.cpp in Sources */,
+				B8F49B3D11163BE200BA8614 /* midi.cpp in Sources */,
+				B8F49B591116430500BA8614 /* temperament.cpp in Sources */,
+				B83254F411193CA300F4B68C /* delay.cpp in Sources */,
+				B83255F4111D329400F4B68C /* bus.cpp in Sources */,
+				B8EE6C94111E6AF10004CDAF /* reese.cpp in Sources */,
+				B8EEECDC1162A0CF00950B4D /* adsr.cpp in Sources */,
+				B8D9795511813DEE004D2AF5 /* joystick.cpp in Sources */,
+				B87F782B1191E6260018E6EF /* textures.cpp in Sources */,
+				B84758F5119A7DEA0049276F /* canvas3d.cpp in Sources */,
+				B898FF9A11E69EDD00349EB9 /* ladder.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B898018211E8FD3D00349EB9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B898018C11E8FD6100349EB9 /* ladder.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		02345980000FD03B11CA0E72 /* main.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1870340FFE93FCAF11CA0CD7 /* English */,
+			);
+			name = main.nib;
+			sourceTree = "<group>";
+		};
+		0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0867D6ABFE840B52C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B83C0AA11129460800C59D74 /* Assembly mode */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5048396D09E3307300765E4B /* wxHelloProj.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH)";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_OPENMP_SUPPORT = NO;
+				GCC_AUTO_VECTORIZATION = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_SSE3_EXTENSIONS = YES;
+				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
+				GCC_ENABLE_SYMBOL_SEPARATION = NO;
+				GCC_FAST_OBJC_DISPATCH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
+				GCC_MODEL_TUNING = "";
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_REUSE_STRINGS = NO;
+				GCC_UNROLL_LOOPS = NO;
+				GCC_VERSION = 4.2;
+				GENERATE_PROFILING_CODE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LD_OPENMP_FLAGS = "";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-fexec-charset=utf-8";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PREBINDING = YES;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SDKROOT = macosx10.5;
+				SEPARATE_STRIP = NO;
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
+				STRIP_INSTALLED_PRODUCT = NO;
+				USER_HEADER_SEARCH_PATHS = "/Users/casey/Development/wxMac-2.8.11/wxmono/lib/wx/include/mac-unicode-release-2.8 /usr/local/include";
+			};
+			name = "Assembly mode";
+		};
+		B83C0AA21129460800C59D74 /* Assembly mode */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5048396E09E3307300765E4B /* wxHelloTarget.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH)";
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = wxHello_Prefix.pch;
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SRCROOT)/build/Assembly mode/dnbMedia.app/Contents/Frameworks\"",
+					"\"$(SRCROOT)/../../wxMac-2.8.9-dylib/wxbuild/lib\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../wxMac-2.8.11/wxmono/lib\"",
+				);
+				OTHER_CFLAGS = (
+					"-I/Users/dctucker/Development/wxMac-2.8.9-dylib/wxbuild/lib/wx/include/mac-unicode-release-2.8",
+					"-I/Users/dctucker/Development/wxMac-2.8.9-dylib/include",
+					"-I/Users/dctucker/Development/wxMac-2.8.9-dylib/contrib/include",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-D__WXMAC__",
+				);
+				OTHER_LDFLAGS = "";
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				PRODUCT_NAME = dnbMedia;
+			};
+			name = "Assembly mode";
+		};
+		B898018811E8FD4000349EB9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				INFOPLIST_FILE = "wxMoog-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = wxMoog;
+			};
+			name = Debug;
+		};
+		B898018911E8FD4000349EB9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				INFOPLIST_FILE = "wxMoog-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = wxMoog;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		B898018A11E8FD4000349EB9 /* Assembly mode */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				INFOPLIST_FILE = "wxMoog-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = wxMoog;
+			};
+			name = "Assembly mode";
+		};
+		C0E91AC608A95435008D54AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5048396E09E3307300765E4B /* wxHelloTarget.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH)";
+				COPY_PHASE_STRIP = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = wxHello_Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"_GLIBCXX_DEBUG=1",
+					"_GLIBCXX_DEBUG_PEDANTIC=1",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SRCROOT)/build/Assembly mode/dnbMedia.app/Contents/Frameworks\"",
+					"\"$(SRCROOT)/../../wxMac-2.8.9-dylib/wxbuild/lib\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../wxMac-2.8.11/wxmono/lib\"",
+				);
+				OTHER_CFLAGS = (
+					"-I/Users/dctucker/Development/wxMac-2.8.9-dylib/wxbuild/lib/wx/include/mac-unicode-release-2.8",
+					"-I/Users/dctucker/Development/wxMac-2.8.9-dylib/include",
+					"-I/Users/dctucker/Development/wxMac-2.8.9-dylib/contrib/include",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-D__WXMAC__",
+				);
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = dnbMedia;
+			};
+			name = Debug;
+		};
+		C0E91AC708A95435008D54AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5048396E09E3307300765E4B /* wxHelloTarget.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH)";
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = wxHello_Prefix.pch;
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SRCROOT)/build/Assembly mode/dnbMedia.app/Contents/Frameworks\"",
+					"\"$(SRCROOT)/../../wxMac-2.8.9-dylib/wxbuild/lib\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../wxMac-2.8.11/wxmono/lib\"",
+				);
+				OTHER_CFLAGS = (
+					"-I/Users/dctucker/Development/wxMac-2.8.9-dylib/wxbuild/lib/wx/include/mac-unicode-release-2.8",
+					"-I/Users/dctucker/Development/wxMac-2.8.9-dylib/include",
+					"-I/Users/dctucker/Development/wxMac-2.8.9-dylib/contrib/include",
+					"-D_FILE_OFFSET_BITS=64",
+					"-D_LARGE_FILES",
+					"-D__WXMAC__",
+				);
+				OTHER_LDFLAGS = "";
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				PRODUCT_NAME = dnbMedia;
+			};
+			name = Release;
+		};
+		C0E91ACA08A95435008D54AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5048396D09E3307300765E4B /* wxHelloProj.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH)";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_OPENMP_SUPPORT = NO;
+				GCC_AUTO_VECTORIZATION = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_SSE3_EXTENSIONS = YES;
+				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
+				GCC_FAST_OBJC_DISPATCH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = "";
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_REUSE_STRINGS = NO;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_VERSION = 4.2;
+				GENERATE_PROFILING_CODE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LD_OPENMP_FLAGS = "";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-fexec-charset=utf-8";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PREBINDING = YES;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SDKROOT = macosx10.5;
+				SEPARATE_STRIP = NO;
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
+				STRIP_INSTALLED_PRODUCT = NO;
+				USER_HEADER_SEARCH_PATHS = "/Users/casey/Development/wxMac-2.8.11/wxmono/lib/wx/include/mac-unicode-release-2.8 /usr/local/include";
+			};
+			name = Debug;
+		};
+		C0E91ACB08A95435008D54AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5048396D09E3307300765E4B /* wxHelloProj.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH)";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_OPENMP_SUPPORT = NO;
+				GCC_AUTO_VECTORIZATION = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_SSE3_EXTENSIONS = YES;
+				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES;
+				GCC_FAST_OBJC_DISPATCH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = "";
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_REUSE_STRINGS = NO;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_VERSION = 4.2;
+				GENERATE_PROFILING_CODE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LD_OPENMP_FLAGS = "";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-fexec-charset=utf-8";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PREBINDING = YES;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
+				SDKROOT = macosx10.5;
+				SEPARATE_STRIP = NO;
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
+				STRIP_INSTALLED_PRODUCT = NO;
+				USER_HEADER_SEARCH_PATHS = "/Users/casey/Development/wxMac-2.8.11/wxmono/lib/wx/include/mac-unicode-release-2.8 /usr/local/include";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B898018B11E8FD4100349EB9 /* Build configuration list for PBXNativeTarget "wxMoog" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B898018811E8FD4000349EB9 /* Debug */,
+				B898018911E8FD4000349EB9 /* Release */,
+				B898018A11E8FD4000349EB9 /* Assembly mode */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0E91AC508A95435008D54AB /* Build configuration list for PBXNativeTarget "wxMedia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0E91AC608A95435008D54AB /* Debug */,
+				C0E91AC708A95435008D54AB /* Release */,
+				B83C0AA21129460800C59D74 /* Assembly mode */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0E91AC908A95435008D54AB /* Build configuration list for PBXProject "wxMedia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0E91ACA08A95435008D54AB /* Debug */,
+				C0E91ACB08A95435008D54AB /* Release */,
+				B83C0AA11129460800C59D74 /* Assembly mode */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 20286C28FDCF999611CA2CEA /* Project object */;
+}
