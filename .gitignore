@@ -1,1 +1,4 @@
 wxMedia/build
+wxMedia/*.app
+wxMedia/bak
+wxMedia/doc/html
