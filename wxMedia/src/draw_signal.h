@@ -39,21 +39,21 @@ void Canvas3D::drawScope()
 	glColor4f(0.0, 1.0 ,0.0, alpha );
 	
 	int i;
+	glBegin(GL_QUADS);
 	for(i=0; i < width; i++){
-		glBegin(GL_QUADS);
-			glNormal3f( 0.0, 0.0, 1.0 );
+		glNormal3f( 0.0, 0.0, 1.0 );
 
-			glVertex2f(     i * dx + sleft, center_y - height * scope_maxv[i] );
-			glVertex2f( (i+1) * dx + sleft, center_y - height * scope_maxv[i+1] );
-			glVertex2f( (i+1) * dx + sleft, center_y );
-			glVertex2f(     i * dx + sleft, center_y );
+		glVertex2f(     i * dx + sleft, center_y - height * scope_maxv[i] );
+		glVertex2f( (i+1) * dx + sleft, center_y - height * scope_maxv[i+1] );
+		glVertex2f( (i+1) * dx + sleft, center_y );
+		glVertex2f(     i * dx + sleft, center_y );
 
-			glVertex2f(     i * dx + sleft, center_y - height * scope_minv[i] );
-			glVertex2f( (i+1) * dx + sleft, center_y - height * scope_minv[i+1] );
-			glVertex2f( (i+1) * dx + sleft, center_y );
-			glVertex2f(     i * dx + sleft, center_y );
-		glEnd();
+		glVertex2f(     i * dx + sleft, center_y - height * scope_minv[i] );
+		glVertex2f( (i+1) * dx + sleft, center_y - height * scope_minv[i+1] );
+		glVertex2f( (i+1) * dx + sleft, center_y );
+		glVertex2f(     i * dx + sleft, center_y );
 	}
+	glEnd();
 	
 	glPopMatrix();
 }

@@ -2,3 +2,13 @@ wxMedia/build
 wxMedia/*.app
 wxMedia/bak
 wxMedia/doc/html
+wxWidgets*
+wxMac*
+fftw*
+portaudio
+rtmidi
+libsndfile
+_instrument
+.*.swp
+*~
+.DS_Store

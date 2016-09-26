@@ -4,12 +4,14 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string></string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
 	<string>dnbMedia2.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.dctucker.dnbMedia</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -22,7 +24,5 @@
 	<string>1.0</string>
 	<key>CSResourcesFileMapped</key>
 	<true/>
-	<key>CFBundleDisplayName</key>
-	<string></string>
 </dict>
 </plist>

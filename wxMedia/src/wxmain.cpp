@@ -28,7 +28,7 @@ IMPLEMENT_APP(MyApp)
 
 void MyApp::OnAbout(wxCommandEvent &event)
 {
-	wxMessageBox(_T("D. Casey Tucker © 2009"), _T("dnbMedia, Cuba Incorporated edition"));
+	wxMessageBox(_T("D. Casey Tucker © 2009-2016"), _T("dnbMedia"));
 }
 
 float loaded_samples[960000];
@@ -132,7 +132,7 @@ void MyApp::CloseMIDI(int id)
 	try {
 		mi[id]->closePort();
 		mi[id]->cancelCallback();
-	} catch( RtError *err ) {
+	} catch( RtMidiError *err ) {
 		//wxMessageBox( wxString( err->getMessageString(), wxConvUTF8 ) );
 		err->printMessage();
 	}
@@ -141,10 +141,14 @@ void MyApp::CloseMIDI(int id)
 
 void MyApp::killMIDI()
 {
-	for( std::map<int, RtMidiIn *>::iterator i = mi.begin(); i != mi.end(); i++)
+    // @TODO fix
+	/*
+    for( std::map<int, RtMidiIn *>::iterator i = mi.begin(); i != mi.end(); i++)
+    // for(unsigned i=0; i < 10; i++)
 	{
 		CloseMIDI(i->first);
 	}
+    */
 	delete rtmi;
 	DEL(rtmo);
 }
@@ -232,14 +236,12 @@ void MyApp::OnLoad(wxCommandEvent &event)
 		
 	}
 #else
-	
 	wxConfigBase *config = wxConfigBase::Get();
 	config->SetPath( _T("/Presets/") + menuname );
 	key->Load();
 	config->SetPath( _T("/") );
 	for(int i=0; i < NUM_OSCS; i++)
 		key->updateFilter(i);
-
 #endif
 
 	bcr->press(101, 1);
@@ -315,9 +317,15 @@ void MyApp::OpenAudio(int id)
 
 		}
 		
-		if( stream ) stream->start();
-		if( stream_in ) stream_in->start();
-		std::cout << "Ready.\n";
+        if( stream ){
+            stream->start();
+            std::cout << "Output ready.\n";
+        }
+        if( stream_in ){
+            stream_in->start();
+            std::cout << "Input ready.\n";
+        }
+
 
 	} catch(PaException err){
 		wxMessageBox( wxString(err.what(), wxConvUTF8));
@@ -390,7 +398,7 @@ void MyApp::OpenMIDI(int mdevid)
 	mi[mdevid]->setCallback( OnRtMidi, receiver);
 	try {
 		mi[mdevid]->openPort( mdevid );
-	} catch( RtError *err ){
+	} catch( RtMidiError *err ){
 		std::cout << "Couldn't open "<< mdevid;
 	}
 	mdevHash[mdevid] = mi.size() - 1;
@@ -422,7 +430,7 @@ void MyApp::OnMnuTune(wxCommandEvent &event)
 
 void MyApp::OnMnuSeri(wxCommandEvent &event)
 {
-	int seri = event.GetId() - SERIID;
+	// int seri = event.GetId() - SERIID;
 	wxString str( menuDevs->GetLabelText( event.GetId() ) );
 	key->arduino->Init( str.Trim(false) );
 }
@@ -436,10 +444,11 @@ void MyApp::initMidi(wxMenu *menuDevs)
 	title->Enable(false);
 	menuDevs->Append(title);
 	int nPorts = rtmi->getPortCount();
-	for(int i=0; i < nPorts; i++){
+	for(unsigned i=0; i < nPorts; i++){
 		wxString dname( rtmi->getPortName(i).c_str(), wxConvUTF8 );
 		wxString str(_T("    "));
 		str << i << _T(": ") << dname;
+        std::cout << str << "\n";
 		menuDevs->AppendCheckItem(MDEVID + i, str);
 	}
 	
@@ -607,7 +616,7 @@ bool MyApp::OnInit()
 {
 	SetAppName(_T("dnbMedia"));
 	SetVendorName(_T("D. Casey Tucker"));
-	_mm_setcsr( _mm_getcsr() | 0x8040 ); // set DAZ and FZ bits
+	//_mm_setcsr( _mm_getcsr() | 0x8040 ); // set DAZ and FZ bits
 	
 	/*
 	for(int i=0; i < 100; i++){
@@ -753,7 +762,7 @@ bool MyApp::OnInit()
 	//pd.Update(100, _T("Done."));
 	
 	// open my devices:
-	OpenAudio(2);
+	OpenAudio(0);
 	OpenMIDI(0);
 	OpenMIDI(2);
 	

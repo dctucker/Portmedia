@@ -22,9 +22,9 @@ void ADSR::calcADSR()
 {
 	static float const k = ((float)SAMPLE_RATE) / (float)ADSR_DIVISOR;
 	/*
-	tA = A * k; //* SAMPLE_RATE / ADSR_DIVISOR;
-	tD = D * k; //* SAMPLE_RATE / ADSR_DIVISOR;
-	tR = R * k; //* SAMPLE_RATE / ADSR_DIVISOR;
+	tA = A * k; // * SAMPLE_RATE / ADSR_DIVISOR;
+	tD = D * k; // * SAMPLE_RATE / ADSR_DIVISOR;
+	tR = R * k; // * SAMPLE_RATE / ADSR_DIVISOR;
 
 	dA = 1.f / tA;
 	dD = 1.f / tD;
@@ -39,7 +39,8 @@ void ADSR::calcADSR()
 fl ADSR::doADSR()
 {	
 	asm("# S");
-	if( clk | ADSR_MASK != 0 and stage == 'S' ) return val;
+	if( ( clk | ADSR_MASK ) != 0  and stage == 'S' )
+        return val;
 
 	//modvec = true;
 	switch(stage)

@@ -51,6 +51,7 @@ Oscillator::Oscillator() :
 	modvec = false;
 	
 	delay = new Delay();
+	pan = new Pan();
 	lfo = new SineTbl();
 
 
@@ -65,6 +66,7 @@ Oscillator::Oscillator() :
 	AddSet( filtLP1, "LP" );
 	AddSet( filtHP1, "HP" );
 	AddSet( delay, "Dly");
+	AddSet( pan,   "Pan" );
 	AddParam( &aA, "AmpA" );
 	AddParam( &aD, "AmpD" );
 	AddParam( &aS, "AmpS" );
@@ -426,7 +428,7 @@ int Oscillator::generate GENERATE(inBuf, outBuf, framesPerBuf, timeInfo, status)
 	assert(outBuf != NULL);
 	float **out = static_cast<float **>(outBuf);
 
-	fl o, sL;//, sR;
+	fl o, sL, sR;
 
 	//int frameClk;
 	//if(active){
@@ -447,10 +449,11 @@ int Oscillator::generate GENERATE(inBuf, outBuf, framesPerBuf, timeInfo, status)
 		
 		o = applyEffects(sL);
 		
-		sL = o; //sR = o;
+		sL = o * pan->ampL;
+		sR = o * pan->ampR;
 		
 		out[0][i] = sL;
-		out[1][i] = sL;
+		out[1][i] = sR;
 	}
 	return paContinue;
 }
@@ -728,7 +731,7 @@ void SawOsc::analog(){
 */
 
 
-#include <wx/app.h>
+#include "wx/app.h"
 //#ifdef __WXMAC__
 #include "wx/filename.h"
 //#endif

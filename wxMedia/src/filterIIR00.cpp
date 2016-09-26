@@ -60,8 +60,8 @@ FilterIIR::FilterIIR(double fc, double Q) :
 
 FilterIIR::~FilterIIR()
 {
-	delete history;
-	delete coeffs;
+	delete[] history;
+	delete[] coeffs;
 }
 
 void FilterIIR::set(double fc, double Q, double k)

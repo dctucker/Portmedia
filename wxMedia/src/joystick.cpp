@@ -6,7 +6,7 @@
  *  Copyright 2010 UNCW. All rights reserved.
  *
  */
-
+/*
 #include "joystick.h"
 #include <iostream>
 
@@ -44,13 +44,13 @@ void DualAction::OnJoystickEvent(wxJoystickEvent& event)
 	int btn = event.GetButtonState();
 	int s;
 	
-	/*
-	std::cout << "Joy"
-		<< xy.x << "," << xy.y << " "
-		<< z  << " "
-		<< btn
-		<< "\n";
-	*/
+
+	//std::cout << "Joy"
+	//	<< xy.x << "," << xy.y << " "
+	//	<< z  << " "
+	//	<< btn
+	//	<< "\n";
+	
 		
 	if( a[0] != xy.x )
 	{
@@ -76,3 +76,4 @@ void DualAction::OnJoystickEvent(wxJoystickEvent& event)
 		}
 	}
 }
+*/

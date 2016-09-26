@@ -178,6 +178,8 @@ int Bus::generate GENERATE(inBuf, outBuf, framesPerBuf, timeInfo, status)
 				}
 			}
 			*/
+
+/*
 			if( k == 0 )
 			{
 				for(int i=0; i < framesPerBuf; i++)
@@ -187,10 +189,12 @@ int Bus::generate GENERATE(inBuf, outBuf, framesPerBuf, timeInfo, status)
 			}
 			else
 			{
+*/
 				for(int i=0; i < framesPerBuf; i++)
 				{
 
 					acc[0][i] += buf[0][i]; // atten[k];
+					acc[1][i] += buf[1][i]; // atten[k];
 					
 					// SENDS
 					//for(int j=0; j < numSends; j++){
@@ -199,7 +203,7 @@ int Bus::generate GENERATE(inBuf, outBuf, framesPerBuf, timeInfo, status)
 					
 					//acc[1][i] += buf[1][i]; // atten[k];
 				}
-			}
+			//}
 		}
 
 	}

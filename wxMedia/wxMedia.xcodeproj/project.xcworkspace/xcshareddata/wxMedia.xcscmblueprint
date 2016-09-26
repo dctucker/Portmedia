@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F06E0D8D646E82CD620741F04E3B35AF8FD5FD0E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "57931C356A1A422E4C23345A56667CEFA2D86437" : 0,
+    "D0E2FCA1CDDBFF94ABD0D06D2888AFCE1161EF5D" : 0,
+    "F06E0D8D646E82CD620741F04E3B35AF8FD5FD0E" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "0F9DD55F-95F5-45AA-A843-2D8070D46721",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "57931C356A1A422E4C23345A56667CEFA2D86437" : "portmedia\/portaudio\/",
+    "D0E2FCA1CDDBFF94ABD0D06D2888AFCE1161EF5D" : "portmedia\/rtmidi\/",
+    "F06E0D8D646E82CD620741F04E3B35AF8FD5FD0E" : "portmedia\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "wxMedia",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "wxMedia\/wxMedia.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git.assembla.com:portaudio.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "57931C356A1A422E4C23345A56667CEFA2D86437"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:thestk\/rtmidi.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D0E2FCA1CDDBFF94ABD0D06D2888AFCE1161EF5D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "bitbucket.org:dcaseytucker\/portmedia.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F06E0D8D646E82CD620741F04E3B35AF8FD5FD0E"
+    }
+  ]
+}

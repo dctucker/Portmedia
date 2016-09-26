@@ -6,7 +6,7 @@
  *  Copyright 2010 UNCW. All rights reserved.
  *
  */
-
+/*
 #include <wx/panel.h>
 #include <wx/joystick.h>
 
@@ -25,3 +25,4 @@ public:
 	virtual void button(int, int){};
 	virtual void axis  (int, float){};
 };
+*/

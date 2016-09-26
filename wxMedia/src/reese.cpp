@@ -59,7 +59,7 @@ int Reese::generate GENERATE(inBuf, outBuf, framesPerBuf, timeInfo, status)
 	assert(outBuf != NULL);
 	float **out = static_cast<float **>(outBuf);
 
-	float sL; //, sR;
+	float sL, sR;
 	//int p1, f1, p2, f2;
 	//int frameClk;
 	float o;
@@ -109,10 +109,10 @@ int Reese::generate GENERATE(inBuf, outBuf, framesPerBuf, timeInfo, status)
 		o = applyEffects(sL);
 
 		
-		sL = o * amp;
-		//sR = sL;
+		sL = o * pan->ampL;
+		sR = o * pan->ampR;
 		out[0][i] = sL;
-		out[1][i] = sL;
+		out[1][i] = sR;
 		
 	}
 	return paContinue;	

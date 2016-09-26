@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,23 +16,17 @@
 		B836605E11854D7A0058459E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B836605D11854D7A0058459E /* OpenGL.framework */; };
 		B83660A611854FCF0058459E /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83660A511854FCF0058459E /* AGL.framework */; };
 		B83C04A7112C930C00AF13DA /* Bitmaps in Resources */ = {isa = PBXBuildFile; fileRef = B83C049D112C930C00AF13DA /* Bitmaps */; };
-		B83C086610C1CE90001D0F79 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B83C086510C1CE90001D0F79 /* libsndfile.a */; };
 		B84758F5119A7DEA0049276F /* canvas3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84758F3119A7DEA0049276F /* canvas3d.cpp */; };
-		B84D694C0F5F748E00F9ABAC /* RtMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B84D693F0F5F748E00F9ABAC /* RtMidi.cpp */; };
 		B84D69990F5F74BF00F9ABAC /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B84D69940F5F74BF00F9ABAC /* CoreAudio.framework */; };
 		B84D699A0F5F74BF00F9ABAC /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B84D69950F5F74BF00F9ABAC /* CoreFoundation.framework */; };
 		B84D699B0F5F74BF00F9ABAC /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B84D69960F5F74BF00F9ABAC /* CoreMIDI.framework */; };
-		B84D699C0F5F74BF00F9ABAC /* libportaudiocpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B84D69970F5F74BF00F9ABAC /* libportaudiocpp.a */; };
-		B84D699D0F5F74C000F9ABAC /* libportaudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B84D69980F5F74BF00F9ABAC /* libportaudio.a */; };
 		B851858B10B0D0ED005B00DC /* recording.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B851858A10B0D0ED005B00DC /* recording.cpp */; };
-		B861F76B11521C5D005DAC29 /* Conceptual model.xcclassmodel in Resources */ = {isa = PBXBuildFile; fileRef = B861F76A11521C5D005DAC29 /* Conceptual model.xcclassmodel */; };
 		B87F782B1191E6260018E6EF /* textures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B87F782A1191E6260018E6EF /* textures.cpp */; };
 		B88079F0110E5343000EDD99 /* Samples in Resources */ = {isa = PBXBuildFile; fileRef = B8807995110E5343000EDD99 /* Samples */; };
 		B88EA0B20F7EF90800B8123F /* dnbMedia.icns in Resources */ = {isa = PBXBuildFile; fileRef = B88EA0B10F7EF90800B8123F /* dnbMedia.icns */; };
 		B898018C11E8FD6100349EB9 /* ladder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B898FF9911E69EDD00349EB9 /* ladder.cpp */; };
 		B898FF9A11E69EDD00349EB9 /* ladder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B898FF9911E69EDD00349EB9 /* ladder.cpp */; };
 		B8B49D4410FE820900245B46 /* piano.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8B49D4310FE820900245B46 /* piano.cpp */; };
-		B8B49EC210FFFB8600245B46 /* libsamplerate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8B49EC110FFFB8600245B46 /* libsamplerate.a */; };
 		B8B49F291102566400245B46 /* filterIIR00.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8B49F281102566400245B46 /* filterIIR00.cpp */; };
 		B8BF4C060F68630D0072097B /* dnbMedia2.icns in Resources */ = {isa = PBXBuildFile; fileRef = B8BF4C050F68630D0072097B /* dnbMedia2.icns */; };
 		B8CE6A4411095EB100CC1005 /* hammond.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8CE6A4311095EB100CC1005 /* hammond.cpp */; };
@@ -44,8 +38,19 @@
 		B8F49B3D11163BE200BA8614 /* midi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8F49B3B11163BE200BA8614 /* midi.cpp */; };
 		B8F49B591116430500BA8614 /* temperament.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B8F49B571116430500BA8614 /* temperament.cpp */; };
 		B8F9154110B15714004F64CE /* libfftw3f.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F9154010B15714004F64CE /* libfftw3f.a */; };
-		C9F902AC1250433E00113916 /* libwx_macu_gl-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F902AA1250433E00113916 /* libwx_macu_gl-2.8.dylib */; };
-		C9F902AD1250433E00113916 /* libwx_macu-2.8.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C9F902AB1250433E00113916 /* libwx_macu-2.8.dylib */; };
+		C91EB79F1D98455800B413CC /* pan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C91EB79D1D98455800B413CC /* pan.cpp */; };
+		C99CE5931D939BD900FC1A97 /* libportaudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CE58F1D939BD900FC1A97 /* libportaudio.a */; };
+		C99CE5941D939BD900FC1A97 /* libportaudiocpp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CE5901D939BD900FC1A97 /* libportaudiocpp.a */; };
+		C99CE5951D939BD900FC1A97 /* libsamplerate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CE5911D939BD900FC1A97 /* libsamplerate.a */; };
+		C99CE5961D939BD900FC1A97 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CE5921D939BD900FC1A97 /* libsndfile.a */; };
+		C99CE5E01D93AB3700FC1A97 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CE5DF1D93AB3700FC1A97 /* IOKit.framework */; };
+		C99CE5E21D93AB4100FC1A97 /* System.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CE5E11D93AB4100FC1A97 /* System.framework */; };
+		C99CE5E41D93AB4D00FC1A97 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CE5E31D93AB4D00FC1A97 /* AudioToolbox.framework */; };
+		C99CE5E61D93AB6F00FC1A97 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CE5E51D93AB6F00FC1A97 /* Cocoa.framework */; };
+		C99CE5F01D941D7300FC1A97 /* libwx_baseu-3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CE5ED1D941D7300FC1A97 /* libwx_baseu-3.0.dylib */; };
+		C99CE5F11D941D7300FC1A97 /* libwx_osx_cocoau_core-3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CE5EE1D941D7300FC1A97 /* libwx_osx_cocoau_core-3.0.dylib */; };
+		C99CE5F21D941D7300FC1A97 /* libwx_osx_cocoau_gl-3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CE5EF1D941D7300FC1A97 /* libwx_osx_cocoau_gl-3.0.dylib */; };
+		C9B0D3101D9382000083EE41 /* RtMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B0D30E1D9382000083EE41 /* RtMidi.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -78,14 +83,10 @@
 		B836605D11854D7A0058459E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		B83660A511854FCF0058459E /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		B83C049D112C930C00AF13DA /* Bitmaps */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Bitmaps; sourceTree = "<group>"; };
-		B83C086510C1CE90001D0F79 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile.a; path = /usr/local/lib/libsndfile.a; sourceTree = "<absolute>"; };
 		B83C088010C1E3AF001D0F79 /* wxmain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wxmain.h; path = src/wxmain.h; sourceTree = "<group>"; };
 		B83C0B8F112BBF2100C59D74 /* adsrui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = adsrui.h; path = src/adsrui.h; sourceTree = "<group>"; };
 		B84758F3119A7DEA0049276F /* canvas3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = canvas3d.cpp; path = src/canvas3d.cpp; sourceTree = "<group>"; };
 		B84758F4119A7DEA0049276F /* canvas3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = canvas3d.h; path = src/canvas3d.h; sourceTree = "<group>"; };
-		B84D693D0F5F748E00F9ABAC /* RtMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RtMidi.h; path = "../rtmidi-1.0.8/RtMidi.h"; sourceTree = SOURCE_ROOT; };
-		B84D693E0F5F748E00F9ABAC /* RtError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RtError.h; path = "../rtmidi-1.0.8/RtError.h"; sourceTree = SOURCE_ROOT; };
-		B84D693F0F5F748E00F9ABAC /* RtMidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RtMidi.cpp; path = "../rtmidi-1.0.8/RtMidi.cpp"; sourceTree = SOURCE_ROOT; };
 		B84D69400F5F748E00F9ABAC /* butterworth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = butterworth.h; path = ../portaudio/PortSample/PortObjectTest/butterworth.h; sourceTree = SOURCE_ROOT; };
 		B84D69410F5F748E00F9ABAC /* butterworth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = butterworth.cpp; path = ../portaudio/PortSample/PortObjectTest/butterworth.cpp; sourceTree = SOURCE_ROOT; };
 		B84D694A0F5F748E00F9ABAC /* butterworth2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = butterworth2.h; path = ../portaudio/PortSample/PortObjectTest/butterworth2.h; sourceTree = SOURCE_ROOT; };
@@ -93,13 +94,10 @@
 		B84D69940F5F74BF00F9ABAC /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		B84D69950F5F74BF00F9ABAC /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 		B84D69960F5F74BF00F9ABAC /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<absolute>"; };
-		B84D69970F5F74BF00F9ABAC /* libportaudiocpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libportaudiocpp.a; path = /usr/local/lib/libportaudiocpp.a; sourceTree = "<absolute>"; };
-		B84D69980F5F74BF00F9ABAC /* libportaudio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libportaudio.a; path = /usr/local/lib/libportaudio.a; sourceTree = "<absolute>"; };
 		B84D6C950F60709D00F9ABAC /* midigui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = midigui.h; path = src/midigui.h; sourceTree = "<group>"; };
 		B84D6C990F60712200F9ABAC /* processing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = processing.h; path = src/processing.h; sourceTree = "<group>"; };
 		B851858910B0D0ED005B00DC /* recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = recording.h; path = src/recording.h; sourceTree = "<group>"; };
 		B851858A10B0D0ED005B00DC /* recording.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = recording.cpp; path = src/recording.cpp; sourceTree = "<group>"; };
-		B861F76A11521C5D005DAC29 /* Conceptual model.xcclassmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcclassmodel; path = "Conceptual model.xcclassmodel"; sourceTree = "<group>"; };
 		B87F78291191E6260018E6EF /* textures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textures.h; sourceTree = "<group>"; };
 		B87F782A1191E6260018E6EF /* textures.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = textures.cpp; sourceTree = "<group>"; };
 		B8807995110E5343000EDD99 /* Samples */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Samples; path = ../_instrument/Samples; sourceTree = SOURCE_ROOT; };
@@ -112,7 +110,6 @@
 		B8A6DDAE111EA1DC003A4A4E /* scope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scope.h; path = src/scope.h; sourceTree = "<group>"; };
 		B8B49D4210FE820900245B46 /* piano.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = piano.h; path = src/piano.h; sourceTree = "<group>"; };
 		B8B49D4310FE820900245B46 /* piano.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = piano.cpp; path = src/piano.cpp; sourceTree = "<group>"; };
-		B8B49EC110FFFB8600245B46 /* libsamplerate.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsamplerate.a; path = /usr/local/lib/libsamplerate.a; sourceTree = "<absolute>"; };
 		B8B49F281102566400245B46 /* filterIIR00.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = filterIIR00.cpp; path = src/filterIIR00.cpp; sourceTree = "<group>"; };
 		B8B49F2C1102573700245B46 /* filterIIR00.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = filterIIR00.h; path = src/filterIIR00.h; sourceTree = "<group>"; };
 		B8B6002C10AD390A0081107B /* wavepanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wavepanel.h; path = src/wavepanel.h; sourceTree = "<group>"; };
@@ -138,7 +135,22 @@
 		B8F49B581116430500BA8614 /* temperament.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = temperament.h; path = src/temperament.h; sourceTree = "<group>"; };
 		B8F9154010B15714004F64CE /* libfftw3f.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3f.a; path = /usr/local/lib/libfftw3f.a; sourceTree = "<absolute>"; };
 		C9188EEB12540B850015FFD5 /* wxMoog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wxMoog.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C91EB79D1D98455800B413CC /* pan.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pan.cpp; path = src/pan.cpp; sourceTree = "<group>"; };
+		C91EB79E1D98455800B413CC /* pan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pan.h; path = src/pan.h; sourceTree = "<group>"; };
 		C9242A12123F277300B6B395 /* param.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = param.h; path = src/param.h; sourceTree = "<group>"; };
+		C99CE58F1D939BD900FC1A97 /* libportaudio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libportaudio.a; path = ../../../../../usr/local/lib/libportaudio.a; sourceTree = "<group>"; };
+		C99CE5901D939BD900FC1A97 /* libportaudiocpp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libportaudiocpp.a; path = ../../../../../usr/local/lib/libportaudiocpp.a; sourceTree = "<group>"; };
+		C99CE5911D939BD900FC1A97 /* libsamplerate.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsamplerate.a; path = ../../../../../usr/local/lib/libsamplerate.a; sourceTree = "<group>"; };
+		C99CE5921D939BD900FC1A97 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile.a; path = ../../../../../usr/local/lib/libsndfile.a; sourceTree = "<group>"; };
+		C99CE5DF1D93AB3700FC1A97 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = ../../../../../System/Library/Frameworks/IOKit.framework; sourceTree = "<group>"; };
+		C99CE5E11D93AB4100FC1A97 /* System.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = System.framework; path = ../../../../../System/Library/Frameworks/System.framework; sourceTree = "<group>"; };
+		C99CE5E31D93AB4D00FC1A97 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = ../../../../../System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<group>"; };
+		C99CE5E51D93AB6F00FC1A97 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = ../../../../../System/Library/Frameworks/Cocoa.framework; sourceTree = "<group>"; };
+		C99CE5ED1D941D7300FC1A97 /* libwx_baseu-3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseu-3.0.dylib"; path = "../../../../../usr/local/Cellar/wxmac/3.0.2_3/lib/libwx_baseu-3.0.dylib"; sourceTree = "<group>"; };
+		C99CE5EE1D941D7300FC1A97 /* libwx_osx_cocoau_core-3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_core-3.0.dylib"; path = "../../../../../usr/local/Cellar/wxmac/3.0.2_3/lib/libwx_osx_cocoau_core-3.0.dylib"; sourceTree = "<group>"; };
+		C99CE5EF1D941D7300FC1A97 /* libwx_osx_cocoau_gl-3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_gl-3.0.dylib"; path = "../../../../../usr/local/Cellar/wxmac/3.0.2_3/lib/libwx_osx_cocoau_gl-3.0.dylib"; sourceTree = "<group>"; };
+		C9B0D30E1D9382000083EE41 /* RtMidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RtMidi.cpp; path = ../rtmidi/RtMidi.cpp; sourceTree = "<group>"; };
+		C9B0D30F1D9382000083EE41 /* RtMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RtMidi.h; path = ../rtmidi/RtMidi.h; sourceTree = "<group>"; };
 		C9F3244E12501BB600708784 /* draw_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_keys.h; path = src/draw_keys.h; sourceTree = "<group>"; };
 		C9F3244F12501BB600708784 /* draw_flag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_flag.h; path = src/draw_flag.h; sourceTree = "<group>"; };
 		C9F3245012501BB600708784 /* draw_filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_filter.h; path = src/draw_filter.h; sourceTree = "<group>"; };
@@ -147,8 +159,6 @@
 		C9F3245312501BB600708784 /* draw_bcr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_bcr.h; path = src/draw_bcr.h; sourceTree = "<group>"; };
 		C9F3245412501BB600708784 /* draw_signal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_signal.h; path = src/draw_signal.h; sourceTree = "<group>"; };
 		C9F3245512501BB600708784 /* draw_led.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_led.h; path = src/draw_led.h; sourceTree = "<group>"; };
-		C9F902AA1250433E00113916 /* libwx_macu_gl-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_macu_gl-2.8.dylib"; path = "../../wxMac-2.8.11/wxmono/lib/libwx_macu_gl-2.8.dylib"; sourceTree = SOURCE_ROOT; };
-		C9F902AB1250433E00113916 /* libwx_macu-2.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_macu-2.8.dylib"; path = "../../wxMac-2.8.11/wxmono/lib/libwx_macu-2.8.dylib"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,19 +166,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C99CE5E41D93AB4D00FC1A97 /* AudioToolbox.framework in Frameworks */,
+				C99CE5F11D941D7300FC1A97 /* libwx_osx_cocoau_core-3.0.dylib in Frameworks */,
 				8D0C4E920486CD37000505A6 /* Carbon.framework in Frameworks */,
+				C99CE5F21D941D7300FC1A97 /* libwx_osx_cocoau_gl-3.0.dylib in Frameworks */,
+				C99CE5E21D93AB4100FC1A97 /* System.framework in Frameworks */,
 				B84D69990F5F74BF00F9ABAC /* CoreAudio.framework in Frameworks */,
 				B84D699A0F5F74BF00F9ABAC /* CoreFoundation.framework in Frameworks */,
+				C99CE5931D939BD900FC1A97 /* libportaudio.a in Frameworks */,
+				C99CE5961D939BD900FC1A97 /* libsndfile.a in Frameworks */,
 				B84D699B0F5F74BF00F9ABAC /* CoreMIDI.framework in Frameworks */,
-				B84D699C0F5F74BF00F9ABAC /* libportaudiocpp.a in Frameworks */,
-				B84D699D0F5F74C000F9ABAC /* libportaudio.a in Frameworks */,
+				C99CE5941D939BD900FC1A97 /* libportaudiocpp.a in Frameworks */,
+				C99CE5E01D93AB3700FC1A97 /* IOKit.framework in Frameworks */,
+				C99CE5F01D941D7300FC1A97 /* libwx_baseu-3.0.dylib in Frameworks */,
 				B8F9154110B15714004F64CE /* libfftw3f.a in Frameworks */,
-				B83C086610C1CE90001D0F79 /* libsndfile.a in Frameworks */,
-				B8B49EC210FFFB8600245B46 /* libsamplerate.a in Frameworks */,
+				C99CE5E61D93AB6F00FC1A97 /* Cocoa.framework in Frameworks */,
+				C99CE5951D939BD900FC1A97 /* libsamplerate.a in Frameworks */,
 				B836605E11854D7A0058459E /* OpenGL.framework in Frameworks */,
 				B83660A611854FCF0058459E /* AGL.framework in Frameworks */,
-				C9F902AC1250433E00113916 /* libwx_macu_gl-2.8.dylib in Frameworks */,
-				C9F902AD1250433E00113916 /* libwx_macu-2.8.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,7 +209,6 @@
 		20286C29FDCF999611CA2CEA /* wxHello */ = {
 			isa = PBXGroup;
 			children = (
-				B861F76A11521C5D005DAC29 /* Conceptual model.xcclassmodel */,
 				5048396909E3304600765E4B /* Configuration Files */,
 				20286C2AFDCF999611CA2CEA /* Sources */,
 				20286C2CFDCF999611CA2CEA /* Resources */,
@@ -244,13 +258,18 @@
 				B84D69940F5F74BF00F9ABAC /* CoreAudio.framework */,
 				B84D69950F5F74BF00F9ABAC /* CoreFoundation.framework */,
 				B84D69960F5F74BF00F9ABAC /* CoreMIDI.framework */,
-				B84D69970F5F74BF00F9ABAC /* libportaudiocpp.a */,
-				B84D69980F5F74BF00F9ABAC /* libportaudio.a */,
-				B8B49EC110FFFB8600245B46 /* libsamplerate.a */,
-				C9F902AA1250433E00113916 /* libwx_macu_gl-2.8.dylib */,
-				C9F902AB1250433E00113916 /* libwx_macu-2.8.dylib */,
-				B83C086510C1CE90001D0F79 /* libsndfile.a */,
 				B8F9154010B15714004F64CE /* libfftw3f.a */,
+				C99CE5E51D93AB6F00FC1A97 /* Cocoa.framework */,
+				C99CE5E31D93AB4D00FC1A97 /* AudioToolbox.framework */,
+				C99CE5E11D93AB4100FC1A97 /* System.framework */,
+				C99CE5DF1D93AB3700FC1A97 /* IOKit.framework */,
+				C99CE58F1D939BD900FC1A97 /* libportaudio.a */,
+				C99CE5ED1D941D7300FC1A97 /* libwx_baseu-3.0.dylib */,
+				C99CE5EE1D941D7300FC1A97 /* libwx_osx_cocoau_core-3.0.dylib */,
+				C99CE5EF1D941D7300FC1A97 /* libwx_osx_cocoau_gl-3.0.dylib */,
+				C99CE5901D939BD900FC1A97 /* libportaudiocpp.a */,
+				C99CE5911D939BD900FC1A97 /* libsamplerate.a */,
+				C99CE5921D939BD900FC1A97 /* libsndfile.a */,
 			);
 			name = "External Frameworks and Libraries";
 			sourceTree = "<group>";
@@ -267,6 +286,8 @@
 		B83254F0111935E800F4B68C /* Instrument */ = {
 			isa = PBXGroup;
 			children = (
+				C91EB79D1D98455800B413CC /* pan.cpp */,
+				C91EB79E1D98455800B413CC /* pan.h */,
 				B8F49B581116430500BA8614 /* temperament.h */,
 				B8F49B571116430500BA8614 /* temperament.cpp */,
 				B8EEECDA1162A0CE00950B4D /* adsr.h */,
@@ -318,9 +339,8 @@
 		B84D693C0F5F748E00F9ABAC /* RtMidi */ = {
 			isa = PBXGroup;
 			children = (
-				B84D693D0F5F748E00F9ABAC /* RtMidi.h */,
-				B84D693E0F5F748E00F9ABAC /* RtError.h */,
-				B84D693F0F5F748E00F9ABAC /* RtMidi.cpp */,
+				C9B0D30E1D9382000083EE41 /* RtMidi.cpp */,
+				C9B0D30F1D9382000083EE41 /* RtMidi.h */,
 			);
 			name = RtMidi;
 			sourceTree = "<group>";
@@ -424,9 +444,16 @@
 /* Begin PBXProject section */
 		20286C28FDCF999611CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+			};
 			buildConfigurationList = C0E91AC908A95435008D54AB /* Build configuration list for PBXProject "wxMedia" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 20286C29FDCF999611CA2CEA /* wxHello */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -448,7 +475,6 @@
 				B88EA0B20F7EF90800B8123F /* dnbMedia.icns in Resources */,
 				B88079F0110E5343000EDD99 /* Samples in Resources */,
 				B83C04A7112C930C00AF13DA /* Bitmaps in Resources */,
-				B861F76B11521C5D005DAC29 /* Conceptual model.xcclassmodel in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,9 +492,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B84D694C0F5F748E00F9ABAC /* RtMidi.cpp in Sources */,
 				B8293D560F6C5FCD006123CD /* wxmain.cpp in Sources */,
 				B851858B10B0D0ED005B00DC /* recording.cpp in Sources */,
+				C9B0D3101D9382000083EE41 /* RtMidi.cpp in Sources */,
 				B8B49D4410FE820900245B46 /* piano.cpp in Sources */,
 				B8B49F291102566400245B46 /* filterIIR00.cpp in Sources */,
 				B8CE6A4411095EB100CC1005 /* hammond.cpp in Sources */,
@@ -478,6 +504,7 @@
 				B8F49B591116430500BA8614 /* temperament.cpp in Sources */,
 				B83254F411193CA300F4B68C /* delay.cpp in Sources */,
 				B83255F4111D329400F4B68C /* bus.cpp in Sources */,
+				C91EB79F1D98455800B413CC /* pan.cpp in Sources */,
 				B8EE6C94111E6AF10004CDAF /* reese.cpp in Sources */,
 				B8EEECDC1162A0CF00950B4D /* adsr.cpp in Sources */,
 				B8D9795511813DEE004D2AF5 /* joystick.cpp in Sources */,
@@ -522,7 +549,7 @@
 			baseConfigurationReference = 5048396D09E3307300765E4B /* wxHelloProj.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH)";
+				CLANG_CXX_LIBRARY = "libc++";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_OPENMP_SUPPORT = NO;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -536,24 +563,48 @@
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					__WXOSX_COCOA__,
+					__WXMAC__,
+					__WXOSX__,
+					"wxDEBUG_LEVEL=0",
+					__MACOSX_CORE__,
+				);
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					__WXOSX__,
+					__WXMAC__,
+					__WXOSX_COCOA__,
+					"wxDEBUG_LEVEL=0",
+					__MACOSX_CORE__,
+				);
 				GCC_REUSE_STRINGS = NO;
 				GCC_UNROLL_LOOPS = NO;
 				GCC_VERSION = 4.2;
 				GENERATE_PROFILING_CODE = YES;
-				HEADER_SEARCH_PATHS = /usr/local/include;
+				HEADER_SEARCH_PATHS = (
+					"/usr/local/Cellar/wxmac/3.0.2_3/include/wx-3.0",
+					"/usr/local/Cellar/wxmac/3.0.2_3/lib/wx/include/osx_cocoa-unicode-3.0",
+					/usr/local/include,
+				);
 				LD_OPENMP_FLAGS = "";
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/wxmac/3.0.2_3/lib,
+					/usr/local/lib,
+					/usr/lib,
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fexec-charset=utf-8";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PREBINDING = YES;
-				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 				SEPARATE_STRIP = NO;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				STRIP_INSTALLED_PRODUCT = NO;
-				USER_HEADER_SEARCH_PATHS = "/Users/casey/Development/wxMac-2.8.11/wxmono/lib/wx/include/mac-unicode-release-2.8 /usr/local/include";
+				USER_HEADER_SEARCH_PATHS = "";
+				VALID_ARCHS = x86_64;
 			};
 			name = "Assembly mode";
 		};
@@ -562,20 +613,22 @@
 			baseConfigurationReference = 5048396E09E3307300765E4B /* wxHelloTarget.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH)";
+				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = wxHello_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
 					"\"$(SRCROOT)/build/Assembly mode/dnbMedia.app/Contents/Frameworks\"",
 					"\"$(SRCROOT)/../../wxMac-2.8.9-dylib/wxbuild/lib\"",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
 					"\"$(SRCROOT)/../../wxMac-2.8.11/wxmono/lib\"",
+					/usr/local/Cellar/wxmac/3.0.2_3/lib,
 				);
 				OTHER_CFLAGS = (
 					"-I/Users/dctucker/Development/wxMac-2.8.9-dylib/wxbuild/lib/wx/include/mac-unicode-release-2.8",
@@ -587,6 +640,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dctucker.dnbMedia;
 				PRODUCT_NAME = dnbMedia;
 			};
 			name = "Assembly mode";
@@ -595,6 +649,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -602,6 +657,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "wxMoog-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
@@ -609,6 +665,7 @@
 					Carbon,
 				);
 				PREBINDING = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = wxMoog;
 			};
 			name = Debug;
@@ -617,12 +674,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "wxMoog-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
@@ -630,6 +689,7 @@
 					Carbon,
 				);
 				PREBINDING = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = wxMoog;
 				ZERO_LINK = NO;
 			};
@@ -639,10 +699,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "wxMoog-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				OTHER_LDFLAGS = (
@@ -650,6 +712,7 @@
 					Carbon,
 				);
 				PREBINDING = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = wxMoog;
 			};
 			name = "Assembly mode";
@@ -659,7 +722,7 @@
 			baseConfigurationReference = 5048396E09E3307300765E4B /* wxHelloTarget.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH)";
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -669,13 +732,15 @@
 					"_GLIBCXX_DEBUG=1",
 					"_GLIBCXX_DEBUG_PEDANTIC=1",
 				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
 					"\"$(SRCROOT)/build/Assembly mode/dnbMedia.app/Contents/Frameworks\"",
 					"\"$(SRCROOT)/../../wxMac-2.8.9-dylib/wxbuild/lib\"",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
 					"\"$(SRCROOT)/../../wxMac-2.8.11/wxmono/lib\"",
+					/usr/local/Cellar/wxmac/3.0.2_3/lib,
 				);
 				OTHER_CFLAGS = (
 					"-I/Users/dctucker/Development/wxMac-2.8.9-dylib/wxbuild/lib/wx/include/mac-unicode-release-2.8",
@@ -686,6 +751,7 @@
 					"-D__WXMAC__",
 				);
 				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dctucker.dnbMedia;
 				PRODUCT_NAME = dnbMedia;
 			};
 			name = Debug;
@@ -695,20 +761,22 @@
 			baseConfigurationReference = 5048396E09E3307300765E4B /* wxHelloTarget.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH)";
+				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = wxHello_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
 					"\"$(SRCROOT)/build/Assembly mode/dnbMedia.app/Contents/Frameworks\"",
 					"\"$(SRCROOT)/../../wxMac-2.8.9-dylib/wxbuild/lib\"",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
 					"\"$(SRCROOT)/../../wxMac-2.8.11/wxmono/lib\"",
+					/usr/local/Cellar/wxmac/3.0.2_3/lib,
 				);
 				OTHER_CFLAGS = (
 					"-I/Users/dctucker/Development/wxMac-2.8.9-dylib/wxbuild/lib/wx/include/mac-unicode-release-2.8",
@@ -720,6 +788,7 @@
 				);
 				OTHER_LDFLAGS = "";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dctucker.dnbMedia;
 				PRODUCT_NAME = dnbMedia;
 			};
 			name = Release;
@@ -729,9 +798,10 @@
 			baseConfigurationReference = 5048396D09E3307300765E4B /* wxHelloProj.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH)";
+				CLANG_CXX_LIBRARY = "libc++";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_OPENMP_SUPPORT = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -741,24 +811,48 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					__WXOSX_COCOA__,
+					__WXMAC__,
+					__WXOSX__,
+					"wxDEBUG_LEVEL=0",
+					__MACOSX_CORE__,
+				);
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					__WXOSX__,
+					__WXMAC__,
+					__WXOSX_COCOA__,
+					"wxDEBUG_LEVEL=0",
+					__MACOSX_CORE__,
+				);
 				GCC_REUSE_STRINGS = NO;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_VERSION = 4.2;
 				GENERATE_PROFILING_CODE = YES;
-				HEADER_SEARCH_PATHS = /usr/local/include;
+				HEADER_SEARCH_PATHS = (
+					"/usr/local/Cellar/wxmac/3.0.2_3/include/wx-3.0",
+					"/usr/local/Cellar/wxmac/3.0.2_3/lib/wx/include/osx_cocoa-unicode-3.0",
+					/usr/local/include,
+				);
 				LD_OPENMP_FLAGS = "";
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/wxmac/3.0.2_3/lib,
+					/usr/local/lib,
+					/usr/lib,
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fexec-charset=utf-8";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PREBINDING = YES;
-				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 				SEPARATE_STRIP = NO;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				STRIP_INSTALLED_PRODUCT = NO;
-				USER_HEADER_SEARCH_PATHS = "/Users/casey/Development/wxMac-2.8.11/wxmono/lib/wx/include/mac-unicode-release-2.8 /usr/local/include";
+				USER_HEADER_SEARCH_PATHS = "";
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -767,7 +861,7 @@
 			baseConfigurationReference = 5048396D09E3307300765E4B /* wxHelloProj.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(NATIVE_ARCH)";
+				CLANG_CXX_LIBRARY = "libc++";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_OPENMP_SUPPORT = NO;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -779,24 +873,48 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					__WXOSX_COCOA__,
+					__WXMAC__,
+					__WXOSX__,
+					"wxDEBUG_LEVEL=0",
+					__MACOSX_CORE__,
+				);
+				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = (
+					__WXOSX__,
+					__WXMAC__,
+					__WXOSX_COCOA__,
+					"wxDEBUG_LEVEL=0",
+					__MACOSX_CORE__,
+				);
 				GCC_REUSE_STRINGS = NO;
 				GCC_UNROLL_LOOPS = YES;
 				GCC_VERSION = 4.2;
 				GENERATE_PROFILING_CODE = YES;
-				HEADER_SEARCH_PATHS = /usr/local/include;
+				HEADER_SEARCH_PATHS = (
+					"/usr/local/Cellar/wxmac/3.0.2_3/include/wx-3.0",
+					"/usr/local/Cellar/wxmac/3.0.2_3/lib/wx/include/osx_cocoa-unicode-3.0",
+					/usr/local/include,
+				);
 				LD_OPENMP_FLAGS = "";
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/wxmac/3.0.2_3/lib,
+					/usr/local/lib,
+					/usr/lib,
+				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fexec-charset=utf-8";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PREBINDING = YES;
-				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = YES;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx;
 				SEPARATE_STRIP = NO;
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				STRIP_INSTALLED_PRODUCT = NO;
-				USER_HEADER_SEARCH_PATHS = "/Users/casey/Development/wxMac-2.8.11/wxmono/lib/wx/include/mac-unicode-release-2.8 /usr/local/include";
+				USER_HEADER_SEARCH_PATHS = "";
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};

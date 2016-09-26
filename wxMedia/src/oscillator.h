@@ -6,7 +6,7 @@
 
 //#include <map>
 #include <iostream>
-#include <wx/app.h>
+#include "wx/app.h"
 
 #include <portaudiocpp/PortAudioCpp.hxx>
 
@@ -18,6 +18,7 @@
 #include "param.h"
 //#include "bus.h"
 #include "adsr.h"
+#include "pan.h"
 
 #ifdef WIN32
 	#define min(a,b) ( ( (a) < (b) ) ? (a) : (b) )
@@ -129,7 +130,7 @@ public:
 	Filter *filtLP1, *filtHP1;
 	Filter *filtLP2, *filtHP2;
 	Delay *delay;
-
+	Pan *pan;
 
 	unsigned int clk;
 	//FilterIIR *filtLP;
@@ -167,6 +168,7 @@ public:
 	~Oscillator(){
 		//delete temper;
 		delete notes;
+		delete pan;
 	}
 
 	virtual void SetParam( int n, fl v );

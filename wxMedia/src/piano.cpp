@@ -154,7 +154,7 @@ Upright::~Upright()
 		delete samples[i][0];
 		delete samples[i];
 	}
-	delete samples;
+	delete[] samples;
 	delete keyfilt;
 	//delete filt;
 }

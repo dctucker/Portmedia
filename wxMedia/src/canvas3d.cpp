@@ -269,7 +269,7 @@ void Canvas3D::OnPaint(wxPaintEvent& event)
 		//drawChord(&curChord);
 		
 	Disable2D();
-	drawCubanFlag();
+	//drawCubanFlag();
 
 	drawFilter();
 	drawEnvelope();

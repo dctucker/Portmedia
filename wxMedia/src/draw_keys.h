@@ -339,6 +339,8 @@ void Canvas3D::drawPiano()
 		BLACKKEY(10,11)
 
 	}
+	WHITEKEY(0,1)
+
 	glEnd();
 	
 	glPopMatrix();

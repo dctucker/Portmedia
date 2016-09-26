@@ -10,7 +10,7 @@
 #ifndef PIANO_H
 #define PIANO_H
 
-#include <wx/progdlg.h>
+#include "wx/progdlg.h"
 #include <samplerate.h>
 #include <iostream>
 

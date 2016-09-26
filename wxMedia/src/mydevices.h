@@ -847,6 +847,8 @@ public:
 			SETCTRL(2, 61+i, myKeys->oscs[i], "FltS" );
 			SETCTRL(2, 71+i, myKeys->oscs[i], "FltR" );
 			
+			SETCTRL(4, 41+i, myKeys->oscs[i]->pan, "PanB" );
+
 			#define PARAMFUNC( obj, prm, eff, eff1 ) \
 				obj->FindParam( PN(prm) )->func = eff; \
 				obj->FindParam( PN(prm) )->func1 = eff1
@@ -943,6 +945,10 @@ public:
 		for(int i=0; i <= 98; ++i){
 			press(i, button[i]);
 		}
+
+		for(int i=0; i < NUM_OSCS; ++i){
+			myKeys->canvas->active[i] = 1;
+		}
 		
 		loading = false;
 	}
@@ -1037,6 +1043,10 @@ public:
 					::wxPostEvent( wxTheApp, menue );
 				}
 				break;
+
+			case 41:
+				myKeys->subSus = 1.0;//(v > 0.5 );
+				break;
 			
 			case 42:
 				if(v == 1.0) myKeys->piano->loadSamples();
@@ -1058,7 +1068,6 @@ public:
 				break;
 			
 			case 82: case 83: case 84: case 85: case 86: case 87: case 88:
-				inst = (b - 1) % 10;
 				myKeys->hiAssign[inst] = v;
 				myKeys->oscs[inst]->hiAssign = v;
 				myKeys->canvas->active[inst] = 
@@ -1068,7 +1077,6 @@ public:
 				break;
 				
 			case 92: case 93: case 94: case 95: case 96: case 97: case 98:
-				inst = (b - 1) % 10;
 				myKeys->loAssign[inst] = v;
 				myKeys->oscs[inst]->loAssign = v;
 				myKeys->canvas->active[inst] = 
@@ -1150,7 +1158,7 @@ public:
 			"DELAY",
 			"MOD",
 			"DIST",
-			"","","",""
+			"PAN","","",""
 		}};
 		
 		//float f;
