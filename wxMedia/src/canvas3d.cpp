@@ -124,6 +124,7 @@ void Canvas3D::InitGL()
 	glDepthFunc( GL_LEQUAL );
 	glShadeModel(GL_FLAT);
 	//str = "READY.";
+doMessage("!\"#$%&\'()*+,-./0123456789:;<=>?@[\\]^_`{|}~");
 	ledAlpha = 1.0;
 	lissajous_d = 0.0;
 	lissajous_rot = 0;
