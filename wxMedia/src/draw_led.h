@@ -69,18 +69,16 @@ const char led8_ee[] = {
 	0xd8  //	{ 1,1,0,1, 1,0,0,0 } //Z
 };
 
-/*
-								
-			0		1			
-		7		9		2		
-			8		a			
-			f		b			
-			e		c			
-		6		d		3		
-			5		4			
-								
-*/
 
+/*
+     ---0-|-1---  
+    7 \   9   / 2 
+    |  8\ | /a  | 
+    --f--- ---b-- 
+    |  e/ | \c  | 
+    6 /   d   \ 3 
+     ---5-|-4---  
+*/
 const u16 led16_ee[] = {
 	        //   0 1 2 3  4 5 6 7  8 9 a b  c d e f    //
 	0x0000, // { 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0 }, // 
@@ -155,11 +153,12 @@ const u16 led16_ee[] = {
 	0xa150, // { 1,0,1,0, 0,0,0,1, 0,1,0,1, 0,0,0,0 }, //~
 };
 
-void drawLEDchar(char c, float r, float g, float b, float alpha){
-	#define LEDRED   glColor4f( r, g, b, alpha )
-	#define LEDBLACK glColor4f( 0, 0, 0, alpha )
-	#define LEDIF(x) if( e & x ) LEDRED; else LEDBLACK
+#define LEDRED   glColor4f( r, g, b, alpha )
+#define LEDBLACK glColor4f( 0, 0, 0, alpha )
+#define LED8IF(x) if( e & x ) LEDRED; else LEDBLACK
 
+void drawLED8char(char c, float r, float g, float b, float alpha)
+{
 	//const int *e;
 	char e;
 	
@@ -185,7 +184,7 @@ void drawLEDchar(char c, float r, float g, float b, float alpha){
 	glBegin( GL_POLYGON );
 
 		// top
-		LEDIF(0x80);
+		LED8IF(0x80);
 		glVertex2f( 		2, 1.0
 		); glVertex2f(		3, 0.5
 		); glVertex2f(		7, 0.5
@@ -197,7 +196,7 @@ void drawLEDchar(char c, float r, float g, float b, float alpha){
 	glEnd(); glBegin( GL_POLYGON );
 
 		// upper right
-		LEDIF(0x40);
+		LED8IF(0x40);
 		glVertex2f( 		7, 2
 		); glVertex2i(		7, 4
 		); glVertex2i(		8, 5
@@ -209,7 +208,7 @@ void drawLEDchar(char c, float r, float g, float b, float alpha){
 	glEnd(); glBegin( GL_POLYGON );
 		
 		// lower right
-		LEDIF(0x20);
+		LED8IF(0x20);
 		glVertex2f( 		7, 8
 		); glVertex2i(		7, 6
 		); glVertex2i(		8, 5
@@ -221,7 +220,7 @@ void drawLEDchar(char c, float r, float g, float b, float alpha){
 	glEnd(); glBegin( GL_POLYGON );
 		
 		// bottom
-		LEDIF(0x10);
+		LED8IF(0x10);
 		glVertex2f(			2, 9.0
 		); glVertex2f(		3, 8.5
 		); glVertex2f(		7, 8.5
@@ -233,7 +232,7 @@ void drawLEDchar(char c, float r, float g, float b, float alpha){
 	glEnd(); glBegin( GL_POLYGON );
 		
 		// lower left
-		LEDIF(0x08);
+		LED8IF(0x08);
 		glVertex2f( 		1, 8
 		); glVertex2i(		1, 6
 		); glVertex2i(		2, 5
@@ -245,7 +244,7 @@ void drawLEDchar(char c, float r, float g, float b, float alpha){
 	glEnd(); glBegin( GL_POLYGON );
 		
 		// upper left
-		LEDIF(0x04);
+		LED8IF(0x04);
 		glVertex2f( 		1, 2
 		); glVertex2i(		1, 4
 		); glVertex2i(		2, 5
@@ -257,7 +256,7 @@ void drawLEDchar(char c, float r, float g, float b, float alpha){
 	glEnd(); glBegin(GL_POLYGON);
 
 		// middle
-		LEDIF(0x02);
+		LED8IF(0x02);
 		glVertex2f( 		2, 5.0
 		); glVertex2f(		3, 4.5
 		); glVertex2f(		7, 4.5
@@ -268,7 +267,7 @@ void drawLEDchar(char c, float r, float g, float b, float alpha){
 
 	glEnd(); glBegin(GL_POLYGON);
 		// lower center
-		LEDIF(0x01);
+		LED8IF(0x01);
 		glVertex2f( 		4, 5.5
 		); glVertex2f(		5, 5.5
 		); glVertex2f(		6, 5.5
@@ -280,6 +279,236 @@ void drawLEDchar(char c, float r, float g, float b, float alpha){
 
 	glScalef( 10.0, 10.0, 1.0 );		
 	glTranslatef( 1.0, 0.0, 0.0 );
+
+	if( c == '.' or c == ',' or c == ')' or c == '(' or c == '"' or c == '\'' or c == ':' or c == ';')
+		glScalef( 2.5, 1.0, 1.0 );
+
+}
+
+void drawLED16char(char c, float r, float g, float b, float alpha)
+{
+
+	//const int *e;
+	char e;
+	
+	if( c == '.' or c == ',' or c == ')' or c == '(' or c == '"' or c == '\'' or c == ':' or c == ';')
+		glScalef( 0.4, 1.0, 1.0 );
+	
+	if( c >= ' ' and c <= 'Z') 
+		e = led8_ee[c - ' '];
+	else
+		e = led8_ee[0];
+	
+	glBegin( GL_POLYGON );
+	
+		glColor4f( 0.0, 0.0, 0.0, alpha );
+		glVertex3f( 0, 0, 0.001 );
+		glVertex3f( 1, 0, 0.001 );
+		glVertex3f( 1, 1, 0.001 );
+		glVertex3f( 0, 1, 0.001 );
+	
+	glEnd();
+	
+	glScalef( 0.05, 0.05, 1.0 );	
+	glTranslatef( 10.0, 10.0, 0.0 );
+
+	glBegin( GL_POLYGON );
+
+		// top left
+		LED8IF(0x8000);
+		glVertex2f( 		-9,  9
+		); glVertex2f(		-8, 10
+		); glVertex2f(		-1, 10
+		); glVertex2f(		 0,  9
+		); glVertex2f(		-1,  8
+		); glVertex2f(		 8,  8
+		);
+
+	glEnd(); glBegin( GL_POLYGON );
+
+		// top right
+		LED8IF(0x4000);
+		glVertex2f( 		0, 9
+		); glVertex2f(		1, 10
+		); glVertex2f(		8, 10
+		); glVertex2f(		9, 9
+		); glVertex2f(		8, 8
+		); glVertex2f(		1, 8
+		);
+
+	glEnd(); glBegin( GL_POLYGON );
+
+		// upper right
+		LED16IF(0x2000);
+		glVertex2f( 		 8, 8
+		); glVertex2i(		 8, 1
+		); glVertex2i(		 9, 0
+		); glVertex2i(		10, 1
+		); glVertex2i(		10, 8
+		); glVertex2i(		 9, 9
+		);
+		
+	glEnd(); glBegin( GL_POLYGON );
+		
+		// lower right
+		LED16IF(0x1000);
+		glVertex2f( 		 8, -8
+		); glVertex2i(		 8, -1
+		); glVertex2i(		 9,  0
+		); glVertex2i(		10, -1
+		); glVertex2i(		10, -8
+		); glVertex2i(		 9, -9
+		);
+
+	glEnd(); glBegin( GL_POLYGON );
+		
+		// bottom right
+		LED16IF(0x0800);
+		glVertex2f(			 9,  -9
+		); glVertex2f(		 8, -10
+		); glVertex2f(		 1, -10
+		); glVertex2f(		 0,  -9
+		); glVertex2f(		 1,  -8
+		); glVertex2f(		 8,  -8
+		);
+
+	glEnd(); glBegin( GL_POLYGON );
+
+		// bottom left
+		LED16IF(0x0400);
+		glVertex2f(			 -9,  -9
+		); glVertex2f(		 -8, -10
+		); glVertex2f(		 -1, -10
+		); glVertex2f(		 -0,  -9
+		); glVertex2f(		 -1,  -8
+		); glVertex2f(		 -8,  -8
+		);
+
+	glEnd(); glBegin( GL_POLYGON );
+		
+		// lower left
+		LED16IF(0x0200);
+		glVertex2f( 		 0,  -9
+		); glVertex2f(		-1, -10
+		); glVertex2f(		-8, -10
+		); glVertex2f(		-9,  -9
+		); glVertex2f(		-8,  -8
+		); glVertex2f(		-1,  -8
+		);
+
+	glEnd(); glBegin( GL_POLYGON );
+		
+		// upper left
+		LED16IF(0x0100);
+		glVertex2f( 		 0,  9
+		); glVertex2f(		-1, 10
+		); glVertex2f(		-8, 10
+		); glVertex2f(		-9,  9
+		); glVertex2f(		-8,  8
+		); glVertex2f(		-1,  8
+		);
+		
+	glEnd(); glBegin(GL_POLYGON);
+		
+		// diagonal upper left
+		LED16IF(0x0080);
+		glVertex2f( 		 0, 0
+		); glVertex2f(		-1, 1
+		); glVertex2f(		-8, 7
+		); glVertex2f(		-8, 8
+		); glVertex2f(		-7, 8
+		); glVertex2f(		-1, 2
+		);
+
+	glEnd(); glBegin(GL_POLYGON);
+		
+		// top center
+		LED16IF(0x0040);
+		glVertex2f( 		 0, 0
+		); glVertex2f(		-1, 2
+		); glVertex2f(		-1, 8
+		); glVertex2f(		 0, 9
+		); glVertex2f(		 1, 8
+		); glVertex2f(		 1, 2
+		);
+
+	glEnd(); glBegin(GL_POLYGON);
+		
+		// diagonal upper right
+		LED16IF(0x0020);
+		glVertex2f( 		0, 0
+		); glVertex2f(		1, 1
+		); glVertex2f(		8, 7
+		); glVertex2f(		8, 8
+		); glVertex2f(		7, 8
+		); glVertex2f(		1, 2
+		);
+
+	glEnd(); glBegin(GL_POLYGON);
+		
+		// right middle
+		LED16IF(0x0010);
+		glVertex2f( 		 0,  0
+		); glVertex2f(		 2,  1
+		); glVertex2f(		 8,  1
+		); glVertex2f(		 9,  0
+		); glVertex2f(		 8, -1
+		); glVertex2f(		 2, -1
+		);
+
+	glEnd(); glBegin(GL_POLYGON);
+		
+		// diagonal lower right
+		LED16IF(0x0008);
+		glVertex2f( 		0, -0
+		); glVertex2f(		1, -1
+		); glVertex2f(		8, -7
+		); glVertex2f(		8, -8
+		); glVertex2f(		7, -8
+		); glVertex2f(		1, -2
+		);
+
+	glEnd(); glBegin(GL_POLYGON);
+		
+		// bottom center
+		LED16IF(0x0004);
+		glVertex2f( 		 0, 0
+		); glVertex2f(		-1, -2
+		); glVertex2f(		-1, -8
+		); glVertex2f(		 0, -9
+		); glVertex2f(		 1, -8
+		); glVertex2f(		 1, -2
+		);
+
+	glEnd(); glBegin(GL_POLYGON);
+		
+		// diagonal lower left
+		LED16IF(0x0002);
+		glVertex2f( 		 0,  0
+		); glVertex2f(		-1, -1
+		); glVertex2f(		-8, -7
+		); glVertex2f(		-8, -8
+		); glVertex2f(		-7, -8
+		); glVertex2f(		-1, -2
+		);
+
+	glEnd(); glBegin(GL_POLYGON);
+		
+		// left middle
+		LED16IF(0x0001);
+		glVertex2f( 		  0,  0
+		); glVertex2f(		 -2,  1
+		); glVertex2f(		 -8,  1
+		); glVertex2f(		 -9,  0
+		); glVertex2f(		 -8, -1
+		); glVertex2f(		 -2, -1
+		);
+
+	glEnd();
+
+	glTranslatef( -10.0, -10.0, 0.0 );
+	glScalef( 20.0, 20.0, 1.0 );		
+	glTranslatef( 1.0, 0.0, 0.0 ); // advance
 
 	if( c == '.' or c == ',' or c == ')' or c == '(' or c == '"' or c == '\'' or c == ':' or c == ';')
 		glScalef( 2.5, 1.0, 1.0 );
