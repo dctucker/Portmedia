@@ -38,11 +38,12 @@ void Canvas3D::drawBCR()
 		glTranslatef( bleft, btop, 0.0 );
 		glScalef( bwid, bhei, 1.0 );
 		
-		for(int row = 0; row < 9; row++){
-		
-			for(int col = 0; col < 8; col++){
-
-				switch(row){
+		for(int row = 0; row < 9; row++)
+		{
+			for(int col = 0; col < 8; col++)
+			{
+				switch(row)
+				{
 					case 0:
 					case 1:
 					case 2:
@@ -83,28 +84,6 @@ void Canvas3D::drawBCR()
 						glVertex2f( val, 1.0 );
 					glEnd();
 					
-					/*
-					glPushMatrix();
-						
-						wxString str;
-						str.Printf( _T("%0.3f"), val );
-					
-						const char *numb = str.mb_str();
-
-						// zoom into per-character scale
-						glScalef( 0.15, 0.8, 0.0 );
-						glTranslatef( 0.8, 0.1, 0.0 );
-						
-						glColor4f( 0.9, 0.8, 0.7, 1.0 );
-						
-						for(i=0; i < 5; i++)
-						{
-							drawNumber( numb[i] );
-							glTranslatef( 1.2, 0, 0 );
-						}
-						
-					glPopMatrix();
-					*/
 				glPopMatrix();
 			}
 		}

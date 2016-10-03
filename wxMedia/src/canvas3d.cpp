@@ -64,10 +64,10 @@ Canvas3D::Canvas3D(wxWindow *parent,
 */
 
 
-//static int CanvasAttribs[3] = { WX_GL_RGBA, WX_GL_DOUBLEBUFFER, 0};
+static int CanvasAttribs[3] = { WX_GL_RGBA, WX_GL_DOUBLEBUFFER, 0};
 
 Canvas3D::Canvas3D( wxWindow *parent ) :
-	wxGLCanvas( parent, wxID_ANY, NULL /*CanvasAttribs*/, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE )
+	wxGLCanvas( parent, wxID_ANY, CanvasAttribs, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE )
 {
 	context = new wxGLContext(this);
 	setdefaults();
@@ -154,48 +154,6 @@ void Canvas3D::drawOsc()
 
 void Canvas3D::Render()
 {
-}
-
-void Canvas3D::Enable2D()
-{
-	//int vPort[4];
-	//glGetIntegerv(GL_VIEWPORT, vPort);
-
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	//glLoadIdentity();
-
-	//glOrtho(0, vPort[2], 0, vPort[3], -1, 1);
-	//glOrtho( 0.0, 1.0, 1.0, 0.0, 0.0, 1.0 );
-	gluPerspective( 45.0f, 4.0f/3.0f, 0.0, 20.0f );
-
-	//glTranslatef( -0.5, -0.5, 0.0 );
-	glScalef( 1.0, -1.0, 1.0 );
-	glTranslatef( -1.0, -1.0, 0.0 );
-	glScalef( 2.0, 2.0, 1.0 );
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-}
-
-void Canvas3D::Disable2D()
-{
-   glMatrixMode(GL_PROJECTION);
-   glPopMatrix();   
-   glMatrixMode(GL_MODELVIEW);
-   glPopMatrix();
-}
-
-void Canvas3D::OnPaint(wxPaintEvent& event)
-{
-	//if( !IsShown()) return;
-	wxPaintDC dc(this);
-
-	//const wxSize ClientSize = GetClientSize();
-
-	//Context3D & canvas = wxGetApp().GetContext(this);
-	//glViewport(0, 0, 400, 400);
-
 	SetCurrent(*context);
 	
 	if(not m_init){
@@ -252,7 +210,7 @@ void Canvas3D::OnPaint(wxPaintEvent& event)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
-	//drawCube();
+	drawCube();
 	
 	//glDisable( GL_LIGHTING );
 
@@ -284,6 +242,48 @@ void Canvas3D::OnPaint(wxPaintEvent& event)
 	SwapBuffers();
 }
 
+void Canvas3D::Enable2D()
+{
+	//int vPort[4];
+	//glGetIntegerv(GL_VIEWPORT, vPort);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	//glLoadIdentity();
+
+	//glOrtho(0, vPort[2], 0, vPort[3], -1, 1);
+	//glOrtho( 0.0, 1.0, 1.0, 0.0, 0.0, 1.0 );
+	gluPerspective( 45.0f, 4.0f/3.0f, 0.0, 20.0f );
+
+	//glTranslatef( -0.5, -0.5, 0.0 );
+	glScalef( 1.0, -1.0, 1.0 );
+	glTranslatef( -1.0, -1.0, 0.0 );
+	glScalef( 2.0, 2.0, 1.0 );
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+}
+
+void Canvas3D::Disable2D()
+{
+   glMatrixMode(GL_PROJECTION);
+   glPopMatrix();   
+   glMatrixMode(GL_MODELVIEW);
+   glPopMatrix();
+}
+
+void Canvas3D::OnPaint(wxPaintEvent& event)
+{
+	//if( !IsShown()) return;
+	wxPaintDC dc(this);
+
+	//const wxSize ClientSize = GetClientSize();
+
+	//Context3D & canvas = wxGetApp().GetContext(this);
+	//glViewport(0, 0, 400, 400);
+
+}
+
 
 void Canvas3D::OnSize(wxSizeEvent& event)
 {
@@ -304,5 +304,5 @@ void Canvas3D::OnTimer(wxTimerEvent &)
 {
 	Refresh(false);
 	//Update();
-	//Render();
+	Render();
 }

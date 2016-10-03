@@ -156,7 +156,7 @@ void Canvas3D::drawCube()
 
 	glRotatef(rot, 0, 1, 0);
 	glRotatef(30, 1, 0, 0);
-	glRotatef(0, 0, 0, 1);
+	glRotatef(rot, 0, 0, 1);
 	
 	rot += 0.5f;
 	
