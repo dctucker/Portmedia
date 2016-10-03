@@ -118,6 +118,7 @@ Canvas3D::~Canvas3D()
 void Canvas3D::InitGL()
 {
 	//SetCurrent();
+	setupVertexBuffers();
 	
 	glClearDepth( 50.0f );
 	glEnable( GL_DEPTH_TEST );
@@ -129,6 +130,13 @@ doMessage("!\"#$%&\'()*+,-./0123456789:;<=>?@[\\]^_`{|}~");
 	lissajous_d = 0.0;
 	lissajous_rot = 0;
 
+}
+
+void Canvas3D::setupVertexBuffers()
+{
+	glGenBuffers(1, &ledVertexBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, ledVertexBuffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(led16_vertex_data), led16_vertex_data, GL_STATIC_DRAW);
 }
 
 void Canvas3D::drawOsc()

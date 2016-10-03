@@ -102,6 +102,10 @@ public:
 		//drawLEDchar(char,float,float,float,float)
 		drawLED( char *str, float r, float g, float b, float a )
 		;
+
+	void drawLED16char(char c, float r, float g, float b, float alpha);
+	GLuint ledVertexBuffer;
+	void setupVertexBuffers();
 	
 	void OnTimer(wxTimerEvent &);
 	void OnPaint(wxPaintEvent&);

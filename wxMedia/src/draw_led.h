@@ -181,6 +181,121 @@ const unsigned short led16_ee[] = {
 	0xa150, // { 1,0,1,0, 0,0,0,1, 0,1,0,1, 0,0,0,0 }, //~
 };
 
+static const GLint led16_vertex_data[] = {
+	// top left
+	-9,  9,
+	-8, 10,
+	-1, 10,
+	 0,  9,
+	-1,  8,
+	-8,  8,
+	// top right
+	 0,  9,
+	 1, 10,
+	 8, 10,
+	 9,  9,
+	 8,  8,
+	 1,  8,
+	// upper right
+	 8,  8,
+	 8,  1,
+	 9,  0,
+	10,  1,
+	10,  8,
+	 9,  9,
+	// lower right
+	 8, -8,
+	 8, -1,
+	 9,  0,
+	10, -1,
+	10, -8,
+	 9, -9,
+	// bottom right
+	 9,  -9,
+	 8, -10,
+	 1, -10,
+	 0,  -9,
+	 1,  -8,
+	 8,  -8,
+	// bottom left
+	-9,  -9,
+	-8, -10,
+	-1, -10,
+	-0,  -9,
+	-1,  -8,
+	-8,  -8,
+	// lower left
+	-9,   0,
+	-10, -1,
+	-10, -8,
+	-9,  -9,
+	-8,  -8,
+	-8,  -1,
+	// upper left
+	-9,  0,
+	-10, 1,
+	-10, 8,
+	-9,  9,
+	-8,  8,
+	-8,  1,
+	// diagonal upper left
+	 0, 0,
+	-1, 1,
+	-8, 7,
+	-8, 8,
+	-7, 8,
+	-1, 2,
+	// top center
+	 0, 0,
+	-1, 2,
+	-1, 8,
+	 0, 9,
+	 1, 8,
+	 1, 2,
+	// diagonal upper right
+	 0, 0,
+	 1, 1,
+	 8, 7,
+	 8, 8,
+	 7, 8,
+	 1, 2,
+	// right middle
+	 0,  0,
+	 2,  1,
+	 8,  1,
+	 9,  0,
+	 8, -1,
+	 2, -1,
+	// diagonal lower right
+	 0, -0,
+	 1, -1,
+	 8, -7,
+	 8, -8,
+	 7, -8,
+	 1, -2,
+	// bottom center
+	 0,  0,
+	-1, -2,
+	-1, -8,
+	 0, -9,
+	 1, -8,
+	 1, -2,
+	// diagonal lower left
+	 0,  0,
+	-1, -1,
+	-8, -7,
+	-8, -8,
+	-7, -8,
+	-1, -2,
+	// left middle
+	 0,  0,
+	-2,  1,
+	-8,  1,
+	-9,  0,
+	-8, -1,
+	-2, -1,
+};
+
 #define LEDRED   glColor4f( r, g, b, alpha )
 #define LEDBLACK glColor4f( 0, 0, 0, alpha )
 #define LED8IF(x)  if( e & x ) LEDRED; else LEDBLACK
@@ -314,7 +429,7 @@ void drawLED8char(char c, float r, float g, float b, float alpha)
 
 }
 
-void drawLED16char(char c, float r, float g, float b, float alpha)
+void Canvas3D::drawLED16char(char c, float r, float g, float b, float alpha)
 {
 
 	//const int *e;
@@ -343,7 +458,33 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 
 	glScalef( 0.8, -1.0, 1.0 );		
 
-	glBegin( GL_POLYGON );
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, ledVertexBuffer);
+	glVertexPointer( 2, GL_INT, 0, (void *)0 );
+	//glVertexAttribPointer( 0, 2, GL_INT, GL_FALSE, 0, (void *)0 );
+
+	LED16IF(0x8000); glDrawArrays(GL_TRIANGLE_FAN, 0, 6);
+	LED16IF(0x4000); glDrawArrays(GL_TRIANGLE_FAN, 6, 6);
+	LED16IF(0x2000); glDrawArrays(GL_TRIANGLE_FAN, 12, 6);
+	LED16IF(0x1000); glDrawArrays(GL_TRIANGLE_FAN, 18, 6);
+	LED16IF(0x0800); glDrawArrays(GL_TRIANGLE_FAN, 24, 6);
+	LED16IF(0x0400); glDrawArrays(GL_TRIANGLE_FAN, 30, 6);
+	LED16IF(0x0200); glDrawArrays(GL_TRIANGLE_FAN, 36, 6);
+	LED16IF(0x0100); glDrawArrays(GL_TRIANGLE_FAN, 42, 6);
+	LED16IF(0x0080); glDrawArrays(GL_TRIANGLE_FAN, 48, 6);
+	LED16IF(0x0040); glDrawArrays(GL_TRIANGLE_FAN, 54, 6);
+	LED16IF(0x0020); glDrawArrays(GL_TRIANGLE_FAN, 60, 6);
+	LED16IF(0x0010); glDrawArrays(GL_TRIANGLE_FAN, 66, 6);
+	LED16IF(0x0008); glDrawArrays(GL_TRIANGLE_FAN, 72, 6);
+	LED16IF(0x0004); glDrawArrays(GL_TRIANGLE_FAN, 78, 6);
+	LED16IF(0x0002); glDrawArrays(GL_TRIANGLE_FAN, 84, 6);
+	LED16IF(0x0001); glDrawArrays(GL_TRIANGLE_FAN, 90, 6);
+
+	glDisableVertexAttribArray(0);
+	glDisableClientState(GL_VERTEX_ARRAY);
+/*
+	glBegin( GL_TRIANGLE_FAN );
 
 		// top left
 		LED16IF(0x8000);
@@ -355,7 +496,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		); glVertex2i(		-8,  8
 		);
 
-	glEnd(); glBegin( GL_POLYGON );
+	glEnd(); glBegin( GL_TRIANGLE_FAN );
 
 		// top right
 		LED16IF(0x4000);
@@ -367,7 +508,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		); glVertex2i(		1, 8
 		);
 
-	glEnd(); glBegin( GL_POLYGON );
+	glEnd(); glBegin( GL_TRIANGLE_FAN );
 
 		// upper right
 		LED16IF(0x2000);
@@ -379,7 +520,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		); glVertex2i(		 9, 9
 		);
 		
-	glEnd(); glBegin( GL_POLYGON );
+	glEnd(); glBegin( GL_TRIANGLE_FAN );
 		
 		// lower right
 		LED16IF(0x1000);
@@ -391,7 +532,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		); glVertex2i(		 9, -9
 		);
 
-	glEnd(); glBegin( GL_POLYGON );
+	glEnd(); glBegin( GL_TRIANGLE_FAN );
 		
 		// bottom right
 		LED16IF(0x0800);
@@ -403,7 +544,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		); glVertex2i(		 8,  -8
 		);
 
-	glEnd(); glBegin( GL_POLYGON );
+	glEnd(); glBegin( GL_TRIANGLE_FAN );
 
 		// bottom left
 		LED16IF(0x0400);
@@ -415,7 +556,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		); glVertex2i(		 -8,  -8
 		);
 
-	glEnd(); glBegin( GL_POLYGON );
+	glEnd(); glBegin( GL_TRIANGLE_FAN );
 		
 		// lower left
 		LED16IF(0x0200);
@@ -427,7 +568,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		); glVertex2i(		-8,  -1
 		);
 
-	glEnd(); glBegin( GL_POLYGON );
+	glEnd(); glBegin( GL_TRIANGLE_FAN );
 		
 		// upper left
 		LED16IF(0x0100);
@@ -439,7 +580,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		); glVertex2i(		-8,  1
 		);
 		
-	glEnd(); glBegin(GL_POLYGON);
+	glEnd(); glBegin(GL_TRIANGLE_FAN);
 		
 		// diagonal upper left
 		LED16IF(0x0080);
@@ -451,7 +592,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		); glVertex2i(		-1, 2
 		);
 
-	glEnd(); glBegin(GL_POLYGON);
+	glEnd(); glBegin(GL_TRIANGLE_FAN);
 		
 		// top center
 		LED16IF(0x0040);
@@ -463,7 +604,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		); glVertex2i(		 1, 2
 		);
 
-	glEnd(); glBegin(GL_POLYGON);
+	glEnd(); glBegin(GL_TRIANGLE_FAN);
 		
 		// diagonal upper right
 		LED16IF(0x0020);
@@ -475,7 +616,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		); glVertex2i(		1, 2
 		);
 
-	glEnd(); glBegin(GL_POLYGON);
+	glEnd(); glBegin(GL_TRIANGLE_FAN);
 		
 		// right middle
 		LED16IF(0x0010);
@@ -487,7 +628,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		); glVertex2i(		 2, -1
 		);
 
-	glEnd(); glBegin(GL_POLYGON);
+	glEnd(); glBegin(GL_TRIANGLE_FAN);
 		
 		// diagonal lower right
 		LED16IF(0x0008);
@@ -499,7 +640,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		); glVertex2i(		1, -2
 		);
 
-	glEnd(); glBegin(GL_POLYGON);
+	glEnd(); glBegin(GL_TRIANGLE_FAN);
 		
 		// bottom center
 		LED16IF(0x0004);
@@ -511,7 +652,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		); glVertex2i(		 1, -2
 		);
 
-	glEnd(); glBegin(GL_POLYGON);
+	glEnd(); glBegin(GL_TRIANGLE_FAN);
 		
 		// diagonal lower left
 		LED16IF(0x0002);
@@ -523,7 +664,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		); glVertex2i(		-1, -2
 		);
 
-	glEnd(); glBegin(GL_POLYGON);
+	glEnd(); glBegin(GL_TRIANGLE_FAN);
 		
 		// left middle
 		LED16IF(0x0001);
@@ -536,6 +677,7 @@ void drawLED16char(char c, float r, float g, float b, float alpha)
 		);
 
 	glEnd();
+*/
 
 	glScalef( 1.25, -1.0, 1.0 );		
 
