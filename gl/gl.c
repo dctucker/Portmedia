@@ -8,7 +8,8 @@
 
 #define INFOLOG_LEN 512
 
-#define GLSL(var, shader) static const GLchar* var = "#version 330 core\n" #shader
+#define GLSL(var, shader) static const GLchar* var = ("#version 330 core\n" #shader)
+#define HEREDOC(var) #var
 
 static const GLuint WIDTH = 800, HEIGHT = 600;
 /* vertex data is passed as input to this shader
@@ -24,6 +25,221 @@ GLSL(vertexShaderSource,
 	}
 );
 GLSL(geometryShaderSource,
+	int led16_vertex_data[] = int[](
+		// top left
+		-9,  9,
+		-8, 10,
+		-8,  8,
+		-1, 10,
+		-1,  8,
+		 0,  9,
+		// top right
+		 0,  9,
+		 1, 10,
+		 1,  8,
+		 8, 10,
+		 8,  8,
+		 9,  9,
+		// upper right
+		 8,  1,
+		 8,  8,
+		 9,  0,
+		 9,  9,
+		10,  1,
+		10,  8,
+		// lower right
+		 8, -1,
+		 8, -8,
+		 9,  0,
+		 9, -9,
+		10, -1,
+		10, -8,
+		// bottom right
+		 0,  -9,
+		 1, -10,
+		 1,  -8,
+		 8, -10,
+		 8,  -8,
+		 9,  -9,
+		// bottom left
+		-9,  -9,
+		-8, -10,
+		-8,  -8,
+		-1, -10,
+		-1,  -8,
+		 0,  -9,
+		// lower left
+		-8,  -1,
+		-8,  -8,
+		-9,   0,
+		-9,  -9,
+		-10, -1,
+		-10, -8,
+		// upper left
+		-10, 8,
+		-10, 1,
+		-9,  9,
+		-9,  0,
+		-8,  8,
+		-8,  1,
+		// diagonal upper left
+		 0, 0,
+		-1, 1,
+		-1, 2,
+		-8, 7,
+		-7, 8,
+		-8, 8,
+		// top center
+		-1, 2,
+		-1, 8,
+		 0, 0,
+		 0, 9,
+		 1, 2,
+		 1, 8,
+		// diagonal upper right
+		 0, 0,
+		 1, 2,
+		 1, 1,
+		 7, 8,
+		 8, 7,
+		 8, 8,
+		// right middle
+		 0,  0,
+		 2, -1,
+		 2,  1,
+		 8, -1,
+		 8,  1,
+		 9,  0,
+		// diagonal lower right
+		 0,  0,
+		 1, -1,
+		 1, -2,
+		 8, -7,
+		 7, -8,
+		 8, -8,
+		// bottom center
+		-1, -2,
+		-1, -8,
+		 0,  0,
+		 0, -9,
+		 1, -2,
+		 1, -8,
+		// diagonal lower left
+		 0,  0,
+		-1, -2,
+		-1, -1,
+		-7, -8,
+		-8, -7,
+		-8, -8,
+		// left middle
+		 0,  0,
+		-2,  1,
+		-2, -1,
+		-8,  1,
+		-8, -1,
+		-9,  0
+	);
+	int led16_ee[] = int[](
+				//   0 1 2 3  4 5 6 7  8 9 a b  c d e f    //
+		0x0000, // { 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0 }, // 
+		0x8541, // { 1,0,0,0, 0,1,0,1, 0,1,0,0, 0,0,0,1 }, // 
+		0x2100, // { 0,0,1,0, 0,0,0,1, 0,0,0,0, 0,0,0,0 }, //"
+		0x3c55, // { 0,0,1,1, 1,1,0,0, 0,1,0,1, 0,1,0,1 }, //#
+		//0xffff, // { 0,0,1,1, 1,1,0,0, 0,1,0,1, 0,1,0,1 }, //#
+		0xdd55, // { 1,1,0,1, 1,1,0,1, 0,1,0,1, 0,1,0,1 }, //$
+		0x9977, // { 1,0,0,1, 1,0,0,1, 0,1,1,1, 0,1,1,1 }, //%
+		0x875d, // { 1,0,0,0, 0,1,1,1, 0,1,0,1, 1,1,0,1 }, //&
+		0x0040, // { 0,0,0,0, 0,0,0,0, 0,1,0,0, 0,0,0,0 }, //'
+		0x0028, // { 0,0,0,0, 0,0,0,0, 0,0,1,0, 1,0,0,0 }, //(
+		0x0082, // { 0,0,0,0, 0,0,0,0, 1,0,0,0, 0,0,1,0 }, //)
+		0x00ff, // { 0,0,0,0, 0,0,0,0, 1,1,1,1, 1,1,1,1 }, //*
+		0x0055, // { 0,0,0,0, 0,0,0,0, 0,1,0,1, 0,1,0,1 }, //+
+		0x0003, // { 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,1,1 }, //,
+		0x0011, // { 0,0,0,0, 0,0,0,0, 0,0,0,1, 0,0,0,1 }, //-
+		0x0400, // { 0,0,0,0, 0,1,0,0, 0,0,0,0, 0,0,0,0 }, //.
+		0x0022, // { 0,0,0,0, 0,0,0,0, 0,0,1,0, 0,0,1,0 }, ///
+		0xff22, // { 1,1,1,1, 1,1,1,1, 0,0,1,0, 0,0,1,0 }, //0
+		0x8c44, // { 1,0,0,0, 1,1,0,0, 0,1,0,0, 0,1,0,0 }, //1
+		0xee11, // { 1,1,1,0, 1,1,1,0, 0,0,0,1, 0,0,0,1 }, //2
+		0xfc11, // { 1,1,1,1, 1,1,0,0, 0,0,0,1, 0,0,0,1 }, //3
+		0x3111, // { 0,0,1,1, 0,0,0,1, 0,0,0,1, 0,0,0,1 }, //4
+		0xdc90, // { 1,1,0,1, 1,1,0,0, 1,0,0,1, 0,0,0,0 }, //5
+		0xdf11, // { 1,1,0,1, 1,1,1,1, 0,0,0,1, 0,0,0,1 }, //6
+		0xc023, // { 1,1,0,0, 0,0,0,0, 0,0,1,0, 0,0,1,1 }, //7
+		0xff11, // { 1,1,1,1, 1,1,1,1, 0,0,0,1, 0,0,0,1 }, //8
+		0xfd11, // { 1,1,1,1, 1,1,0,1, 0,0,0,1, 0,0,0,1 }, //9
+		0x8400, // { 1,0,0,0, 0,1,0,0, 0,0,0,0, 0,0,0,0 }, //:
+		0x8003, // { 1,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,1,1 }, //;
+		0x0c22, // { 0,0,0,0, 1,1,0,0, 0,0,1,0, 0,0,1,0 }, //<
+		0x0c11, // { 0,0,0,0, 1,1,0,0, 0,0,0,1, 0,0,0,1 }, //=
+		0x0c88, // { 0,0,0,0, 1,1,0,0, 1,0,0,0, 1,0,0,0 }, //>
+		0xe014, // { 1,1,1,0, 0,0,0,0, 0,0,0,1, 0,1,0,0 }, //?
+		0xfe05, // { 1,1,1,1, 1,1,1,0, 0,0,0,0, 0,1,0,1 }, //@
+		0x3032, // { 0,0,1,1, 0,0,0,0, 0,0,1,1, 0,0,1,0 }, //A
+		0xfc54, // { 1,1,1,1, 1,1,0,0, 0,1,0,1, 0,1,0,0 }, //B
+		0xcf00, // { 1,1,0,0, 1,1,1,1, 0,0,0,0, 0,0,0,0 }, //C
+		0xfc44, // { 1,1,1,1, 1,1,0,0, 0,1,0,0, 0,1,0,0 }, //D
+		0xcf11, // { 1,1,0,0, 1,1,1,1, 0,0,0,1, 0,0,0,1 }, //E
+		0xc311, // { 1,1,0,0, 0,0,1,1, 0,0,0,1, 0,0,0,1 }, //F
+		0xdf10, // { 1,1,0,1, 1,1,1,1, 0,0,0,1, 0,0,0,0 }, //G
+		0x3311, // { 0,0,1,1, 0,0,1,1, 0,0,0,1, 0,0,0,1 }, //H
+		0xcc44, // { 1,1,0,0, 1,1,0,0, 0,1,0,0, 0,1,0,0 }, //I
+		0xc644, // { 1,1,0,0, 0,1,1,0, 0,1,0,0, 0,1,0,0 }, //J
+		0x0329, // { 0,0,0,0, 0,0,1,1, 0,0,1,0, 1,0,0,1 }, //K
+		0x0f00, // { 0,0,0,0, 1,1,1,1, 0,0,0,0, 0,0,0,0 }, //L
+		0x33a4, // { 0,0,1,1, 0,0,1,1, 1,0,1,0, 0,1,0,0 }, //M
+		0x3388, // { 0,0,1,1, 0,0,1,1, 1,0,0,0, 1,0,0,0 }, //N
+		0xff00, // { 1,1,1,1, 1,1,1,1, 0,0,0,0, 0,0,0,0 }, //O
+		0xe311, // { 1,1,1,0, 0,0,1,1, 0,0,0,1, 0,0,0,1 }, //P
+		0xff08, // { 1,1,1,1, 1,1,1,1, 0,0,0,0, 1,0,0,0 }, //Q
+		0xe319, // { 1,1,1,0, 0,0,1,1, 0,0,0,1, 1,0,0,1 }, //R
+		0xee88, // { 1,1,1,0, 1,1,1,0, 1,0,0,0, 1,0,0,0 }, //S
+		0xc044, // { 1,1,0,0, 0,0,0,0, 0,1,0,0, 0,1,0,0 }, //T
+		0x3f00, // { 0,0,1,1, 1,1,1,1, 0,0,0,0, 0,0,0,0 }, //U
+		0x0322, // { 0,0,0,0, 0,0,1,1, 0,0,1,0, 0,0,1,0 }, //V
+		0x334a, // { 0,0,1,1, 0,0,1,1, 0,1,0,0, 1,0,1,0 }, //W
+		0x00aa, // { 0,0,0,0, 0,0,0,0, 1,0,1,0, 1,0,1,0 }, //X
+		0x00a4, // { 0,0,0,0, 0,0,0,0, 1,0,1,0, 0,1,0,0 }, //Y
+		0xcc22, // { 1,1,0,0, 1,1,0,0, 0,0,1,0, 0,0,1,0 }, //Z
+		0x4844, // { 0,1,0,0, 1,0,0,0, 0,1,0,0, 0,1,0,0 }, //[
+		0x0088, // { 0,0,0,0, 0,0,0,0, 1,0,0,0, 1,0,0,0 }, //\/
+		0x8444, // { 1,0,0,0, 0,1,0,0, 0,1,0,0, 0,1,0,0 }, //]
+		0x2020, // { 0,0,1,0, 0,0,0,0, 0,0,1,0, 0,0,0,0 }, //^
+		0x0c00, // { 0,0,0,0, 1,1,0,0, 0,0,0,0, 0,0,0,0 }, //_
+		0x0080, // { 0,0,0,0, 0,0,0,0, 0,0,0,0, 1,0,0,0 }, //`
+		//
+		0x3032, // { 0,0,1,1, 0,0,0,0, 0,0,1,1, 0,0,1,0 }, //A
+		0xfc54, // { 1,1,1,1, 1,1,0,0, 0,1,0,1, 0,1,0,0 }, //B
+		0xcf00, // { 1,1,0,0, 1,1,1,1, 0,0,0,0, 0,0,0,0 }, //C
+		0xfc44, // { 1,1,1,1, 1,1,0,0, 0,1,0,0, 0,1,0,0 }, //D
+		0xcf11, // { 1,1,0,0, 1,1,1,1, 0,0,0,1, 0,0,0,1 }, //E
+		0xc311, // { 1,1,0,0, 0,0,1,1, 0,0,0,1, 0,0,0,1 }, //F
+		0xdf10, // { 1,1,0,1, 1,1,1,1, 0,0,0,1, 0,0,0,0 }, //G
+		0x3311, // { 0,0,1,1, 0,0,1,1, 0,0,0,1, 0,0,0,1 }, //H
+		0xcc44, // { 1,1,0,0, 1,1,0,0, 0,1,0,0, 0,1,0,0 }, //I
+		0xc644, // { 1,1,0,0, 0,1,1,0, 0,1,0,0, 0,1,0,0 }, //J
+		0x0329, // { 0,0,0,0, 0,0,1,1, 0,0,1,0, 1,0,0,1 }, //K
+		0x0f00, // { 0,0,0,0, 1,1,1,1, 0,0,0,0, 0,0,0,0 }, //L
+		0x33a4, // { 0,0,1,1, 0,0,1,1, 1,0,1,0, 0,1,0,0 }, //M
+		0x3388, // { 0,0,1,1, 0,0,1,1, 1,0,0,0, 1,0,0,0 }, //N
+		0xff00, // { 1,1,1,1, 1,1,1,1, 0,0,0,0, 0,0,0,0 }, //O
+		0xe311, // { 1,1,1,0, 0,0,1,1, 0,0,0,1, 0,0,0,1 }, //P
+		0xff08, // { 1,1,1,1, 1,1,1,1, 0,0,0,0, 1,0,0,0 }, //Q
+		0xe319, // { 1,1,1,0, 0,0,1,1, 0,0,0,1, 1,0,0,1 }, //R
+		0xee88, // { 1,1,1,0, 1,1,1,0, 1,0,0,0, 1,0,0,0 }, //S
+		0xc044, // { 1,1,0,0, 0,0,0,0, 0,1,0,0, 0,1,0,0 }, //T
+		0x3f00, // { 0,0,1,1, 1,1,1,1, 0,0,0,0, 0,0,0,0 }, //U
+		0x0322, // { 0,0,0,0, 0,0,1,1, 0,0,1,0, 0,0,1,0 }, //V
+		0x334a, // { 0,0,1,1, 0,0,1,1, 0,1,0,0, 1,0,1,0 }, //W
+		0x00aa, // { 0,0,0,0, 0,0,0,0, 1,0,1,0, 1,0,1,0 }, //X
+		0x00a4, // { 0,0,0,0, 0,0,0,0, 1,0,1,0, 0,1,0,0 }, //Y
+		0xcc22, // { 1,1,0,0, 1,1,0,0, 0,0,1,0, 0,0,1,0 }, //Z
+		// a-z
+		0x4845, // { 0,1,0,0, 1,0,0,0, 0,1,0,0, 0,1,0,1 }, //{
+		0x0044, // { 0,0,0,0, 0,0,0,0, 0,1,0,0, 0,1,0,0 }, //|
+		0x8454, // { 1,0,0,0, 0,1,0,0, 0,1,0,1, 0,1,0,0 }, //}
+		0xa150  // { 1,0,1,0, 0,0,0,1, 0,1,0,1, 0,0,0,0 }, //~
+	);
 	layout (points) in;
 	layout (triangle_strip, max_vertices=96) out;
 
@@ -33,102 +249,21 @@ GLSL(geometryShaderSource,
 	void main() {
 		fragColor = vertColor[0];
 
-		gl_Position = gl_in[0].gl_Position + vec4(-0.04, 0.08, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.03, 0.09, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.03, 0.07, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.01, 0.09, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.01, 0.07, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.00, 0.08, 0, 0); EmitVertex();
-		EndPrimitive();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.00, 0.08, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.01, 0.09, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.01, 0.07, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.03, 0.09, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.03, 0.07, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.04, 0.08, 0, 0); EmitVertex();
-		EndPrimitive();
-
-		gl_Position = gl_in[0].gl_Position + vec4(-0.04,-0.08, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.03,-0.09, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.03,-0.07, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.01,-0.09, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.01,-0.07, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.00,-0.08, 0, 0); EmitVertex();
-		EndPrimitive();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.00,-0.08, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.01,-0.09, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.01,-0.07, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.03,-0.09, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.03,-0.07, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.04,-0.08, 0, 0); EmitVertex();
-		EndPrimitive();
-
-		gl_Position = gl_in[0].gl_Position + vec4(-0.04, 0.00, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.03, 0.01, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.03,-0.01, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.01, 0.01, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.01,-0.01, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.00, 0.00, 0, 0); EmitVertex();
-		EndPrimitive();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.00, 0.00, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.01, 0.01, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.01,-0.01, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.03, 0.01, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.03,-0.01, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.04, 0.00, 0, 0); EmitVertex();
-		EndPrimitive();
-
-		gl_Position = gl_in[0].gl_Position + vec4(-0.04, 0.08, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.05, 0.06, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.03, 0.06, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.05, 0.02, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.03, 0.02, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.04, 0.00, 0, 0); EmitVertex();
-		EndPrimitive();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.00, 0.08, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.01, 0.06, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.01, 0.06, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.01, 0.02, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.01, 0.02, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.00, 0.00, 0, 0); EmitVertex();
-		EndPrimitive();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.04, 0.08, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.05, 0.06, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.03, 0.06, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.05, 0.02, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.03, 0.02, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.04, 0.00, 0, 0); EmitVertex();
-		EndPrimitive();
-
-		gl_Position = gl_in[0].gl_Position + vec4(-0.04,-0.08, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.05,-0.06, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.03,-0.06, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.05,-0.02, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.03,-0.02, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.04,-0.00, 0, 0); EmitVertex();
-		EndPrimitive();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.00,-0.08, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.01,-0.06, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.01,-0.06, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.01,-0.02, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.01,-0.02, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.00,-0.00, 0, 0); EmitVertex();
-		EndPrimitive();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.04,-0.08, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.05,-0.06, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.03,-0.06, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.05,-0.02, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.03,-0.02, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( 0.04,-0.00, 0, 0); EmitVertex();
-		EndPrimitive();
-
-		gl_Position = gl_in[0].gl_Position + vec4(-0.04, 0.05, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.04, 0.06, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.03, 0.06, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.01, 0.02, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.02, 0.03, 0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4(-0.01, 0.02, 0, 0); EmitVertex();
-		EndPrimitive();
+		int ch = led16_ee[64-32];
+		int s = 0x8000;
+		for(int seg=0; seg < 192; seg+=12){
+			if( (s & ch) == 0 ){
+				fragColor = vec3( 0.1, 0.1, 0.1 );
+			} else {
+				fragColor = vertColor[0];
+			}
+			for(int v=0; v < 12; v+=2){
+				gl_Position = gl_in[0].gl_Position + vec4( led16_vertex_data[seg+v], led16_vertex_data[seg+v+1], 0, 0) * 0.01;
+				EmitVertex();
+			}
+			EndPrimitive();
+			s >>= 1;
+		}
 	}
 );
 GLSL(fragmentShaderSource,
