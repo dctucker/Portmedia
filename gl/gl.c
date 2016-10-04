@@ -24,7 +24,7 @@ GLSL(vertexShaderSource,
 	void main() {
 		gl_Position = vec4(position, 1.0f);
 		vertColor = color;
-		character = int(fChar) - 32;
+		character = int(fChar);
 	}
 );
 GLSL(geometryShaderSource,
@@ -143,6 +143,38 @@ GLSL(geometryShaderSource,
 		-9,  0
 	);
 	int led16_ee[] = int[](
+		0x4000,
+		0x4001,
+		0x4002,
+		0x4003,
+		0x4004,
+		0x4005,
+		0x4006,
+		0x4007,
+		0x4008,
+		0x4009,
+		0x400a,
+		0x400b,
+		0x400c,
+		0x400d,
+		0x400e,
+		0x400f,
+		0x4010,
+		0x4011,
+		0x4012,
+		0x4013,
+		0x4014,
+		0x4015,
+		0x4016,
+		0x4017,
+		0x4018,
+		0x4019,
+		0x401a,
+		0x401b,
+		0x401c,
+		0x401d,
+		0x401e,
+		0x401f,
 		        //   0 1 2 3  4 5 6 7  8 9 a b  c d e f    //
 		0x0000, // { 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0 }, // 
 		0x8541, // { 1,0,0,0, 0,1,0,1, 0,1,0,0, 0,0,0,1 }, // 
@@ -240,7 +272,8 @@ GLSL(geometryShaderSource,
 		0x4845, // { 0,1,0,0, 1,0,0,0, 0,1,0,0, 0,1,0,1 }, //{
 		0x0044, // { 0,0,0,0, 0,0,0,0, 0,1,0,0, 0,1,0,0 }, //|
 		0x8454, // { 1,0,0,0, 0,1,0,0, 0,1,0,1, 0,1,0,0 }, //}
-		0xa150  // { 1,0,1,0, 0,0,0,1, 0,1,0,1, 0,0,0,0 }, //~
+		0xa150, // { 1,0,1,0, 0,0,0,1, 0,1,0,1, 0,0,0,0 }, //~
+		0x0c0a  // { 0,0,0,0, 1,1,0,0, 0,0,0,0, 1,0,1,0 }, //DEL
 	);
 	layout (points) in;
 	layout (triangle_strip, max_vertices=96) out;
@@ -256,12 +289,12 @@ GLSL(geometryShaderSource,
 		int s = 0x8000;
 		for(int seg=0; seg < 192; seg+=12){
 			if( (s & ch) == 0 ){
-				fragColor = vec3( 0.1, 0.1, 0.1 );
+				fragColor = vec3( 0.05, 0.05, 0.05 );
 			} else {
 				fragColor = vertColor[0];
 			}
 			for(int v=0; v < 12; v+=2){
-				gl_Position = gl_in[0].gl_Position + vec4( led16_vertex_data[seg+v], led16_vertex_data[seg+v+1], 0, 0) * 0.01;
+				gl_Position = gl_in[0].gl_Position + vec4( led16_vertex_data[seg+v], led16_vertex_data[seg+v+1], 0, 0) * vec4(0.004, 0.008, 1.0, 1.0);
 				EmitVertex();
 			}
 			EndPrimitive();
@@ -278,9 +311,18 @@ GLSL(fragmentShaderSource,
 );
 GLfloat vertices[] = {
 	/*   Positions            Colors */
-	 0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f, 'D',
-	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'C',
-	 0.0f,  0.5f, 0.0f,   0.0f, 0.0f, 1.0f, 'T'
+	-0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f, 'H',
+	-0.4f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'E',
+	-0.3f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f, 'L',
+	-0.2f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f, 'L',
+	-0.1f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f, 'O',
+	 0.0f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f, ' ',
+	 0.1f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f, 'W',
+	 0.2f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f, 'O',
+	 0.3f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f, 'R',
+	 0.4f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f, 'L',
+	 0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f, 'D',
+	 0.6f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f, '!',
 };
 
 #define SETUP_SHADER(type, shader, shadersource) GLint shader = glCreateShader(type); { \
@@ -354,7 +396,7 @@ int main(void) {
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shaderProgram);
 		glBindVertexArray(vao);
-		glDrawArrays(GL_POINTS, 0, 3);
+		glDrawArrays(GL_POINTS, 0, sizeof(vertices) / sizeof(GLfloat) / 7);
 		glBindVertexArray(0);
 		glfwSwapBuffers(window);
 	}
