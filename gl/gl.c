@@ -18,10 +18,13 @@ static const GLuint WIDTH = 800, HEIGHT = 600;
 GLSL(vertexShaderSource,
 	layout (location = 0) in vec3 position;
 	layout (location = 1) in vec3 color;
+	layout (location = 2) in float fChar;
 	out vec3 vertColor;
+	out int character;
 	void main() {
 		gl_Position = vec4(position, 1.0f);
 		vertColor = color;
+		character = int(fChar) - 32;
 	}
 );
 GLSL(geometryShaderSource,
@@ -140,12 +143,11 @@ GLSL(geometryShaderSource,
 		-9,  0
 	);
 	int led16_ee[] = int[](
-				//   0 1 2 3  4 5 6 7  8 9 a b  c d e f    //
+		        //   0 1 2 3  4 5 6 7  8 9 a b  c d e f    //
 		0x0000, // { 0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0 }, // 
 		0x8541, // { 1,0,0,0, 0,1,0,1, 0,1,0,0, 0,0,0,1 }, // 
 		0x2100, // { 0,0,1,0, 0,0,0,1, 0,0,0,0, 0,0,0,0 }, //"
 		0x3c55, // { 0,0,1,1, 1,1,0,0, 0,1,0,1, 0,1,0,1 }, //#
-		//0xffff, // { 0,0,1,1, 1,1,0,0, 0,1,0,1, 0,1,0,1 }, //#
 		0xdd55, // { 1,1,0,1, 1,1,0,1, 0,1,0,1, 0,1,0,1 }, //$
 		0x9977, // { 1,0,0,1, 1,0,0,1, 0,1,1,1, 0,1,1,1 }, //%
 		0x875d, // { 1,0,0,0, 0,1,1,1, 0,1,0,1, 1,1,0,1 }, //&
@@ -244,12 +246,13 @@ GLSL(geometryShaderSource,
 	layout (triangle_strip, max_vertices=96) out;
 
 	in vec3 vertColor[];
+	in int character[];
 	out vec3 fragColor;
 
 	void main() {
 		fragColor = vertColor[0];
 
-		int ch = led16_ee[64-32];
+		int ch = led16_ee[character[0]];
 		int s = 0x8000;
 		for(int seg=0; seg < 192; seg+=12){
 			if( (s & ch) == 0 ){
@@ -275,9 +278,9 @@ GLSL(fragmentShaderSource,
 );
 GLfloat vertices[] = {
 	/*   Positions            Colors */
-	 0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,
-	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,
-	 0.0f,  0.5f, 0.0f,   0.0f, 0.0f, 1.0f
+	 0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f, 'D',
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'C',
+	 0.0f,  0.5f, 0.0f,   0.0f, 0.0f, 1.0f, 'T'
 };
 
 #define SETUP_SHADER(type, shader, shadersource) GLint shader = glCreateShader(type); { \
@@ -335,11 +338,14 @@ int main(void) {
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	/* Position attribute */
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 	/* Color attribute */
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
+	/* Character attribute */
+	glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
 	glBindVertexArray(0);
 
 	while (!glfwWindowShouldClose(window))
