@@ -38,9 +38,9 @@ GLSL(geometryShaderSource,
 	float arigh = 0.07;
 	float atop = 0.0;
 	float abot = 0.9;
-	float ktop = 0.3;
+	float ktop = 1.0;
 	float kmid = 0.6;
-	float kbot = 1.0;
+	float kbot = 0.3;
 	float kleft = arigh;
 	float krigh = 1.0;
 	float n;
@@ -64,32 +64,32 @@ GLSL(geometryShaderSource,
 		//glNormal3f( 0, 0, -1 )
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (kloc[q] + sep), ktop, kz0, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (kloc[p] - sep), ktop, kz0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (kloc[p] - sep), kmid, kz0, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (kloc[q] + sep), kmid, kz0, 0); EmitVertex();
+		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (kloc[p] - sep), kmid, kz0, 0); EmitVertex();
 EndPrimitive();
 		//glNormal3f( 0, 0, -1 );
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[q] + sep), kmid, kz0, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[p] - sep), kmid, kz0, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[p] - sep), kbot, kz0, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[q] + sep), kbot, kz0, 0); EmitVertex();
+		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[p] - sep), kbot, kz0, 0); EmitVertex();
 EndPrimitive();
 		//glNormal3f( 0, 1, 0 );
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[p] - sep), kbot, kz1, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[q] + sep), kbot, kz1, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[q] + sep), kbot, kz0, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[p] - sep), kbot, kz0, 0); EmitVertex();
+		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[q] + sep), kbot, kz0, 0); EmitVertex();
 EndPrimitive();
 		//glNormal3f( -1, 0, 0 );
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[p] - sep), ktop, kz0, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[p] - sep), ktop, kz1, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[p] - sep), kbot, kz1, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[p] - sep), kbot, kz0, 0); EmitVertex();
+		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[p] - sep), kbot, kz1, 0); EmitVertex();
 EndPrimitive();
 		//glNormal3f( 1, 0, 0 );
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[q] + sep), ktop, kz0, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[q] + sep), ktop, kz1, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[q] + sep), kbot, kz1, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[q] + sep), kbot, kz0, 0); EmitVertex();
+		gl_Position = gl_in[0].gl_Position + vec4( n + nw * (wloc[q] + sep), kbot, kz1, 0); EmitVertex();
 EndPrimitive();
 	}
 
@@ -101,31 +101,31 @@ EndPrimitive();
 		//glNormal3f( 0, 0, -1 );
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[q], ktop, nz, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[p], ktop, nz, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[p], kmid, nz, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[q], kmid, nz, 0); EmitVertex();
+		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[p], kmid, nz, 0); EmitVertex();
 EndPrimitive();
 		//glNormal3f( -1, 0, 0 );
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[q], ktop, nz, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[q], ktop, wz, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[q], kmid, wz, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[q], kmid, nz, 0); EmitVertex();
+		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[q], kmid, wz, 0); EmitVertex();
 EndPrimitive();
 		//glNormal3f( 1, 0, 0 );
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[p], ktop, nz, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[p], ktop, wz, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[p], kmid, wz, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[p], kmid, nz, 0); EmitVertex();
+		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[p], kmid, wz, 0); EmitVertex();
 EndPrimitive();
 		//glNormal3f( 0, 1, 0 );
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[q], kmid, nz, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[p], kmid, nz, 0); EmitVertex();
-		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[p], kmid, wz, 0); EmitVertex();
 		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[q], kmid, wz, 0); EmitVertex();
+		gl_Position = gl_in[0].gl_Position + vec4( n + nw * kloc[p], kmid, wz, 0); EmitVertex();
 EndPrimitive();
 	}
 
 	layout (points) in;
-	layout (triangle_strip, max_vertices=96) out;
+	layout (triangle_strip, max_vertices=256) out;
 
 	in vec3 vertColor[];
 	in int character[];
@@ -141,13 +141,14 @@ EndPrimitive();
 		whitekey(2,3);
 		fragColor = vec3( 0.0, 0.4, 1.0);
 		whitekey(2,3);
+		fragColor = vec3( 1.0, 0.0, 0.5);
 		whitekey(4,5);
 		whitekey(5,6);
 		whitekey(7,8);
 		whitekey(9,10);
 		whitekey(11,12);
 
-		fragColor = vec3( 0.3, 0.3, 0.3);
+		fragColor = vec3( 0.3, 1.0, 0.3);
 		blackkey(1,2);
 		blackkey(3,4);
 		blackkey(6,7);
@@ -164,19 +165,7 @@ GLSL(fragmentShaderSource,
 );
 GLfloat vertices[] = {
 	/*   Positions            Colors */
-	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'A',
-	-0.4f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'R',
-	-0.3f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'E',
-	-0.2f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'L',
-	-0.1f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'I',
-	 0.0f, -0.5f, 0.0f,   0.0f, 1.0f, 1.0f, ' ',
-	 0.1f, -0.5f, 0.0f,   1.0f, 0.4f, 0.4f, '\177',
-	 0.2f, -0.5f, 0.0f,   0.0f, 0.0f, 0.0f, ' ',
-	 0.3f, -0.5f, 0.0f,   0.0f, 0.6f, 1.0f, 'C',
-	 0.4f, -0.5f, 0.0f,   0.0f, 0.6f, 1.0f, 'A',
-	 0.5f, -0.5f, 0.0f,   0.0f, 0.6f, 1.0f, 'S',
-	 0.6f, -0.5f, 0.0f,   0.0f, 0.6f, 1.0f, 'E',
-	 0.7f, -0.5f, 0.0f,   0.0f, 0.6f, 1.0f, 'Y'
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'A'
 };
 
 #define SETUP_SHADER(type, shader, shadersource) GLint shader = glCreateShader(type); { \
