@@ -38,9 +38,9 @@ GLSL(geometryShaderSource,
 	float arigh = 0.07;
 	float atop = 0.0;
 	float abot = 0.9;
-	float ktop = 1.0;
-	float kmid = 0.6;
-	float kbot = 0.3;
+	float ktop = 0.9;
+	float kmid = 0.7;
+	float kbot = 0.5;
 	float kleft = arigh;
 	float krigh = 1.0;
 	float n;
@@ -132,28 +132,20 @@ EndPrimitive();
 	out vec3 fragColor;
 
 	void main() {
+
+		int key = character[0] % 12;
+		int oct = character[0] / 12;
 		n = kleft;
-		fragColor = vertColor[0];
+		n += oct * (nw * 10.5);
 
-		fragColor = vec3( 1.0, 0.0, 1.0);
-		whitekey(0,1);
-		fragColor = vec3( 1.0, 0.4, 1.0);
-		whitekey(2,3);
-		fragColor = vec3( 0.0, 0.4, 1.0);
-		whitekey(2,3);
-		fragColor = vec3( 1.0, 0.0, 0.5);
-		whitekey(4,5);
-		whitekey(5,6);
-		whitekey(7,8);
-		whitekey(9,10);
-		whitekey(11,12);
-
-		fragColor = vec3( 0.3, 1.0, 0.3);
-		blackkey(1,2);
-		blackkey(3,4);
-		blackkey(6,7);
-		blackkey(8,9);
-		blackkey(10,11);
+		bool white = (key % 2) == (key > 4 ? 1 : 0);
+		if( white ){
+			fragColor = vec3( 1.1, 1.0, 1.0);
+			whitekey(key, key + 1);
+		} else {
+			fragColor = vec3( 0.3, 0.3, 0.3);
+			blackkey(key, key + 1);
+		}
 	}
 );
 GLSL(fragmentShaderSource,
@@ -165,7 +157,31 @@ GLSL(fragmentShaderSource,
 );
 GLfloat vertices[] = {
 	/*   Positions            Colors */
-	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'A'
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 0,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 1,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 2,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 3,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 4,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 5,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 6,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 7,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 8,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 9,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 10,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 11,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 12,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 13,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 14,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 15,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 16,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 17,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 18,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 19,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 20,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 21,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 22,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 23,
+	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 24
 };
 
 #define SETUP_SHADER(type, shader, shadersource) GLint shader = glCreateShader(type); { \
