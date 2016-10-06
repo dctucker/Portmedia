@@ -1,6 +1,9 @@
+INCLUDES=-I/usr/local/Cellar/glfw3/3.2.1/include -I/usr/local/Cellar/glew/2.0.0/include
+LIBDIRS=-L/usr/local/Cellar/glfw3/3.2.1/lib -L/usr/local/Cellar/glew/2.0.0/lib
+
 led: led.c
-	gcc -framework OpenGL -lglew -lglfw3 -o led led.c
+	gcc ${INCLUDES} ${LIBDIRS} -framework OpenGL -lglew -lglfw3 -o led led.c
 
 gl: gl.c
-	gcc -framework OpenGL -lglew -lglfw3 -o gl gl.c
+	gcc ${INCLUDES} ${LIBDIRS} -framework OpenGL -lglew -lglfw3 -o gl gl.c
 
