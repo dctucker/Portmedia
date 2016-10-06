@@ -354,7 +354,8 @@ void key_callback(GLFWwindow *window, unsigned int codepoint)
 	if( codepoint >= 32 && codepoint <= 127 )
 	{
 		vertices[7 * charpos + 6] = (float) codepoint;
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat) * (7 * charpos + 6), sizeof(GLfloat), &(vertices[7 * charpos + 6]));
 		charpos++;
 		charpos %= 13;
 	}
