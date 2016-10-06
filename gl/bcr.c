@@ -16,45 +16,27 @@ static const GLuint WIDTH = 1024, HEIGHT = 768;
  * ourColor is passed as input to the to the fragment shader.
  */
 GLSL(vertexShaderSource,
-	layout (location = 0) in float color;
-	layout (location = 1) in float fChar;
-	out float vertColor;
-	out int character;
+	layout (location = 0) in float index;
+	layout (location = 1) in float inVal;
+	out int   row;
+	out int   col;
+	out float value;
 	void main() {
-		vertColor = color;
-		character = int(fChar);
+		row = int(index) / 8;
+		col = int(index) % 8;
+		value = inVal;
 	}
 );
 GLSL(geometryShaderSource,
 
 	layout (points) in;
-	layout (triangle_strip, max_vertices=256) out;
+	layout (triangle_strip, max_vertices=8) out;
 
-	in float vertColor[];
-	in int   character[];
-	out vec3 fragColor;
+	in int   row[];
+	in int   col[];
+	in float value[];
 
-	void main() {
-
-		float c = vertColor[0];
-		int key = character[0] % 12;
-		int oct = character[0] / 12;
-		n = kleft;
-		n += (oct-2) * (nw * 10.5);
-
-		bool white = (key % 2) == (key > 4 ? 1 : 0);
-		if( white ){
-			fragColor = vec3( 1.0, 1.0 - c, 1.0 - c);
-			whitekey(key, key + 1);
-		} else {
-			fragColor = vec3( 0.3 + c, 0.3 * (1.0 - c), 0.3 * (1.0 - c) );
-			blackkey(key, key + 1);
-		}
-	}
-);
-GLSL(fragmentShaderSource,
-	in vec3 fragColor;
-	out vec4 outColor;
+	out vec4 fragColor;
 
 	float alpha = 0.8f;
 	float bleft = 0.0;
@@ -64,86 +46,142 @@ GLSL(fragmentShaderSource,
 	float bwid = brigh - bleft;
 	float bhei = bbot - btop;
 
-	float val = 0.4;
-
+	/*
 	//glPushMatrix();
 	void drawBoard(){
 		//glColor4f( 0.2, 0.2, 0.4, alpha );
 		
 		//glBegin(GL_QUADS);
-			glNormal3f( 0, 0, -1 );
-			glVertex2f( bleft, btop );
-			glVertex2f( brigh, btop );
-			glVertex2f( brigh, bbot );
-			glVertex2f( bleft, bbot );
+		//glNormal3f( 0, 0, -1 );
+		gl_Position = vec4( bleft, btop, 1.0, 1.0 ); EmitVertex();
+		gl_Position = vec4( brigh, btop, 1.0, 1.0 ); EmitVertex();
+		gl_Position = vec4( bleft, bbot, 1.0, 1.0 ); EmitVertex();
+		gl_Position = vec4( brigh, bbot, 1.0, 1.0 ); EmitVertex();
+		EndPrimitive();
 		//glEnd();
+	}
+	*/
+
+	void drawValue(in int r, in int c, in float val){
 
 		// zoom into the BCR panel now
 		//glTranslatef( bleft, btop, 0.0 );
 		//glScalef( bwid, bhei, 1.0 );
-	}
 
-	void drawValue(in int row, in int col, in float val){
 		//glPushMatrix();
 		// zoom into the current element
-		vec3 transVector = vec3( 0.01 + col * 0.125, 0.075 + row * 0.1, 0.0 );
+		vec3 transVector = vec3( 0.01 + c * 0.120, 0.075 - r * 0.1, 0.0 );
 		vec3 scaleVector = vec3( 0.10, 0.0625, 1.0 );
 
 		//glBegin(GL_QUADS);
 		//glNormal3f( 0, 0, -1 );
 
-		outColor = vec4( 1.0, 0.0, 0.0, alpha );
-		gl_Position = vec4( transVector + scaleVector * vec2( 0.0, 0.0, 1.0 ), 1.0); EmitVertex();
-		gl_Position = vec4( transVector + scaleVector * vec2( val, 0.0, 1.0 ), 1.0); EmitVertex();
-		gl_Position = vec4( transVector + scaleVector * vec2( 0.0, 1.0, 1.0 ), 1.0); EmitVertex();
-		gl_Position = vec4( transVector + scaleVector * vec2( val, 1.0, 1.0 ), 1.0); EmitVertex();
+		fragColor = vec4( 1.0, 0.0, 0.0, alpha );
+		gl_Position = vec4( transVector + scaleVector * vec3( 0.0, 0.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = vec4( transVector + scaleVector * vec3( val, 0.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = vec4( transVector + scaleVector * vec3( 0.0, 1.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = vec4( transVector + scaleVector * vec3( val, 1.0, 1.0 ), 1.0); EmitVertex();
+		EndPrimitive();
 	
-		outColor = vec4( 0.0, 0.0, 0.0, alpha );
-		gl_Position = vec4( transVector + scaleVector * vec2( val, 0.0, 1.0 ), 1.0); EmitVertex();
-		gl_Position = vec4( transVector + scaleVector * vec2( 1.0, 0.0, 1.0 ), 1.0); EmitVertex();
-		gl_Position = vec4( transVector + scaleVector * vec2( val, 1.0, 1.0 ), 1.0); EmitVertex();
-		gl_Position = vec4( transVector + scaleVector * vec2( 1.0, 1.0, 1.0 ), 1.0); EmitVertex();
+		fragColor = vec4( 0.1, 0.1, 0.1, alpha );
+		gl_Position = vec4( transVector + scaleVector * vec3( val, 0.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = vec4( transVector + scaleVector * vec3( 1.0, 0.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = vec4( transVector + scaleVector * vec3( val, 1.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = vec4( transVector + scaleVector * vec3( 1.0, 1.0, 1.0 ), 1.0); EmitVertex();
 		EndPrimitive();
 		//glEnd();
 		//glPopMatrix();
 	}
 
-	void drawValues(){
-		float val = 0.4;
-		for(int row = 0; row < 9; row++) {
-			for(int col = 0; col < 8; col++) {
-				switch(row) {
-					case 0:
-					case 1:
-					case 2:
-					case 3:
-						//val = bcr->getKnob(   (row + 4) * 10 + (col + 1) );
-						break;
-					case 4:
-					case 5:
-						//val = bcr->getButton( (row + 4) * 10 + (col + 1) );
-						break;
-					case 6:
-					case 7:
-					case 8:
-						//val = bcr->getKnob(   (row - 5) * 10 + (col + 1) );
-						break;
-				}
-			
-				drawValue(row, col, val);
-			}
-		}
-	}
-
 	void main(){
-		drawBoard();
-		drawValues();
+		drawValue(row[0], col[0], value[0]);
+
+		//drawBoard();
+		//drawValues();
+	}
+);
+GLSL(fragmentShaderSource,
+	in vec4 fragColor;
+	out vec4 outColor;
+
+	void main() {
+		outColor = fragColor;
 	}
 );
 GLfloat vertices[] = {
-	/*   Positions            Colors */
-	0.0f, 21,
-	0.0f, 108
+	/* rowcol val */
+	000, 0.11,
+	001, 0.12,
+	002, 0.13,
+	003, 0.14,
+	004, 0.15,
+	005, 0.16,
+	006, 0.17,
+	007, 0.18,
+	010, 0.21,
+	011, 0.22,
+	012, 0.23,
+	013, 0.24,
+	014, 0.25,
+	015, 0.26,
+	016, 0.27,
+	017, 0.28,
+	020, 0.31,
+	021, 0.32,
+	022, 0.33,
+	023, 0.34,
+	024, 0.35,
+	025, 0.36,
+	026, 0.37,
+	027, 0.38,
+	030, 0.41,
+	031, 0.42,
+	032, 0.43,
+	033, 0.44,
+	034, 0.45,
+	035, 0.46,
+	036, 0.47,
+	037, 0.48,
+	040, 0.41,
+	041, 0.42,
+	042, 0.43,
+	043, 0.44,
+	044, 0.45,
+	045, 0.46,
+	046, 0.47,
+	047, 0.48,
+	050, 0.51,
+	051, 0.52,
+	052, 0.53,
+	053, 0.54,
+	054, 0.55,
+	055, 0.56,
+	056, 0.57,
+	057, 0.58,
+	060, 0.61,
+	061, 0.62,
+	062, 0.63,
+	063, 0.64,
+	064, 0.65,
+	065, 0.66,
+	066, 0.67,
+	067, 0.68,
+	070, 0.71,
+	071, 0.72,
+	072, 0.73,
+	073, 0.74,
+	074, 0.75,
+	075, 0.76,
+	076, 0.77,
+	077, 0.78,
+	0100, 0.81,
+	0101, 0.82,
+	0102, 0.83,
+	0103, 0.84,
+	0104, 0.85,
+	0105, 0.86,
+	0106, 0.87,
+	0107, 0.88
 };
 
 #define SETUP_SHADER(type, shader, shadersource) GLint shader = glCreateShader(type); { \
@@ -201,7 +239,7 @@ int main(void) {
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-	/* Position attribute */
+	/* row,col attribute */
 	glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 	/* Color attribute */
