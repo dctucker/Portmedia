@@ -16,16 +16,22 @@ static const GLuint WIDTH = 1024, HEIGHT = 768;
  * ourColor is passed as input to the to the fragment shader.
  */
 GLSL(vertexShaderSource,
-	layout (location = 0) in float color;
-	layout (location = 1) in float fChar;
+	layout (location = 0) in float velocity;
 	out float vertColor;
-	out int character;
+	out int note;
 	void main() {
-		vertColor = color;
-		character = int(fChar);
+		vertColor = velocity;
+		note = int(gl_VertexID) + 21;
 	}
 );
 GLSL(geometryShaderSource,
+
+	layout (points) in;
+	layout (triangle_strip, max_vertices=256) out;
+
+	in float vertColor[];
+	in int   note[];
+	out vec3 fragColor;
 
 	float kloc[13] = float[]( 0, 1.00, 2.00, 2.50, 3.50, 4.50, 5.50, 6.50, 7.00, 8.00, 8.50, 9.50, 10.50 );
 	float wloc[13] = float[]( 0, 1.45, 1.55, 2.95, 3.05, 4.50, 5.95, 6.05, 7.45, 7.55, 8.95, 9.05, 10.45 );
@@ -53,7 +59,6 @@ GLSL(geometryShaderSource,
 	float spz = -0.3;
 	float nw = (krigh-kleft) / 78.0;
 	
-	void whitekey(in int q, in int p);
 	void whitekey(in int q, in int p) {
 		//gl_Position = gl_in[0].gl_Position + vec4( led16_vertex_data[seg+v], led16_vertex_data[seg+v+1], 0, 0) * vec4(0.004, 0.008, 1.0, 1.0);
 		//EmitVertex();
@@ -122,18 +127,11 @@ GLSL(geometryShaderSource,
 		EndPrimitive();
 	}
 
-	layout (points) in;
-	layout (triangle_strip, max_vertices=256) out;
-
-	in float vertColor[];
-	in int   character[];
-	out vec3 fragColor;
-
 	void main() {
 
 		float c = vertColor[0];
-		int key = character[0] % 12;
-		int oct = character[0] / 12;
+		int key = note[0] % 12;
+		int oct = note[0] / 12;
 		n = kleft;
 		n += (oct-2) * (nw * 10.5);
 
@@ -154,96 +152,16 @@ GLSL(fragmentShaderSource,
 		outColor = vec4( fragColor, 1.0 );
 	}
 );
-GLfloat vertices[] = {
-	/*   Positions            Colors */
-	0.0f, 21,
-	0.0f, 22,
-	0.0f, 23,
-	0.0f, 24,
-	0.0f, 25,
-	0.0f, 26,
-	0.0f, 27,
-	0.0f, 28,
-	0.0f, 29,
-	0.0f, 30,
-	1.0f, 31,
-	0.0f, 32,
-	0.0f, 33,
-	0.0f, 34,
-	0.0f, 35,
-	0.0f, 36,
-	0.0f, 37,
-	1.0f, 38,
-	0.0f, 39,
-	0.0f, 40,
-	0.0f, 41,
-	0.0f, 42,
-	0.9f, 43,
-	0.0f, 44,
-	0.0f, 45,
-	0.0f, 46,
-	0.0f, 47,
-	0.0f, 48,
-	0.0f, 49,
-	1.0f, 50,
-	0.0f, 51,
-	0.0f, 52,
-	0.0f, 53,
-	0.0f, 54,
-	0.6f, 55,
-	0.0f, 56,
-	0.0f, 57,
-	0.0f, 58,
-	1.0f, 59,
-	0.0f, 60,
-	0.0f, 61,
-	0.0f, 62,
-	0.0f, 63,
-	0.0f, 64,
-	0.0f, 65,
-	0.0f, 66,
-	0.0f, 67,
-	0.0f, 68,
-	0.0f, 69,
-	0.0f, 70,
-	0.0f, 71,
-	0.0f, 72,
-	0.0f, 73,
-	0.0f, 74,
-	0.0f, 75,
-	0.0f, 76,
-	0.0f, 77,
-	0.0f, 78,
-	0.0f, 79,
-	0.0f, 80,
-	0.0f, 81,
-	0.0f, 82,
-	0.0f, 83,
-	0.0f, 84,
-	0.0f, 85,
-	0.0f, 86,
-	0.0f, 87,
-	0.0f, 88,
-	0.0f, 89,
-	0.0f, 90,
-	0.0f, 91,
-	0.0f, 92,
-	0.0f, 93,
-	0.0f, 94,
-	0.0f, 95,
-	0.0f, 96,
-	0.0f, 97,
-	0.0f, 98,
-	0.0f, 99,
-	0.0f, 100,
-	0.0f, 101,
-	0.0f, 102,
-	0.0f, 103,
-	0.0f, 104,
-	0.0f, 105,
-	0.0f, 106,
-	0.0f, 107,
-	0.0f, 108
+GLfloat velocities[] = {
+	0.0f, 0.0f, 0.0f,
+	0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+	0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.9f, 0.0f, 0.0f, 0.0f, 0.0f,
+	0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.6f, 0.0f, 0.0f, 0.0f, 1.0f,
+	0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+	0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+	0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+	0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+	0.0f,
 };
 
 #define SETUP_SHADER(type, shader, shadersource) GLint shader = glCreateShader(type); { \
@@ -300,13 +218,10 @@ int main(void) {
 	glGenBuffers(1, &vbo);
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(velocities), velocities, GL_STATIC_DRAW);
 	/* Position attribute */
-	glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
-	/* Color attribute */
-	glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)(1 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(1);
 
 	glBindVertexArray(0);
 
@@ -316,7 +231,7 @@ int main(void) {
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shaderProgram);
 		glBindVertexArray(vao);
-		glDrawArrays(GL_POINTS, 0, sizeof(vertices) / sizeof(GLfloat) / 2);
+		glDrawArrays(GL_POINTS, 0, sizeof(velocities) / sizeof(GLfloat) );
 		glBindVertexArray(0);
 		glfwSwapBuffers(window);
 	}
