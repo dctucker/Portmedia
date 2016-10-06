@@ -135,7 +135,7 @@ GLSL(geometryShaderSource,
 		int key = character[0] % 12;
 		int oct = character[0] / 12;
 		n = kleft;
-		n += oct * (nw * 10.5);
+		n += (oct-2) * (nw * 10.5);
 
 		bool white = (key % 2) == (key > 4 ? 1 : 0);
 		if( white ){
