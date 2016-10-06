@@ -78,15 +78,14 @@ GLSL(geometryShaderSource,
 
 		fragColor = vec4( 1.0, 0.0, 0.0, alpha );
 		gl_Position = vec4( transVector + scaleVector * vec3( 0.0, 0.0, 1.0 ), 1.0); EmitVertex();
-		gl_Position = vec4( transVector + scaleVector * vec3( val, 0.0, 1.0 ), 1.0); EmitVertex();
 		gl_Position = vec4( transVector + scaleVector * vec3( 0.0, 1.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = vec4( transVector + scaleVector * vec3( val, 0.0, 1.0 ), 1.0); EmitVertex();
 		gl_Position = vec4( transVector + scaleVector * vec3( val, 1.0, 1.0 ), 1.0); EmitVertex();
-		EndPrimitive();
 	
 		fragColor = vec4( 0.1, 0.1, 0.1, alpha );
 		gl_Position = vec4( transVector + scaleVector * vec3( val, 0.0, 1.0 ), 1.0); EmitVertex();
-		gl_Position = vec4( transVector + scaleVector * vec3( 1.0, 0.0, 1.0 ), 1.0); EmitVertex();
 		gl_Position = vec4( transVector + scaleVector * vec3( val, 1.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = vec4( transVector + scaleVector * vec3( 1.0, 0.0, 1.0 ), 1.0); EmitVertex();
 		gl_Position = vec4( transVector + scaleVector * vec3( 1.0, 1.0, 1.0 ), 1.0); EmitVertex();
 		EndPrimitive();
 		//glEnd();
@@ -174,14 +173,14 @@ GLfloat vertices[] = {
 	075, 0.76,
 	076, 0.77,
 	077, 0.78,
-	0100, 0.81,
-	0101, 0.82,
-	0102, 0.83,
-	0103, 0.84,
-	0104, 0.85,
-	0105, 0.86,
-	0106, 0.87,
-	0107, 0.88
+	0100, 0.91,
+	0101, 0.92,
+	0102, 0.93,
+	0103, 0.94,
+	0104, 0.95,
+	0105, 0.96,
+	0106, 0.99,
+	0107, 1.00
 };
 
 #define SETUP_SHADER(type, shader, shadersource) GLint shader = glCreateShader(type); { \
