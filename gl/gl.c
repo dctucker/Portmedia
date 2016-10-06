@@ -11,7 +11,7 @@
 #define GLSL(var, shader) static const GLchar* var = ("#version 330 core\n" #shader)
 #define HEREDOC(var) #var
 
-static const GLuint WIDTH = 800, HEIGHT = 600;
+static const GLuint WIDTH = 1024, HEIGHT = 768;
 /* vertex data is passed as input to this shader
  * ourColor is passed as input to the to the fragment shader.
  */
@@ -36,10 +36,10 @@ GLSL(geometryShaderSource,
 	float arigh = 0.07;
 	float atop = 0.0;
 	float abot = 0.9;
-	float ktop = 0.9;
-	float kmid = 0.7;
-	float kbot = 0.5;
-	float kleft = arigh;
+	float ktop = -0.8;
+	float kmid = -0.9;
+	float kbot = -1.0;
+	float kleft = arigh-0.9;
 	float krigh = 1.0;
 	float n;
 	float n1;
@@ -157,37 +157,37 @@ GLSL(fragmentShaderSource,
 GLfloat vertices[] = {
 	/*   Positions            Colors */
 	0.0f, 21,
-	0.9f, 22,
+	0.0f, 22,
 	0.0f, 23,
 	0.0f, 24,
-	0.6f, 25,
+	0.0f, 25,
 	0.0f, 26,
 	0.0f, 27,
 	0.0f, 28,
-	1.0f, 29,
-	0.9f, 30,
-	0.0f, 31,
-	0.9f, 32,
+	0.0f, 29,
+	0.0f, 30,
+	1.0f, 31,
+	0.0f, 32,
 	0.0f, 33,
 	0.0f, 34,
-	0.6f, 35,
+	0.0f, 35,
 	0.0f, 36,
 	0.0f, 37,
-	0.0f, 38,
-	1.0f, 39,
-	0.9f, 40,
+	1.0f, 38,
+	0.0f, 39,
+	0.0f, 40,
 	0.0f, 41,
-	0.9f, 42,
-	0.0f, 43,
+	0.0f, 42,
+	0.9f, 43,
 	0.0f, 44,
-	0.6f, 45,
+	0.0f, 45,
 	0.0f, 46,
 	0.0f, 47,
 	0.0f, 48,
-	1.0f, 49,
+	0.0f, 49,
 	1.0f, 50,
 	0.0f, 51,
-	0.9f, 52,
+	0.0f, 52,
 	0.0f, 53,
 	0.0f, 54,
 	0.6f, 55,
@@ -195,52 +195,52 @@ GLfloat vertices[] = {
 	0.0f, 57,
 	0.0f, 58,
 	1.0f, 59,
-	0.9f, 60,
+	0.0f, 60,
 	0.0f, 61,
-	0.9f, 62,
+	0.0f, 62,
 	0.0f, 63,
 	0.0f, 64,
-	0.6f, 65,
+	0.0f, 65,
 	0.0f, 66,
 	0.0f, 67,
 	0.0f, 68,
-	1.0f, 69,
-	0.9f, 70,
+	0.0f, 69,
+	0.0f, 70,
 	0.0f, 71,
-	0.9f, 72,
+	0.0f, 72,
 	0.0f, 73,
 	0.0f, 74,
-	0.6f, 75,
+	0.0f, 75,
 	0.0f, 76,
 	0.0f, 77,
 	0.0f, 78,
-	1.0f, 79,
-	0.9f, 80,
+	0.0f, 79,
+	0.0f, 80,
 	0.0f, 81,
-	0.9f, 82,
+	0.0f, 82,
 	0.0f, 83,
 	0.0f, 84,
-	0.6f, 85,
+	0.0f, 85,
 	0.0f, 86,
 	0.0f, 87,
 	0.0f, 88,
-	0.5f, 89,
+	0.0f, 89,
 	0.0f, 90,
 	0.0f, 91,
 	0.0f, 92,
 	0.0f, 93,
-	0.5f, 94,
+	0.0f, 94,
 	0.0f, 95,
 	0.0f, 96,
 	0.0f, 97,
-	0.8f, 98,
+	0.0f, 98,
 	0.0f, 99,
-	0.9f, 100,
+	0.0f, 100,
 	0.0f, 101,
-	0.9f, 102,
+	0.0f, 102,
 	0.0f, 103,
 	0.0f, 104,
-	0.6f, 105,
+	0.0f, 105,
 	0.0f, 106,
 	0.0f, 107,
 	0.0f, 108
@@ -264,8 +264,9 @@ int main(void) {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, __FILE__, NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "GL Keys", NULL, NULL);
 	glfwMakeContextCurrent(window);
+	glfwSwapInterval(1);
 	glewExperimental = GL_TRUE;
 	glewInit();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
