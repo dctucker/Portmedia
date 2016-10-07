@@ -16,51 +16,58 @@ static const GLuint WIDTH = 1024, HEIGHT = 768;
  * ourColor is passed as input to the to the fragment shader.
  */
 GLSL(vertexShaderSource,
-	layout (location = 0) in float in_f0;
-	layout (location = 1) in float in_f1;
-	out float f0;
-	out float f1;
-	out int index;
+	layout (location = 0) in vec4 in_adsr;
+	layout (location = 1) in float in_vol;
+	out vec4 adsr;
+	out float vol;
 	void main() {
-		f0 = in_f0;
-		f1 = in_f1;
-		index = gl_VertexID;
+		adsr = in_adsr;
+		vol  = in_vol;
 	}
 );
 GLSL(geometryShaderSource,
 
 	layout (points) in;
-	layout (triangle_strip, max_vertices=6) out;
+	layout (triangle_strip, max_vertices=12) out;
 
-	in float f0[];
-	in float f1[];
-	in int index[];
+	in vec4 adsr[];
+	in float vol[];
 	out vec4 fragColor;
 
 	void main(){
+		float v =  max( 0.1, ( 40. + 20. * log( vol[0] )/log(10.0) ) * 0.025 ) ;
+		float a =  adsr[0].x;
+		float d =  adsr[0].y + a ;
+		float s =  adsr[0].z * v; //max( 0.0, ( 40. + 20. * log( adsr[0].z * vol[0] )/log(10.0) ) * 0.025 ) ;
+		float r =  adsr[0].w + d ;
+
 		float alpha = 0.4;
-		int mindb = -36;
-		int maxdb = 24;
-		int x = 0; //-inst;
-		int y = 0; //inst * 0.2f;
-		int z = 0; //inst / 8.0f;
-		vec3 scaleVector = vec3( 1.0/128.0, 1.0/100.0, 1 );
+		//if( selinst == i ) alpha = 0.6;
+
+		vec2 scaleVector = vec2(1.0, 1.0);
+
+		fragColor = vec4(0.0, 1.0, 1.0, alpha * 1.0 );
+		gl_Position = vec4( scaleVector * vec2( 0, 0 ), 1.0, 1.0); EmitVertex();
+		gl_Position = vec4( scaleVector * vec2( a, 0 ), 1.0, 1.0); EmitVertex();
+		gl_Position = vec4( scaleVector * vec2( a, v ), 1.0, 1.0); EmitVertex();
+		EndPrimitive();
 		
-		fragColor = vec4(0.0, 1.0, 0.0, alpha );
+		fragColor = vec4(0.0, 1.0, 1.0, alpha * 0.9 );
+		gl_Position = vec4( scaleVector * vec2( a, v ), 1.0, 1.0); EmitVertex();
+		gl_Position = vec4( scaleVector * vec2( d, s ), 1.0, 1.0); EmitVertex();
+		gl_Position = vec4( scaleVector * vec2( a, 0 ), 1.0, 1.0); EmitVertex();
+		EndPrimitive();
 		
-		//glNormal3f( 0.0, 0.0, 1.0 );
+		fragColor = vec4(0.0, 1.0, 1.0, alpha * 1.0 );
+		gl_Position = vec4( scaleVector * vec2( a, 0 ), 1.0, 1.0); EmitVertex();
+		gl_Position = vec4( scaleVector * vec2( d, 0 ), 1.0, 1.0); EmitVertex();
+		gl_Position = vec4( scaleVector * vec2( d, s ), 1.0, 1.0); EmitVertex();
+		EndPrimitive();
 
-		int i = index[0];
-
-		//glTranslatef( -0.02, -0.35, 0.0 );
-
-		float f_0 = clamp( f0[0], mindb, maxdb );
-		float f_1 = clamp( f1[0], mindb, maxdb );
-
-		gl_Position = vec4( scaleVector * vec3(   i + x , f_0   + y , z ), 1.0); EmitVertex();
-		gl_Position = vec4( scaleVector * vec3( i+1 + x , f_1   + y , z ), 1.0); EmitVertex();
-		gl_Position = vec4( scaleVector * vec3(   i + x , mindb + y , z ), 1.0); EmitVertex();
-		gl_Position = vec4( scaleVector * vec3( i+1 + x , mindb + y , z ), 1.0); EmitVertex();
+		fragColor = vec4(0.0, 1.0, 1.0, alpha * 0.9 );
+		gl_Position = vec4( scaleVector * vec2( d, s ), 1.0, 1.0); EmitVertex();
+		gl_Position = vec4( scaleVector * vec2( d, 0 ), 1.0, 1.0); EmitVertex();
+		gl_Position = vec4( scaleVector * vec2( r, 0 ), 1.0, 1.0); EmitVertex();
 		EndPrimitive();
 	}
 );
@@ -71,65 +78,12 @@ GLSL(fragmentShaderSource,
 		outColor = fragColor;
 	}
 );
-GLfloat filter_db[] = {
-	-36,
-	-30,
-	-24,
-	-20,
-	-18,
-	-15,
-	-12,
-	-9,
-	-8,
-	-3,
-	-2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 6,
-	 6,
-	 7,
-	 7,
-	 7,
-	 6,
-	 6,
-	 6,
-	 5,
-	 4,
-	 3,
-	 2,
-	 2,
-	 2,
-	 2,
-	 0,
-	 0,
-	 0,
-	 0,
-	 0,
-	 0,
-	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	-2,
-	-3,
-	-4,
-	-5,
-	-10,
-	-11,
-	-16,
-	-20,
-	-30,
-	-44
+GLfloat adsr[] = {
+	0.1,
+	0.2,
+	1.0,
+	0.2,
+	0.0
 };
 
 #define SETUP_SHADER(type, shader, shadersource) GLint shader = glCreateShader(type); { \
@@ -189,12 +143,12 @@ int main(void) {
 	glGenBuffers(1, &vbo);
 	glBindVertexArray(vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(filter_db), filter_db, GL_STATIC_DRAW);
-	/* filter_db[i] */
-	glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (GLvoid*)0);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(adsr), adsr, GL_STATIC_DRAW);
+	/* adsr */
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
-	/* filter_db[i+1] */
-	glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (GLvoid*)(1 * sizeof(GLfloat)));
+	/* volume */
+	glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(4 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
 
 	glBindVertexArray(0);
@@ -205,7 +159,7 @@ int main(void) {
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shaderProgram);
 		glBindVertexArray(vao);
-		glDrawArrays(GL_POINTS, 0, (sizeof(filter_db) - 1) / sizeof(GLfloat) );
+		glDrawArrays(GL_POINTS, 0, sizeof(adsr) / sizeof(GLfloat) );
 		glBindVertexArray(0);
 		glfwSwapBuffers(window);
 	}
