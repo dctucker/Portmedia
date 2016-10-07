@@ -20,5 +20,8 @@ scope: scope.c
 bcr: bcr.c
 	gcc ${INCLUDES} ${LIBDIRS} -framework OpenGL -lglew -lglfw3 -o $@ $@.c
 
+filter: filter.c
+	gcc ${INCLUDES} ${LIBDIRS} -framework OpenGL -lglew -lglfw3 -o $@ $@.c
+
 clean:
 	rm -f gl led
