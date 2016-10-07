@@ -109,6 +109,7 @@ GLfloat min_max[] = {
 	-0.9, 0.9,
 	-0.2, 0.6,
 	-0.9, 0.9,
+	 0.0, 0.0,
 };
 
 #define SETUP_SHADER(type, shader, shadersource) GLint shader = glCreateShader(type); { \
@@ -181,7 +182,7 @@ int main(void) {
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shaderProgram);
 		glBindVertexArray(vao);
-		glDrawArrays(GL_POINTS, 0, sizeof(min_max) / sizeof(GLfloat) );
+		glDrawArrays(GL_POINTS, 0, ( sizeof(min_max) - 1 ) / sizeof(GLfloat) );
 		glBindVertexArray(0);
 		glfwSwapBuffers(window);
 	}
