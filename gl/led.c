@@ -23,7 +23,7 @@ GLSL(vertexShaderSource,
 	out vec3 vertColor;
 	out int character;
 	void main() {
-		gl_Position = vec4(position, 1.0f);
+		gl_Position = vec4(position + vec3(0.5,0.5, 0.0), 1.0f);
 		vertColor = color;
 		character = int(fChar);
 	}
@@ -294,7 +294,7 @@ GLSL(geometryShaderSource,
 	out vec3 fragColor;
 
 	void main() {
-		vec4 scaleVector = vec4(0.08, 0.08, 1.0, 1.0);
+		vec4 scaleVector = vec4(0.04, 0.04, 1.0, 1.0);
 
 		fragColor = vec3(0.0, 0.10, 0.15);
 		gl_Position = MVP * ( gl_in[0].gl_Position + vec4( -12.5, -12.5, 0.0, 0.0 ) * scaleVector ); EmitVertex();
@@ -330,7 +330,7 @@ GLSL(fragmentShaderSource,
 );
 GLfloat vertices[] = {
 	/*   Positions            Colors */
-	-19.0f, 0.0f, 0.0f,   0.0f, 1.0f, 0.0f, 'A',
+	-10.0f, 0.0f, 0.0f,   0.0f, 1.0f, 0.0f, 'A',
 /*
 	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'A',
 	-0.4f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'R',
@@ -381,11 +381,12 @@ void key_callback(GLFWwindow *window, unsigned int codepoint)
 
 int main(void) {
 	GLfloat projectionMatrix[16] = {
-		0.05, 0.00, 0.00, 0.00,
-		0.00, 0.10, 0.00, 0.00,
+		0.10, 0.00, 0.00, 0.00,
+		0.00, 0.20, 0.00, 0.00,
 		0.00, 0.00, 1.00, 0.00,
 		0.00, 0.00, 0.00, 1.00
 	};
+
 	glfwInit();
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
