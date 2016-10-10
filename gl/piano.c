@@ -17,6 +17,7 @@ static const GLuint WIDTH = 1024, HEIGHT = 768;
  */
 GLSL(vertexShaderSource,
 	layout (location = 0) in float velocity;
+	uniform mat4 MVP;
 	out float vertColor;
 	out int note;
 	void main() {
@@ -29,6 +30,7 @@ GLSL(geometryShaderSource,
 	layout (points) in;
 	layout (triangle_strip, max_vertices=40) out;
 
+	uniform mat4 MVP;
 	in float vertColor[];
 	in int   note[];
 	out vec3 fragColor;
@@ -42,10 +44,10 @@ GLSL(geometryShaderSource,
 	float arigh = 0.07;
 	float atop = 0.0;
 	float abot = 0.9;
-	float ktop = -0.8;
-	float kmid = -0.9;
-	float kbot = -1.0;
-	float kleft = arigh-0.9;
+	float ktop = 1.0;
+	float kmid = 0.5;
+	float kbot = 0.0;
+	float kleft = arigh;
 	float krigh = 1.0;
 	float n;
 	float n1;
@@ -65,34 +67,34 @@ GLSL(geometryShaderSource,
 		//EndPrimitive();
 
 		//glNormal3f( 0, 0, -1 )
-		gl_Position = vec4( n + nw * (kloc[q] + sep), ktop, kz0, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * (kloc[p] - sep), ktop, kz0, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * (kloc[q] + sep), kmid, kz0, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * (kloc[p] - sep), kmid, kz0, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (kloc[q] + sep), ktop, kz0, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (kloc[p] - sep), ktop, kz0, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (kloc[q] + sep), kmid, kz0, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (kloc[p] - sep), kmid, kz0, 1.0); EmitVertex();
 		EndPrimitive();
 		//glNormal3f( 0, 0, -1 );
-		gl_Position = vec4( n + nw * (wloc[q] + sep), kmid, kz0, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * (wloc[p] - sep), kmid, kz0, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * (wloc[q] + sep), kbot, kz0, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * (wloc[p] - sep), kbot, kz0, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[q] + sep), kmid, kz0, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[p] - sep), kmid, kz0, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[q] + sep), kbot, kz0, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[p] - sep), kbot, kz0, 1.0); EmitVertex();
 		EndPrimitive();
 		//glNormal3f( 0, 1, 0 );
-		gl_Position = vec4( n + nw * (wloc[p] - sep), kbot, kz1, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * (wloc[q] + sep), kbot, kz1, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * (wloc[p] - sep), kbot, kz0, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * (wloc[q] + sep), kbot, kz0, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[p] - sep), kbot, kz1, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[q] + sep), kbot, kz1, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[p] - sep), kbot, kz0, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[q] + sep), kbot, kz0, 1.0); EmitVertex();
 		EndPrimitive();
 		//glNormal3f( -1, 0, 0 );
-		gl_Position = vec4( n + nw * (wloc[p] - sep), ktop, kz0, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * (wloc[p] - sep), ktop, kz1, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * (wloc[p] - sep), kbot, kz0, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * (wloc[p] - sep), kbot, kz1, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[p] - sep), ktop, kz0, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[p] - sep), ktop, kz1, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[p] - sep), kbot, kz0, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[p] - sep), kbot, kz1, 1.0); EmitVertex();
 		EndPrimitive();
 		//glNormal3f( 1, 0, 0 );
-		gl_Position = vec4( n + nw * (wloc[q] + sep), ktop, kz0, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * (wloc[q] + sep), ktop, kz1, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * (wloc[q] + sep), kbot, kz0, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * (wloc[q] + sep), kbot, kz1, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[q] + sep), ktop, kz0, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[q] + sep), ktop, kz1, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[q] + sep), kbot, kz0, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * (wloc[q] + sep), kbot, kz1, 1.0); EmitVertex();
 		EndPrimitive();
 	}
 
@@ -102,28 +104,28 @@ GLSL(geometryShaderSource,
 		//EndPrimitive();
 
 		//glNormal3f( 0, 0, -1 );
-		gl_Position = vec4( n + nw * kloc[q], ktop, nz, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * kloc[p], ktop, nz, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * kloc[q], kmid, nz, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * kloc[p], kmid, nz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[q], ktop, nz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[p], ktop, nz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[q], kmid, nz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[p], kmid, nz, 1.0); EmitVertex();
 		EndPrimitive();
 		//glNormal3f( -1, 0, 0 );
-		gl_Position = vec4( n + nw * kloc[q], ktop, nz, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * kloc[q], ktop, wz, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * kloc[q], kmid, nz, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * kloc[q], kmid, wz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[q], ktop, nz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[q], ktop, wz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[q], kmid, nz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[q], kmid, wz, 1.0); EmitVertex();
 		EndPrimitive();
 		//glNormal3f( 1, 0, 0 );
-		gl_Position = vec4( n + nw * kloc[p], ktop, nz, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * kloc[p], ktop, wz, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * kloc[p], kmid, nz, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * kloc[p], kmid, wz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[p], ktop, nz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[p], ktop, wz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[p], kmid, nz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[p], kmid, wz, 1.0); EmitVertex();
 		EndPrimitive();
 		//glNormal3f( 0, 1, 0 );
-		gl_Position = vec4( n + nw * kloc[q], kmid, nz, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * kloc[p], kmid, nz, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * kloc[q], kmid, wz, 1.0); EmitVertex();
-		gl_Position = vec4( n + nw * kloc[p], kmid, wz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[q], kmid, nz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[p], kmid, nz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[q], kmid, wz, 1.0); EmitVertex();
+		gl_Position = MVP * vec4( n + nw * kloc[p], kmid, wz, 1.0); EmitVertex();
 		EndPrimitive();
 	}
 
@@ -177,6 +179,12 @@ GLfloat velocities[] = {
 }
 
 int main(void) {
+	GLfloat projectionMatrix[16] = {
+		2,0,0,-1,
+		0,0.25,0,-1,
+		0,0,1,0,
+		0,0,0,1
+	};
 	glfwInit();
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -209,6 +217,7 @@ int main(void) {
 			printf("ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s\n", infoLog);
 		}
 	}
+	GLint projectionUniform = glGetUniformLocation(shaderProgram,"MVP");
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
@@ -230,6 +239,7 @@ int main(void) {
 		glfwPollEvents();
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shaderProgram);
+		glUniformMatrix4fv(projectionUniform, 1, GL_TRUE, &projectionMatrix[0]);
 		glBindVertexArray(vao);
 		glDrawArrays(GL_POINTS, 0, sizeof(velocities) / sizeof(GLfloat) );
 		glBindVertexArray(0);

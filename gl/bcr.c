@@ -17,6 +17,7 @@ static const GLuint WIDTH = 1024, HEIGHT = 768;
  */
 GLSL(vertexShaderSource,
 	layout (location = 0) in float inVal;
+	uniform mat4 MVP;
 	out int   row;
 	out int   col;
 	out float value;
@@ -31,6 +32,7 @@ GLSL(geometryShaderSource,
 	layout (points) in;
 	layout (triangle_strip, max_vertices=8) out;
 
+	uniform mat4 MVP;
 	in int   row[];
 	in int   col[];
 	in float value[];
@@ -53,23 +55,23 @@ GLSL(geometryShaderSource,
 
 		//glPushMatrix();
 		// zoom into the current element
-		vec3 transVector = vec3( 0.01 + c * 0.120, 0.075 - r * 0.1, 0.0 );
+		vec3 transVector = vec3( 0.01 + c * 0.120, 0.9 - r * 0.1, 0.0 );
 		vec3 scaleVector = vec3( 0.10, 0.0625, 1.0 );
 
 		//glBegin(GL_QUADS);
 		//glNormal3f( 0, 0, -1 );
 
 		fragColor = vec4( 1.0, 0.0, 0.0, alpha );
-		gl_Position = vec4( transVector + scaleVector * vec3( 0.0, 0.0, 1.0 ), 1.0); EmitVertex();
-		gl_Position = vec4( transVector + scaleVector * vec3( 0.0, 1.0, 1.0 ), 1.0); EmitVertex();
-		gl_Position = vec4( transVector + scaleVector * vec3( val, 0.0, 1.0 ), 1.0); EmitVertex();
-		gl_Position = vec4( transVector + scaleVector * vec3( val, 1.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = MVP * vec4( transVector + scaleVector * vec3( 0.0, 0.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = MVP * vec4( transVector + scaleVector * vec3( 0.0, 1.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = MVP * vec4( transVector + scaleVector * vec3( val, 0.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = MVP * vec4( transVector + scaleVector * vec3( val, 1.0, 1.0 ), 1.0); EmitVertex();
 	
 		fragColor = vec4( 0.1, 0.1, 0.1, alpha );
-		gl_Position = vec4( transVector + scaleVector * vec3( val, 0.0, 1.0 ), 1.0); EmitVertex();
-		gl_Position = vec4( transVector + scaleVector * vec3( val, 1.0, 1.0 ), 1.0); EmitVertex();
-		gl_Position = vec4( transVector + scaleVector * vec3( 1.0, 0.0, 1.0 ), 1.0); EmitVertex();
-		gl_Position = vec4( transVector + scaleVector * vec3( 1.0, 1.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = MVP * vec4( transVector + scaleVector * vec3( val, 0.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = MVP * vec4( transVector + scaleVector * vec3( val, 1.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = MVP * vec4( transVector + scaleVector * vec3( 1.0, 0.0, 1.0 ), 1.0); EmitVertex();
+		gl_Position = MVP * vec4( transVector + scaleVector * vec3( 1.0, 1.0, 1.0 ), 1.0); EmitVertex();
 		EndPrimitive();
 		//glEnd();
 		//glPopMatrix();
@@ -115,6 +117,12 @@ GLfloat vertices[] = {
 }
 
 int main(void) {
+	GLfloat projectionMatrix[16] = {
+		0.5,0,0,-0.95,
+		0,0.5,0,-0.65,
+		0,0,1,0,
+		0,0,0,1
+	};
 	glfwInit();
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -147,6 +155,7 @@ int main(void) {
 			printf("ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s\n", infoLog);
 		}
 	}
+	GLint projectionUniform = glGetUniformLocation(shaderProgram,"MVP");
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
@@ -167,6 +176,7 @@ int main(void) {
 		glfwPollEvents();
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shaderProgram);
+		glUniformMatrix4fv(projectionUniform, 1, GL_TRUE, &projectionMatrix[0]);
 		glBindVertexArray(vao);
 		glDrawArrays(GL_POINTS, 0, sizeof(vertices) / sizeof(GLfloat) );
 		glBindVertexArray(0);

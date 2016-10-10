@@ -16,6 +16,8 @@ static const GLuint WIDTH = 1024, HEIGHT = 768;
  * ourColor is passed as input to the to the fragment shader.
  */
 GLSL(vertexShaderSource,
+	uniform float time;
+	uniform mat4 MVP = mat4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
 	layout (location = 0) in float in_f0;
 	layout (location = 1) in float in_f1;
 	out float f0;
@@ -29,6 +31,8 @@ GLSL(vertexShaderSource,
 );
 GLSL(geometryShaderSource,
 
+	uniform float time;
+	uniform mat4 MVP;
 	layout (points) in;
 	layout (triangle_strip, max_vertices=6) out;
 
@@ -42,11 +46,11 @@ GLSL(geometryShaderSource,
 		int mindb = -36;
 		int maxdb = 24;
 		int x = 0; //-inst;
-		int y = 0; //inst * 0.2f;
-		int z = 0; //inst / 8.0f;
-		vec3 scaleVector = vec3( 1.0/128.0, 1.0/100.0, 1 );
+		int y = -mindb; //inst * 0.2f;
+		int z = 1; //inst / 8.0f;
+		vec3 scaleVector = vec3( 1.0/128.0, 1.0/(maxdb-mindb), 1 );
 		
-		fragColor = vec4(0.0, 1.0, 0.0, alpha );
+		fragColor = vec4(0.0, 1.0, 0.0, alpha * (1+0.5*sin(time*3.14)) );
 		
 		//glNormal3f( 0.0, 0.0, 1.0 );
 
@@ -57,10 +61,10 @@ GLSL(geometryShaderSource,
 		float f_0 = clamp( f0[0], mindb, maxdb );
 		float f_1 = clamp( f1[0], mindb, maxdb );
 
-		gl_Position = vec4( scaleVector * vec3(   i + x , f_0   + y , z ), 1.0); EmitVertex();
-		gl_Position = vec4( scaleVector * vec3( i+1 + x , f_1   + y , z ), 1.0); EmitVertex();
-		gl_Position = vec4( scaleVector * vec3(   i + x , mindb + y , z ), 1.0); EmitVertex();
-		gl_Position = vec4( scaleVector * vec3( i+1 + x , mindb + y , z ), 1.0); EmitVertex();
+		gl_Position = MVP * vec4( scaleVector * vec3(   i + x , f_0   + y , z ), 1.0); EmitVertex();
+		gl_Position = MVP * vec4( scaleVector * vec3( i+1 + x , f_1   + y , z ), 1.0); EmitVertex();
+		gl_Position = MVP * vec4( scaleVector * vec3(   i + x , mindb + y , z ), 1.0); EmitVertex();
+		gl_Position = MVP * vec4( scaleVector * vec3( i+1 + x , mindb + y , z ), 1.0); EmitVertex();
 		EndPrimitive();
 	}
 );
@@ -72,64 +76,22 @@ GLSL(fragmentShaderSource,
 	}
 );
 GLfloat filter_db[] = {
-	-36,
-	-30,
-	-24,
-	-20,
-	-18,
-	-15,
-	-12,
-	-9,
-	-8,
-	-3,
-	-2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 2,
-	 6,
-	 6,
-	 7,
-	 7,
-	 7,
-	 6,
-	 6,
-	 6,
-	 5,
-	 4,
-	 3,
-	 2,
-	 2,
-	 2,
-	 2,
-	 0,
-	 0,
-	 0,
-	 0,
-	 0,
-	 0,
-	-1,
-	-1,
-	-1,
-	-1,
-	-1,
-	-2,
-	-3,
-	-4,
-	-5,
-	-10,
-	-11,
-	-16,
-	-20,
-	-30,
-	-44
+	-36, -30, -24, -20, -18, -15, -12, -9,
+	-8, -3, -2, 2, 2, 2, 2, 2,
+	 2, 2, 2, 2, 2, 2, 6, 6,
+	 7, 8, 7, 6, 6, 6, 5, 4,
+	 3, 2, 2, 24, 2, 0, 0, 0,
+	 0, 0, 0, -1, -1, -1, -1, -1,
+	-2, -3, -4, -5, -10, -11, -16, -20,
+	-30, -30, -30, -30, -24, -20, -18, -15,
+	-12, -9, -8, -3, -2, 2, 2, 2,
+	 2, 2, 2, 2, 2, 2, 2, 2,
+	 2, 2, 2, 2, 2, 2, 2, 2,
+	 2, 2, 2, 2, 6, 6, 7, 7,
+	 7, 6, 6, 6, 5, 4, 3, 2,
+	 2, 2, 2, 0, 0, 0, 0, 0,
+	 0, -1, -1, -1, -1, -1, -2, -3,
+	-4, -5, -10, -11, -16, -20, -30, -44
 };
 
 #define SETUP_SHADER(type, shader, shadersource) GLint shader = glCreateShader(type); { \
@@ -145,6 +107,13 @@ GLfloat filter_db[] = {
 }
 
 int main(void) {
+	GLfloat projectionMatrix[16] = {
+		0.5,0,0,0,
+		0,0.5,0,-0.5,
+		0,0,1,0,
+		0,0,0,1
+	};
+
 	glfwInit();
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -180,6 +149,9 @@ int main(void) {
 			printf("ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s\n", infoLog);
 		}
 	}
+	GLint timeUniform = glGetUniformLocation(shaderProgram,"time");
+	GLint projectionUniform = glGetUniformLocation(shaderProgram,"MVP");
+
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
@@ -204,6 +176,8 @@ int main(void) {
 		glfwPollEvents();
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shaderProgram);
+		glUniformMatrix4fv(projectionUniform, 1, GL_TRUE, &projectionMatrix[0]);
+		glUniform1f(timeUniform, (float)glfwGetTime());
 		glBindVertexArray(vao);
 		glDrawArrays(GL_POINTS, 0, (sizeof(filter_db) - 1) / sizeof(GLfloat) );
 		glBindVertexArray(0);
