@@ -11,7 +11,7 @@
 #define GLSL(var, shader) static const GLchar* var = ("#version 330 core\n" #shader)
 #define HEREDOC(var) #var
 
-static const GLuint WIDTH = 800, HEIGHT = 600;
+static const GLuint WIDTH = 1024, HEIGHT = 768;
 /* vertex data is passed as input to this shader
  * ourColor is passed as input to the to the fragment shader.
  */
@@ -19,6 +19,7 @@ GLSL(vertexShaderSource,
 	layout (location = 0) in vec3 position;
 	layout (location = 1) in vec3 color;
 	layout (location = 2) in float fChar;
+	uniform mat4 MVP;
 	out vec3 vertColor;
 	out int character;
 	void main() {
@@ -28,7 +29,7 @@ GLSL(vertexShaderSource,
 	}
 );
 GLSL(geometryShaderSource,
-	int led16_vertex_data[] = int[](
+	const int led16_vertex_data[] = int[](
 		// top left
 		-9,  9,
 		-8, 10,
@@ -151,7 +152,7 @@ GLSL(geometryShaderSource,
 		6 /   d   \ 3 
 		 ---5-|-4---  
 	*/
-	int led16_ee[] = int[](
+	const int led16_ee[] = int[](
 		0x60f0, // NUL \0
 		0x4001, // SOH
 		0x4002, // STX
@@ -285,14 +286,23 @@ GLSL(geometryShaderSource,
 		0x3fa0  // { 0,0,0,0, 1,1,0,0, 0,0,0,0, 1,0,1,0 }, //DEL
 	);
 	layout (points) in;
-	layout (triangle_strip, max_vertices=96) out;
+	layout (triangle_strip, max_vertices=100) out;
+	uniform mat4 MVP;
 
 	in vec3 vertColor[];
 	in int character[];
 	out vec3 fragColor;
 
 	void main() {
-		fragColor = vertColor[0];
+		vec4 scaleVector = vec4(0.08, 0.08, 1.0, 1.0);
+
+		fragColor = vec3(0.0, 0.10, 0.15);
+		gl_Position = MVP * ( gl_in[0].gl_Position + vec4( -12.5, -12.5, 0.0, 0.0 ) * scaleVector ); EmitVertex();
+		gl_Position = MVP * ( gl_in[0].gl_Position + vec4(  12.5, -12.5, 0.0, 0.0 ) * scaleVector ); EmitVertex();
+		gl_Position = MVP * ( gl_in[0].gl_Position + vec4( -12.5,  12.5, 0.0, 0.0 ) * scaleVector ); EmitVertex();
+		gl_Position = MVP * ( gl_in[0].gl_Position + vec4(  12.5,  12.5, 0.0, 0.0 ) * scaleVector ); EmitVertex();
+		EndPrimitive();
+
 
 		int ch = led16_ee[character[0]];
 		int s = 0x8000;
@@ -303,7 +313,7 @@ GLSL(geometryShaderSource,
 				fragColor = vertColor[0];
 			}
 			for(int v=0; v < 12; v+=2){
-				gl_Position = gl_in[0].gl_Position + vec4( led16_vertex_data[seg+v], led16_vertex_data[seg+v+1], 0, 0) * vec4(0.004, 0.008, 1.0, 1.0);
+				gl_Position = MVP * (gl_in[0].gl_Position + vec4( led16_vertex_data[seg+v], led16_vertex_data[seg+v+1], 0, 0) * scaleVector);
 				EmitVertex();
 			}
 			EndPrimitive();
@@ -320,6 +330,8 @@ GLSL(fragmentShaderSource,
 );
 GLfloat vertices[] = {
 	/*   Positions            Colors */
+	-19.0f, 0.0f, 0.0f,   0.0f, 1.0f, 0.0f, 'A',
+/*
 	-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'A',
 	-0.4f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'R',
 	-0.3f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'E',
@@ -333,6 +345,7 @@ GLfloat vertices[] = {
 	 0.5f, -0.5f, 0.0f,   0.0f, 0.6f, 1.0f, 'S',
 	 0.6f, -0.5f, 0.0f,   0.0f, 0.6f, 1.0f, 'E',
 	 0.7f, -0.5f, 0.0f,   0.0f, 0.6f, 1.0f, 'Y'
+*/
 };
 
 #define SETUP_SHADER(type, shader, shadersource) GLint shader = glCreateShader(type); { \
@@ -357,7 +370,7 @@ void key_callback(GLFWwindow *window, unsigned int codepoint)
 		//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 		glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat) * (7 * charpos + 6), sizeof(GLfloat), &(vertices[7 * charpos + 6]));
 		charpos++;
-		charpos %= 13;
+		charpos %= sizeof( vertices ) / sizeof( GLfloat ) / 7;
 	}
 	else if( codepoint == 8 )
 	{
@@ -367,6 +380,12 @@ void key_callback(GLFWwindow *window, unsigned int codepoint)
 }
 
 int main(void) {
+	GLfloat projectionMatrix[16] = {
+		0.05, 0.00, 0.00, 0.00,
+		0.00, 0.10, 0.00, 0.00,
+		0.00, 0.00, 1.00, 0.00,
+		0.00, 0.00, 0.00, 1.00
+	};
 	glfwInit();
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -377,8 +396,11 @@ int main(void) {
 	glfwSwapInterval(1);
 	glewExperimental = GL_TRUE;
 	glewInit();
-	glClearColor(0.0f, 0.1f, 0.1f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glViewport(0, 0, WIDTH, HEIGHT);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	/* Build and compile shader program. */
 	SETUP_SHADER( GL_VERTEX_SHADER, vertexShader, vertexShaderSource );
@@ -399,6 +421,8 @@ int main(void) {
 			printf("ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s\n", infoLog);
 		}
 	}
+	GLint timeUniform = glGetUniformLocation(shaderProgram,"time");
+	GLint projectionUniform = glGetUniformLocation(shaderProgram,"MVP");
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
@@ -427,6 +451,8 @@ int main(void) {
 		glfwPollEvents();
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shaderProgram);
+		glUniformMatrix4fv(projectionUniform, 1, GL_TRUE, &projectionMatrix[0]);
+		glUniform1f(timeUniform, (float)glfwGetTime());
 		glBindVertexArray(vao);
 		glDrawArrays(GL_POINTS, 0, sizeof(vertices) / sizeof(GLfloat) / 7);
 		glBindVertexArray(0);

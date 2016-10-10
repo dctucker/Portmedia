@@ -494,6 +494,7 @@ int main(void) {
 			printf("ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s\n", infoLog);
 		}
 	}
+	GLint timeUniform = glGetUniformLocation(shaderProgram,"time");
 	GLint projectionUniform = glGetUniformLocation(shaderProgram,"MVP");
 
 	glDeleteShader(vertexShader);
@@ -520,6 +521,7 @@ int main(void) {
 		glClear(GL_COLOR_BUFFER_BIT);
 		glUseProgram(shaderProgram);
 		glUniformMatrix4fv(projectionUniform, 1, GL_TRUE, &projectionMatrix[0]);
+		glUniform1f(timeUniform, (float)glfwGetTime());
 		glBindVertexArray(vao);
 		glDrawArrays(GL_POINTS, 0, (sizeof(min_max) / sizeof(GLfloat))-1 );
 		glBindVertexArray(0);
