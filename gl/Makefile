@@ -5,7 +5,7 @@ EXECUTABLE=gl
 
 default: gl
 
-gl: gl.c
+gl: gl.c *.h
 	gcc ${INCLUDES} ${LIBDIRS} -framework OpenGL -lglew -lglfw3 -o $@ $@.c
 
 clean:

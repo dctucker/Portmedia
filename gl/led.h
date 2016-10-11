@@ -1,5 +1,7 @@
 _program led;
 
+unsigned int charpos = 0;
+
 void setupLed(){
 	static GLfloat projectionMatrix[16] = {
 		0.10, 0.00, 0.00, 0.00,
@@ -377,3 +379,22 @@ void setupLed(){
 
 	led.verts.draw_size /= 7;
 }
+
+void key_callback(GLFWwindow *window, unsigned int codepoint)
+{
+	if( codepoint >= 32 && codepoint <= 127 )
+	{
+		led.verts.data[7 * charpos + 6] = (float) codepoint;
+		//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, led.verts.vbo);
+		glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat) * (7 * charpos + 6), sizeof(GLfloat), &(led.verts.data[7 * charpos + 6]));
+		charpos++;
+		charpos %= led.verts.draw_size / sizeof( GLfloat );
+	}
+	else if( codepoint == 8 )
+	{
+		if( charpos > 0 )
+			charpos--;
+	}
+}
+

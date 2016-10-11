@@ -93,5 +93,6 @@ void setupAdsr(){
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(5 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(2);
 
+	adsr.verts.draw_size /= 8;
 }
 

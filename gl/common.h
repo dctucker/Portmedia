@@ -97,6 +97,11 @@ void setupProgram(_program *program){
 	program->time.data = &global_time;
 }
 
+void teardownProgram(_program *program){
+	glDeleteVertexArrays(1, &(program->verts.vao));
+	glDeleteBuffers(     1, &(program->verts.vbo));
+}
+
 inline static void runProgram(_program *program){
 	glUseProgram(program->handle);
 	glUniform1f(program->time.handle, *(program->time.data));

@@ -32,6 +32,7 @@ int main(void) {
 	setupScope();
 
 	glBindVertexArray(0);
+	glfwSetCharCallback(window, key_callback);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -47,8 +48,12 @@ int main(void) {
 		glBindVertexArray(0);
 		glfwSwapBuffers(window);
 	}
-	glDeleteVertexArrays(1, &(adsr.verts.vao));
-	glDeleteBuffers(1, &(adsr.verts.vbo));
+	teardownProgram(&adsr);
+	teardownProgram(&piano);
+	teardownProgram(&led);
+	teardownProgram(&bcr);
+	teardownProgram(&filter);
+	teardownProgram(&scope);
 	glfwTerminate();
 	return EXIT_SUCCESS;
 }
