@@ -7,13 +7,37 @@
 #include "filter.h"
 #include "scope.h"
 
-int main(void) {
+static const GLuint WIDTH = 1024, HEIGHT = 768;
+GLFWwindow* window = NULL;
+
+static inline void drawLoop()
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+	global_time = (float)glfwGetTime();
+	runProgram(&adsr);
+	runProgram(&piano);
+	runProgram(&led);
+	runProgram(&bcr);
+	runProgram(&filter);
+	runProgram(&scope);
+	glBindVertexArray(0);
+	glfwSwapBuffers(window);
+}
+
+void window_refresh_callback(GLFWwindow* window)
+{
+	drawLoop();
+}
+
+int main(void)
+{
 	glfwInit();
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "GL Keys", NULL, NULL);
+	window = glfwCreateWindow(WIDTH, HEIGHT, "GL Keys", NULL, NULL);
+	glfwSetWindowAspectRatio(window, 4, 3);
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
 	glewExperimental = GL_TRUE;
@@ -33,20 +57,13 @@ int main(void) {
 
 	glBindVertexArray(0);
 	glfwSetCharCallback(window, key_callback);
+	//glfwSetWindowSizeCallback(window, window_size_callback);
+	glfwSetWindowRefreshCallback(window, window_refresh_callback);
 
 	while (!glfwWindowShouldClose(window))
 	{
-		global_time = (float)glfwGetTime();
+		drawLoop();
 		glfwPollEvents();
-		glClear(GL_COLOR_BUFFER_BIT);
-		runProgram(&adsr);
-		runProgram(&piano);
-		runProgram(&led);
-		runProgram(&bcr);
-		runProgram(&filter);
-		runProgram(&scope);
-		glBindVertexArray(0);
-		glfwSwapBuffers(window);
 	}
 	teardownProgram(&adsr);
 	teardownProgram(&piano);

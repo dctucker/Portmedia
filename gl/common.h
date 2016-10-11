@@ -11,8 +11,6 @@
 #define GLSL(shader) ("#version 330 core\n" #shader)
 #define HEREDOC(var) #var
 
-static const GLuint WIDTH = 1024, HEIGHT = 768;
-
 typedef struct _program {
 	GLint handle;
 	struct {
