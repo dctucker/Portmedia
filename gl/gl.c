@@ -38,8 +38,8 @@ void window_refresh_callback(GLFWwindow* window)
 
 static void cursor_pos_callback(GLFWwindow* window, double xpos, double ypos)
 {
-	mouseX = xpos;
-	mouseY = ypos;
+	mouse[0] = (2 * xpos / (double)WIDTH) - 1;
+	mouse[1] = 1 - (2 * ypos / (double)HEIGHT);
 
 	if( ypos >= ledTop && ypos <= ledBot )
 	{
@@ -98,7 +98,6 @@ int main(void)
 
 	while (!glfwWindowShouldClose(window))
 	{
-		glfwGetCursorPos(window, &mouseX, &mouseY);
 		drawLoop();
 		glfwPollEvents();
 	}

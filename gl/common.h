@@ -20,7 +20,7 @@ typedef struct _program {
 	struct {
 		GLint handle;
 		const GLfloat *data;
-	} MVP, time;
+	} MVP, time, mouse;
 	struct {
 		GLuint size;
 		GLuint draw_size;
@@ -31,7 +31,7 @@ typedef struct _program {
 } _program;
 
 GLfloat global_time;
-double mouseX, mouseY;
+GLfloat mouse[2];
 
 void setupProgram(_program *program){
 	GLint success;
@@ -81,6 +81,7 @@ void setupProgram(_program *program){
 	}
 	program->MVP.handle = glGetUniformLocation(program->handle,"MVP");
 	program->time.handle = glGetUniformLocation(program->handle,"time");
+	program->mouse.handle = glGetUniformLocation(program->handle,"mouse");
 
 	if( program->vertex.source   ) glDeleteShader(program->vertex.handle);
 	if( program->geometry.source ) glDeleteShader(program->geometry.handle);
@@ -94,6 +95,7 @@ void setupProgram(_program *program){
 
 	program->verts.draw_size = program->verts.size;
 	program->time.data = &global_time;
+	program->mouse.data = mouse;
 }
 
 void teardownProgram(_program *program){
@@ -103,7 +105,8 @@ void teardownProgram(_program *program){
 
 inline static void runProgram(_program *program){
 	glUseProgram(program->handle);
-	glUniform1f(program->time.handle, *(program->time.data));
+	glUniform1f(program->time.handle , *(program->time.data));
+	glUniform2f(program->mouse.handle, program->mouse.data[0], program->mouse.data[1]);
 	glUniformMatrix4fv(program->MVP.handle, 1, GL_TRUE, &(program->MVP.data[0]));
 	glBindVertexArray(program->verts.vao);
 	glDrawArrays(GL_POINTS, 0, program->verts.draw_size / sizeof(GLfloat) );

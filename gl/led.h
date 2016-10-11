@@ -326,6 +326,7 @@ void setupLed(){
 		layout (points) in;
 		layout (triangle_strip, max_vertices=100) out;
 		uniform mat4 MVP;
+		uniform vec2 mouse;
 
 		in vec3 vertColor[];
 		in int character[];
@@ -334,7 +335,8 @@ void setupLed(){
 		void main() {
 			vec4 scaleVector = vec4(0.04, 0.04, 1.0, 1.0);
 
-			fragColor = vec3(0.0, 0.10, 0.15);
+			float dist = clamp( 0.2 - distance((MVP * (gl_in[0].gl_Position )).xy, mouse ), 0, 0.5);
+			fragColor = vec3(0.00 + 0.5 * dist, 0.10 + 0.5 * dist, 0.15 + 0.5 * dist);
 			gl_Position = MVP * ( gl_in[0].gl_Position + vec4( -12.5, -12.5, 0.0, 0.0 ) * scaleVector ); EmitVertex();
 			gl_Position = MVP * ( gl_in[0].gl_Position + vec4(  12.5, -12.5, 0.0, 0.0 ) * scaleVector ); EmitVertex();
 			gl_Position = MVP * ( gl_in[0].gl_Position + vec4( -12.5,  12.5, 0.0, 0.0 ) * scaleVector ); EmitVertex();
