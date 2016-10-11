@@ -1,111 +1,109 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "common.h"
 
-#define GLEW_STATIC
-#include <GL/glew.h>
-
-#include <GLFW/glfw3.h>
-
-#define INFOLOG_LEN 512
-
-#define GLSL(var, shader) static const GLchar* var = ("#version 330 core\n" #shader)
-#define HEREDOC(var) #var
-
-static const GLuint WIDTH = 1024, HEIGHT = 768;
-/* vertex data is passed as input to this shader
- * ourColor is passed as input to the to the fragment shader.
- */
-GLSL(vertexShaderSource,
-	uniform mat4 MVP;
-	layout (location = 0) in vec4 in_adsr;
-	layout (location = 1) in float in_vol;
-	layout (location = 2) in vec3 in_color;
-	out vec4 adsr;
-	out float vol;
-	out vec3 color;
-	void main() {
-		adsr = in_adsr;
-		vol  = in_vol;
-		color = in_color;
-	}
-);
-GLSL(geometryShaderSource,
-
-	uniform mat4 MVP;
-	layout (points) in;
-	layout (triangle_strip, max_vertices=12) out;
-
-	in vec4 adsr[];
-	in float vol[];
-	in vec3 color[];
-	out vec4 fragColor;
-
-	void main(){
-		float v =  clamp( (40. + 20. * log( vol[0] )/log(10.0) ) * 0.025, 0.1, 1.0 ) ;
-		float a =  clamp( adsr[0].x, 0, 1);
-		float d =  clamp( adsr[0].y + a, 0, 1);
-		float s =  clamp( adsr[0].z * v, 0, 1); //max( 0.0, ( 40. + 20. * log( adsr[0].z * vol[0] )/log(10.0) ) * 0.025 ) ;
-		float r =  clamp( adsr[0].w + d, 0, 1);
-		float r0=  clamp( adsr[0].w + d - 1, 0, 1);
-
-		float alpha = 0.4;
-		//if( selinst == i ) alpha = 0.6;
-
-		vec2 scaleVector = vec2(1.0, 1.0);
-
-		fragColor = vec4(color[0], alpha * 1.0 );
-		gl_Position = MVP * vec4( scaleVector * vec2( 0, 0 ), 1.0, 1.0); EmitVertex();
-		gl_Position = MVP * vec4( scaleVector * vec2( a, 0 ), 1.0, 1.0); EmitVertex();
-		gl_Position = MVP * vec4( scaleVector * vec2( a, v ), 1.0, 1.0); EmitVertex();
-		fragColor = vec4(color[0], alpha * 0.7 );
-		//gl_Position = MVP * vec4( scaleVector * vec2( a, v ), 1.0, 1.0); EmitVertex();
-		gl_Position = MVP * vec4( scaleVector * vec2( d, s ), 1.0, 1.0); EmitVertex();
-		gl_Position = MVP * vec4( scaleVector * vec2( a, 0 ), 1.0, 1.0); EmitVertex();
-		fragColor = vec4(color[0], alpha * 0.9 );
-		//gl_Position = MVP * vec4( scaleVector * vec2( a, 0 ), 1.0, 1.0); EmitVertex();
-		gl_Position = MVP * vec4( scaleVector * vec2( d, 0 ), 1.0, 1.0); EmitVertex();
-		fragColor = vec4(color[0], alpha * 0.9 );
-		gl_Position = MVP * vec4( scaleVector * vec2( d, s ), 1.0, 1.0); EmitVertex();
-		//gl_Position = MVP * vec4( scaleVector * vec2( d, s ), 1.0, 1.0); EmitVertex();
-		gl_Position = MVP * vec4( scaleVector * vec2( d, 0 ), 1.0, 1.0); EmitVertex();
-		fragColor = vec4(color[0], alpha * 0.5 );
-		gl_Position = MVP * vec4( scaleVector * vec2( r, r0 ), 1.0, 1.0); EmitVertex();
-		gl_Position = MVP * vec4( scaleVector * vec2( r, 0 ), 1.0, 1.0); EmitVertex();
-		EndPrimitive();
-	}
-);
-GLSL(fragmentShaderSource,
-	in vec4 fragColor;
-	out vec4 outColor;
-	void main() {
-		outColor = fragColor;
-	}
-);
-GLfloat adsr[] = {
-//   A     D    S    R    V    R    G    B
-	0.10, 0.2, 1.0, 0.5, 0.5, 1.0, 0.0, 0.0,
-	0.05, 0.1, 0.7, 0.1, 0.1, 0.0, 1.0, 1.0,
-};
-
-#define SETUP_SHADER(type, shader, shadersource) GLint shader = glCreateShader(type); { \
-	GLint success; \
-	GLchar infoLog[INFOLOG_LEN]; \
-	glShaderSource(shader, 1, &shadersource, NULL); \
-	glCompileShader(shader); \
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &success); \
-	if (!success) { \
-		glGetShaderInfoLog(shader, INFOLOG_LEN, NULL, infoLog); \
-		printf("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n%s\n", infoLog); \
-	} \
-}
-
-int main(void) {
-	GLfloat projectionMatrix[16] = {
+void setupAdsr(){
+	static GLfloat adsrVerts[] = {
+	//   A     D    S    R    V    R    G    B
+		0.10, 0.2, 1.0, 0.5, 0.5, 1.0, 0.0, 0.0,
+		0.05, 0.1, 0.7, 0.1, 0.1, 0.0, 1.0, 1.0,
+	};
+	static GLfloat adsrMVP[16] = {
 		0.5,0,0,-0.5,
 		0,0.5,0,-0.5,
 		0,0,1,0,
 		0,0,0,1
 	};
+
+	adsr.MVP.data = adsrMVP;
+
+	adsr.verts.data = adsrVerts;
+	adsr.verts.size = sizeof(adsrVerts);
+
+	adsr.vertex.source = GLSL(
+		uniform mat4 MVP;
+		layout (location = 0) in vec4 in_adsr;
+		layout (location = 1) in float in_vol;
+		layout (location = 2) in vec3 in_color;
+		out vec4 adsr;
+		out float vol;
+		out vec3 color;
+		void main() {
+			adsr = in_adsr;
+			vol  = in_vol;
+			color = in_color;
+		}
+	);
+	adsr.geometry.source = GLSL(
+		uniform mat4 MVP;
+		layout (points) in;
+		layout (triangle_strip, max_vertices=12) out;
+
+		in vec4 adsr[];
+		in float vol[];
+		in vec3 color[];
+		out vec4 fragColor;
+
+		void main(){
+			float v =  clamp( (40. + 20. * log( vol[0] )/log(10.0) ) * 0.025, 0.1, 1.0 ) ;
+			float a =  clamp( adsr[0].x, 0, 1);
+			float d =  clamp( adsr[0].y + a, 0, 1);
+			float s =  clamp( adsr[0].z * v, 0, 1); //max( 0.0, ( 40. + 20. * log( adsr[0].z * vol[0] )/log(10.0) ) * 0.025 ) ;
+			float r =  clamp( adsr[0].w + d, 0, 1);
+			float r0=  clamp( adsr[0].w + d - 1, 0, 1);
+
+			float alpha = 0.4;
+			//if( selinst == i ) alpha = 0.6;
+
+			vec2 scaleVector = vec2(1.0, 1.0);
+
+			fragColor = vec4(color[0], alpha * 1.0 );
+			gl_Position = MVP * vec4( scaleVector * vec2( 0, 0 ), 1.0, 1.0); EmitVertex();
+			gl_Position = MVP * vec4( scaleVector * vec2( a, 0 ), 1.0, 1.0); EmitVertex();
+			gl_Position = MVP * vec4( scaleVector * vec2( a, v ), 1.0, 1.0); EmitVertex();
+			fragColor = vec4(color[0], alpha * 0.7 );
+			//gl_Position = MVP * vec4( scaleVector * vec2( a, v ), 1.0, 1.0); EmitVertex();
+			gl_Position = MVP * vec4( scaleVector * vec2( d, s ), 1.0, 1.0); EmitVertex();
+			gl_Position = MVP * vec4( scaleVector * vec2( a, 0 ), 1.0, 1.0); EmitVertex();
+			fragColor = vec4(color[0], alpha * 0.9 );
+			//gl_Position = MVP * vec4( scaleVector * vec2( a, 0 ), 1.0, 1.0); EmitVertex();
+			gl_Position = MVP * vec4( scaleVector * vec2( d, 0 ), 1.0, 1.0); EmitVertex();
+			fragColor = vec4(color[0], alpha * 0.9 );
+			gl_Position = MVP * vec4( scaleVector * vec2( d, s ), 1.0, 1.0); EmitVertex();
+			//gl_Position = MVP * vec4( scaleVector * vec2( d, s ), 1.0, 1.0); EmitVertex();
+			gl_Position = MVP * vec4( scaleVector * vec2( d, 0 ), 1.0, 1.0); EmitVertex();
+			fragColor = vec4(color[0], alpha * 0.5 );
+			gl_Position = MVP * vec4( scaleVector * vec2( r, r0 ), 1.0, 1.0); EmitVertex();
+			gl_Position = MVP * vec4( scaleVector * vec2( r, 0 ), 1.0, 1.0); EmitVertex();
+			EndPrimitive();
+		}
+	);
+	adsr.fragment.source = GLSL(
+		in vec4 fragColor;
+		out vec4 outColor;
+		void main() {
+			outColor = fragColor;
+		}
+	);
+	setupProgram(&adsr);
+
+	glGenVertexArrays(1, &(adsr.verts.vao));
+	glGenBuffers(1, &(adsr.verts.vbo));
+	glBindVertexArray(adsr.verts.vao);
+	glBindBuffer(GL_ARRAY_BUFFER, adsr.verts.vbo);
+	glBufferData(GL_ARRAY_BUFFER, adsr.verts.size, adsr.verts.data, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+
+	glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(4 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(5 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
+
+}
+
+
+int main(void) {
 	glfwInit();
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -122,45 +120,7 @@ int main(void) {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	/* Build and compile shader program. */
-	SETUP_SHADER( GL_VERTEX_SHADER, vertexShader, vertexShaderSource );
-	SETUP_SHADER( GL_GEOMETRY_SHADER, geometryShader, geometryShaderSource );
-	SETUP_SHADER( GL_FRAGMENT_SHADER, fragmentShader, fragmentShaderSource );
-
-	/* Link shaders */
-	GLint shaderProgram = glCreateProgram(); {
-		GLint success;
-		GLchar infoLog[INFOLOG_LEN];
-		glAttachShader(shaderProgram, vertexShader);
-		glAttachShader(shaderProgram, geometryShader);
-		glAttachShader(shaderProgram, fragmentShader);
-		glLinkProgram(shaderProgram);
-		glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-		if (!success) {
-			glGetProgramInfoLog(shaderProgram, INFOLOG_LEN, NULL, infoLog);
-			printf("ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s\n", infoLog);
-		}
-	}
-	GLint projectionUniform = glGetUniformLocation(shaderProgram,"MVP");
-
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-
-	GLuint vbo, vao;
-	glGenVertexArrays(1, &vao);
-	glGenBuffers(1, &vbo);
-	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(adsr), adsr, GL_STATIC_DRAW);
-	/* adsr */
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
-	glEnableVertexAttribArray(0);
-	/* volume */
-	glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(4 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(1);
-	/* color */
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(5 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(2);
+	setupAdsr();
 
 	glBindVertexArray(0);
 
@@ -168,15 +128,13 @@ int main(void) {
 	{
 		glfwPollEvents();
 		glClear(GL_COLOR_BUFFER_BIT);
-		glUseProgram(shaderProgram);
-		glUniformMatrix4fv(projectionUniform, 1, GL_TRUE, &projectionMatrix[0]);
-		glBindVertexArray(vao);
-		glDrawArrays(GL_POINTS, 0, sizeof(adsr) / sizeof(GLfloat) );
+		//RUN_PROGRAM(adsr);
+		runProgram(&adsr);
 		glBindVertexArray(0);
 		glfwSwapBuffers(window);
 	}
-	glDeleteVertexArrays(1, &vao);
-	glDeleteBuffers(1, &vbo);
+	glDeleteVertexArrays(1, &(adsr.verts.vao));
+	glDeleteBuffers(1, &(adsr.verts.vbo));
 	glfwTerminate();
 	return EXIT_SUCCESS;
 }

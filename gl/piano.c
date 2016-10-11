@@ -166,7 +166,8 @@ GLfloat velocities[] = {
 	0.0f,
 };
 
-#define SETUP_SHADER(type, shader, shadersource) GLint shader = glCreateShader(type); { \
+#define SETUP_SHADER(type, shader, shadersource) \
+	GLint shader = glCreateShader(type); { \
 	GLint success; \
 	GLchar infoLog[INFOLOG_LEN]; \
 	glShaderSource(shader, 1, &shadersource, NULL); \
@@ -197,6 +198,9 @@ int main(void) {
 	glewInit();
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glViewport(0, 0, WIDTH, HEIGHT);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	/* Build and compile shader program. */
 	SETUP_SHADER( GL_VERTEX_SHADER, vertexShader, vertexShaderSource );
