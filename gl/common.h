@@ -31,6 +31,7 @@ typedef struct _program {
 } _program;
 
 GLfloat global_time;
+double mouseX, mouseY;
 
 void setupProgram(_program *program){
 	GLint success;

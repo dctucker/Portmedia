@@ -62,6 +62,7 @@ int main(void)
 
 	while (!glfwWindowShouldClose(window))
 	{
+		glfwGetCursorPos(window, &mouseX, &mouseY);
 		drawLoop();
 		glfwPollEvents();
 	}
