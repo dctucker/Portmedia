@@ -1,12 +1,12 @@
 #include "common.h"
 
-_program adsr, piano, led, bcr;
+_program adsr, piano, led, bcr, filter, scope;
 
 
 void setupAdsr(){
 	static GLfloat adsrMVP[16] = {
-		0.5,0,0,-0.5,
-		0,0.5,0,-0.5,
+		0.5,0,0,-0.3,
+		0,0.5,0,0.5,
 		0,0,1,0,
 		0,0,0,1
 	};
@@ -274,7 +274,26 @@ void setupLed(){
 	};
 	static GLfloat vertices[] = {
 		/*   Positions            Colors */
-		-10.0f, 0.0f, 0.0f,   0.0f, 1.0f, 0.0f, 'A',
+		-10.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'A',
+		 -9.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'B',
+		 -8.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'C',
+		 -7.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'D',
+		 -6.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'E',
+		 -5.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'F',
+		 -4.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'G',
+		 -3.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'H',
+		 -2.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'I',
+		 -1.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'J',
+		  0.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'K',
+		  1.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'L',
+		  2.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'M',
+		  3.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'N',
+		  4.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'O',
+		  5.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'P',
+		  6.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'Q',
+		  7.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'R',
+		  8.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'S',
+		  9.0f, -3.6f, 0.0f,   0.0f, 1.0f, 0.0f, 'T',
 	/*
 		-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'A',
 		-0.4f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'R',
@@ -368,7 +387,7 @@ void setupLed(){
 			-8,  1,
 			// diagonal upper left
 			 0, 0,
-			-1, 1,
+			-2, 1,
 			-1, 2,
 			-8, 7,
 			-7, 8,
@@ -383,7 +402,7 @@ void setupLed(){
 			// diagonal upper right
 			 0, 0,
 			 1, 2,
-			 1, 1,
+			 2, 1,
 			 7, 8,
 			 8, 7,
 			 8, 8,
@@ -396,7 +415,7 @@ void setupLed(){
 			 9,  0,
 			// diagonal lower right
 			 0,  0,
-			 1, -1,
+			 2, -1,
 			 1, -2,
 			 8, -7,
 			 7, -8,
@@ -411,7 +430,7 @@ void setupLed(){
 			// diagonal lower left
 			 0,  0,
 			-1, -2,
-			-1, -1,
+			-2, -1,
 			-7, -8,
 			-8, -7,
 			-8, -8,
@@ -628,7 +647,7 @@ void setupLed(){
 void setupBcr(){
 	static GLfloat projectionMatrix[16] = {
 		0.5,0,0,-0.95,
-		0,0.5,0,-0.65,
+		0,0.5,0, 0.45,
 		0,0,1,0,
 		0,0,0,1
 	};
@@ -730,6 +749,250 @@ void setupBcr(){
 	glEnableVertexAttribArray(0);
 }
 
+void setupFilter(){
+	static GLfloat projectionMatrix[16] = {
+		0.5,0,0,0.4,
+		0,0.5,0,0.5,
+		0,0,1,0,
+		0,0,0,1
+	};
+	static GLfloat filter_db[] = {
+		-36, -30, -24, -20, -18, -15, -12, -9,
+		-8, -3, -2, 2, 2, 2, 2, 2,
+		 2, 2, 2, 2, 2, 2, 6, 6,
+		 7, 8, 7, 6, 6, 6, 5, 4,
+		 3, 2, 2, 24, 2, 0, 0, 0,
+		 0, 0, 0, -1, -1, -1, -1, -1,
+		-2, -3, -4, -5, -10, -11, -16, -20,
+		-30, -30, -30, -30, -24, -20, -18, -15,
+		-12, -9, -8, -3, -2, 2, 2, 2,
+		 2, 2, 2, 2, 2, 2, 2, 2,
+		 2, 2, 2, 2, 2, 2, 2, 2,
+		 2, 2, 2, 2, 6, 6, 7, 7,
+		 7, 6, 6, 6, 5, 4, 3, 2,
+		 2, 2, 2, 0, 0, 0, 0, 0,
+		 0, -1, -1, -1, -1, -1, -2, -3,
+		-4, -5, -10, -11, -16, -20, -30, -44
+	};
+
+	filter.verts.data = filter_db;
+	filter.verts.size = sizeof(filter_db);
+	filter.MVP.data = projectionMatrix;
+
+	filter.vertex.source = GLSL(
+		uniform float time;
+		uniform mat4 MVP;
+		layout (location = 0) in float in_f0;
+		layout (location = 1) in float in_f1;
+		out float f0;
+		out float f1;
+		out int index;
+		void main() {
+			f0 = in_f0;
+			f1 = in_f1;
+			index = gl_VertexID;
+		}
+	);
+	filter.geometry.source = GLSL(
+		uniform float time;
+		uniform mat4 MVP;
+		layout (points) in;
+		layout (triangle_strip, max_vertices=6) out;
+
+		in float f0[];
+		in float f1[];
+		in int index[];
+		out vec4 fragColor;
+
+		void main(){
+			float alpha = 0.4;
+			int mindb = -36;
+			int maxdb = 24;
+			int x = 0; //-inst;
+			int y = -mindb; //inst * 0.2f;
+			int z = 1; //inst / 8.0f;
+			vec3 scaleVector = vec3( 1.0/128.0, 1.0/(maxdb-mindb), 1 );
+			
+			fragColor = vec4(0.0, 1.0, 0.0, alpha * (1+0.5*sin(time*3.14)) );
+			
+			//glNormal3f( 0.0, 0.0, 1.0 );
+
+			int i = index[0];
+
+			//glTranslatef( -0.02, -0.35, 0.0 );
+
+			float f_0 = clamp( f0[0], mindb, maxdb );
+			float f_1 = clamp( f1[0], mindb, maxdb );
+
+			gl_Position = MVP * vec4( scaleVector * vec3(   i + x , f_0   + y , z ), 1.0); EmitVertex();
+			gl_Position = MVP * vec4( scaleVector * vec3( i+1 + x , f_1   + y , z ), 1.0); EmitVertex();
+			gl_Position = MVP * vec4( scaleVector * vec3(   i + x , mindb + y , z ), 1.0); EmitVertex();
+			gl_Position = MVP * vec4( scaleVector * vec3( i+1 + x , mindb + y , z ), 1.0); EmitVertex();
+			EndPrimitive();
+		}
+	);
+	filter.fragment.source = GLSL(
+		in vec4 fragColor;
+		out vec4 outColor;
+		void main() {
+			outColor = fragColor;
+		}
+	);
+
+	setupProgram(&filter);
+	
+	glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+	
+	glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (GLvoid*)(1 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+
+	filter.verts.draw_size -= 1;
+}
+
+void setupScope(){
+	static GLfloat projectionMatrix[16] = {
+		1.80, 0.00, 0, -0.9,
+		0.00, 0.50, 0,  0.0,
+		0.00, 0.00, 1, -2.0,
+		0.00, 0.00, 0,  1.0
+	};
+	static GLfloat min_max[] = {
+		 0.0, 0.0, -0.1, -0.1, -0.2, -0.2, -0.3, -0.3, -0.4, -0.4, -0.5, -0.5, -0.6, -0.6, -0.7, -0.7, -0.8, -0.8, -0.9, -0.9,
+		-0.8, -0.8, -0.7, -0.7, -0.6, -0.6, -0.5, -0.5, -0.4, -0.4, -0.3, -0.3, -0.2, -0.2, -0.1, -0.1, 0.0,  0.0, 0.1,  0.1,
+		 0.2,  0.2, 0.3,  0.3, 0.4,  0.4, 0.5,  0.5, 0.6,  0.6, 0.7,  0.7, 0.8,  0.8, 0.9,  0.9, 0.8,  0.8, 0.7,  0.7,
+		 0.6,  0.6, 0.5,  0.5, 0.4,  0.4, 0.3,  0.3, 0.2,  0.2, 0.1,  0.1, 0.0,  0.0, -0.1, -0.1, -0.2, -0.2, -0.3, -0.3,
+		-0.4, -0.4, -0.5, -0.5, -0.6, -0.6, -0.7, -0.7, -0.8, -0.8, -0.9, -0.9, -0.8, -0.8, -0.7, -0.7, -0.6, -0.6, -0.5, -0.5,
+		-0.4, -0.4, -0.3, -0.3, -0.2, -0.2, -0.1, -0.1, 0.0,  0.0, 0.1,  0.1, 0.2,  0.2, 0.3,  0.3, 0.4,  0.4, 0.5,  0.5,
+		 0.6,  0.6, 0.7,  0.7, 0.8,  0.8, 0.9,  0.9, 0.8,  0.8, 0.7,  0.7, 0.6,  0.6, 0.5,  0.5, 0.4,  0.4, 0.3,  0.3,
+		 0.2,  0.2, 0.1,  0.1, 0.0,  0.0, -0.1, -0.1, -0.2, -0.2, -0.3, -0.3, -0.4, -0.4, -0.5, -0.5, -0.6, -0.6, -0.7, -0.7,
+		-0.8, -0.8, -0.9, -0.9, -0.8, -0.8, -0.7, -0.7, -0.6, -0.6, -0.5, -0.5, -0.4, -0.4, -0.3, -0.3, -0.2, -0.2, -0.1, -0.1,
+		 0.0,  0.0, 0.1,  0.1, 0.2,  0.2, 0.3,  0.3, 0.4,  0.4, 0.5,  0.5, 0.6,  0.6, 0.7,  0.7, 0.8,  0.8, 1.0,  1.0,
+		 0.8,  0.8, 0.7,  0.7, 0.6,  0.6, 0.5,  0.5, 0.4,  0.4, 0.3,  0.3, 0.2,  0.2, 0.1,  0.1, 0.0,  0.0, -0.1, -0.1,
+		-0.2, -0.2, -0.3, -0.3, -0.4, -0.4, -0.5, -0.5, -0.6, -0.6, -0.7, -0.7, -0.8, -0.8, -1.0, -1.0, -0.8, -0.8, -0.7, -0.7,
+		-0.6, -0.6, -0.5, -0.5, -0.4, -0.4, -0.3, -0.3, -0.2, -0.2, -0.1, -0.1, 0.0,  0.0, 0.1,  0.1, 0.2,  0.2, 0.3,  0.3,
+		 0.4,  0.4, 0.5,  0.5, 0.6,  0.6, 0.7,  0.7, 0.8,  0.8, 0.9,  0.9, 0.8,  0.8, 0.7,  0.7, 0.6,  0.6, 0.5,  0.5,
+		 0.4,  0.4, 0.3,  0.3, 0.2,  0.2, 0.1,  0.1, 0.0,  0.0, -0.1, -0.1, -0.2, -0.2, -0.3, -0.3, -0.4, -0.4, -0.5, -0.5,
+		-0.6, -0.6, -0.7, -0.7, -0.8, -0.8, -0.9, -0.9, -0.8, -0.8, -0.7, -0.7, -0.6, -0.6, -0.5, -0.5, -0.4, -0.4, -0.3, -0.3,
+		-0.2, -0.2, -0.1, -0.1, 0.0,  0.0, 0.1,  0.1, 0.2,  0.2, 0.3,  0.3, 0.4,  0.4, 0.5,  0.5, 0.6,  0.6, 0.7,  0.7,
+		 0.8,  0.8, 0.9,  0.9, 0.8,  0.8, 0.7,  0.7, 0.6,  0.6, 0.5,  0.5, 0.4,  0.4, 0.3,  0.3, 0.2,  0.2, 0.1,  0.1,
+		 0.0,  0.0, -0.1, -0.1, -0.2, -0.2, -0.3, -0.3, -0.4, -0.4, -0.5, -0.5, -0.6, -0.6, -0.7, -0.7, -0.8, -0.8, -0.9, -0.9,
+		-0.8, -0.8, -0.7, -0.7, -0.6, -0.6, -0.5, -0.5, -0.4, -0.4, -0.3, -0.3, -0.2, -0.2, -0.1, -0.1, 0.0,  0.0, 0.1,  0.1,
+		 0.2,  0.2, 0.3,  0.3, 0.4,  0.4, 0.5,  0.5, 0.6,  0.6, 0.7,  0.7, 0.8,  0.8, 0.9,  0.9, 0.8,  0.8, 0.7,  0.7,
+		 0.6,  0.6, 0.5,  0.5, 0.4,  0.4, 0.3,  0.3, 0.2,  0.2, 0.1,  0.1, 0.0,  0.0, -0.1, -0.1, -0.2, -0.2, -0.3, -0.3,
+		-0.4, -0.4, -0.5, -0.5, -0.6, -0.6, -0.7, -0.7, -0.8, -0.8, -0.9, -0.9, -0.8, -0.8, -0.7, -0.7, -0.6, -0.6, -0.5, -0.5,
+		-0.4, -0.4, -0.3, -0.3, -0.2, -0.2, -0.1, -0.1, 0.0,  0.0, 0.1,  0.1, 0.2,  0.2, 0.3,  0.3, 0.4,  0.4, 0.5,  0.5,
+		 0.6,  0.6, 0.7,  0.7, 0.8,  0.8, 0.9,  0.9, 0.8,  0.8, 0.7,  0.7, 0.6,  0.6, 0.5,  0.5, 0.4,  0.4, 0.3,  0.3,
+		 0.2,  0.2, 0.1,  0.1, 0.0,  0.0, -0.1, -0.1, -0.2, -0.2, -0.3, -0.3, -0.4, -0.4, -0.5, -0.5, -0.6, -0.6, -0.7, -0.7,
+		-0.8, -0.8, -0.9, -0.9, -0.8, -0.8, -0.7, -0.7, -0.6, -0.6, -0.5, -0.5, -0.4, -0.4, -0.3, -0.3, -0.2, -0.2, -0.1, -0.1,
+		 0.0,  0.0, 0.1,  0.1, 0.2,  0.2, 0.3,  0.3, 0.4,  0.4, 0.5,  0.5, 0.6,  0.6, 0.7,  0.7, 0.8,  0.8, 0.9,  0.9,
+		 0.8,  0.8, 0.7,  0.7, 0.6,  0.6, 0.5,  0.5, 0.4,  0.4, 0.3,  0.3, 0.2,  0.2, 0.1,  0.1, 0.0,  0.0, -0.1, -0.1,
+		-0.2, -0.2, -0.3, -0.3, -0.4, -0.4, -0.5, -0.5, -0.6, -0.6, -0.7, -0.7, -0.8, -0.8, -0.9, -0.9, -0.8, -0.8, -0.7, -0.7,
+		-0.6, -0.6, -0.5, -0.5, -0.4, -0.4, -0.3, -0.3, -0.2, -0.2, -0.1, -0.1, 0.0,  0.0, -0.1, -0.9, -0.2, -0.8, -0.3, -0.7,
+		-0.4, -0.6, -0.5, -0.5, -0.6, -0.4, -0.7, -0.3, -0.8, -0.2, -0.9, -0.1, 0.0,  0.0, 0.1,  0.1, 0.2,  0.2, 0.3,  0.3,
+		 0.4,  0.4, 0.5,  0.5, 0.6,  0.6, 0.7,  0.7, 0.8,  0.8, 0.9,  0.9, 0.8,  0.8, 0.7,  0.7, 0.6,  0.6, 0.5,  0.5,
+		 0.4,  0.4, 0.3,  0.3, 0.2,  0.2, 0.1,  0.1, 0.0,  0.0, -0.1, -0.1, -0.2, -0.2, -0.3, -0.3, -0.4, -0.4, -0.5, -0.5,
+		-0.6, -0.6, -0.7, -0.7, -0.8, -0.8, -0.9, -0.9, -0.8, -0.8, -0.7, -0.7, -0.6, -0.6, -0.5, -0.5
+	};
+	scope.MVP.data = projectionMatrix;
+	scope.verts.data = min_max;
+	scope.verts.size = sizeof(min_max);
+	
+	scope.vertex.source = GLSL(
+		layout (location = 0) in vec2 in_min_max_0;
+		layout (location = 1) in vec2 in_min_max_1;
+		uniform mat4 MVP;
+		out vec2 min_max_0;
+		out vec2 min_max_1;
+		out int index;
+		void main() {
+			min_max_0 = in_min_max_0;
+			min_max_1 = in_min_max_1;
+			index = gl_VertexID;
+		}
+	);
+	scope.geometry.source = GLSL(
+
+		layout (points) in;
+		layout (triangle_strip, max_vertices=6) out;
+
+		uniform mat4 MVP;
+		uniform float time;
+		in vec2 min_max_0[];
+		in vec2 min_max_1[];
+		in int index[];
+		out vec4 fragColor;
+
+		void main(){
+			float alpha = 0.75;
+			float height = 0.5;
+			float width = 349.0;
+			float sleft = 0.0;
+			float srigh = sleft + 1.0;
+			//float stop = 1.0;
+			//float sbot = stop - height;
+			float center_y = 0.0;
+			float dx = (1.0 / width) * (srigh - sleft);
+			float z = 2.0;
+			
+			//glTranslatef( 0, 0, 0.9 );
+			//glBegin(GL_POLYGON);
+			//glNormal3f( 0, 0, -1 );
+			/*
+			glColor4f( 0.1, 0.2, 0.1, alpha );
+			glVertex2f( sleft, stop );
+			glVertex2f( sleft, sbot );
+			glVertex2f( srigh, sbot );
+			glVertex2f( srigh, stop );
+			*/
+			//glEnd();
+			
+			//glNormal3f( 0.0, 0.0, 1.0 );
+			float t = time;
+			mat4 rot = mat4(
+				1, 0, 0, 0.0,
+				0, cos(2*t), -sin(2*t), 0.0,
+				0, sin(2*t), cos(2*t), 0,
+				0, 0, 0, 1
+			);
+
+			int i = index[0];
+			float scope_minv_0 = min_max_0[0].x;
+			float scope_minv_1 = min_max_1[0].x;
+			float scope_maxv_0 = min_max_0[0].y;
+			float scope_maxv_1 = min_max_1[0].y;
+
+			fragColor = vec4(0.6, 1.0 ,0.6, alpha );
+			gl_Position = rot * MVP * vec4(     i * dx + sleft, center_y - height * scope_maxv_0, z, 1.0 ); EmitVertex();
+			gl_Position = rot * MVP * vec4( (i+1) * dx + sleft, center_y - height * scope_maxv_1, z, 1.0 ); EmitVertex();
+			fragColor = vec4(0.6, 1.0 ,0.6, 0.1 );
+			gl_Position = rot * MVP * vec4(     i * dx + sleft, center_y, z, 1.0 ); EmitVertex();
+			gl_Position = rot * MVP * vec4( (i+1) * dx + sleft, center_y, z, 1.0 ); EmitVertex();
+			fragColor = vec4(0.6, 1.0 ,0.6, alpha );
+			gl_Position = rot * MVP * vec4(     i * dx + sleft, center_y - height * scope_minv_0, z, 1.0 ); EmitVertex();
+			gl_Position = rot * MVP * vec4( (i+1) * dx + sleft, center_y - height * scope_minv_1, z, 1.0 ); EmitVertex();
+			EndPrimitive();
+		}
+	);
+	scope.fragment.source = GLSL(
+		in vec4 fragColor;
+		out vec4 outColor;
+		void main() {
+			outColor = fragColor;
+		}
+	);
+
+	setupProgram(&scope);
+	
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+
+	scope.verts.draw_size -= 2;
+}
+
 int main(void) {
 	glfwInit();
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -751,18 +1014,22 @@ int main(void) {
 	setupPiano();
 	setupLed();
 	setupBcr();
+	setupFilter();
+	setupScope();
 
 	glBindVertexArray(0);
 
 	while (!glfwWindowShouldClose(window))
 	{
+		global_time = (float)glfwGetTime();
 		glfwPollEvents();
 		glClear(GL_COLOR_BUFFER_BIT);
-		//RUN_PROGRAM(adsr);
 		runProgram(&adsr);
 		runProgram(&piano);
 		runProgram(&led);
 		runProgram(&bcr);
+		runProgram(&filter);
+		runProgram(&scope);
 		glBindVertexArray(0);
 		glfwSwapBuffers(window);
 	}

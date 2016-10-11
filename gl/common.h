@@ -32,6 +32,8 @@ typedef struct _program {
 	} verts;
 } _program;
 
+GLfloat global_time;
+
 void setupProgram(_program *program){
 	GLint success;
 	GLchar infoLog[INFOLOG_LEN];
@@ -79,6 +81,7 @@ void setupProgram(_program *program){
 		printf("ERROR::SHADER::PROGRAM::LINKING_FAILED\n%s\n", infoLog);
 	}
 	program->MVP.handle = glGetUniformLocation(program->handle,"MVP");
+	program->time.handle = glGetUniformLocation(program->handle,"time");
 
 	if( program->vertex.source   ) glDeleteShader(program->vertex.handle);
 	if( program->geometry.source ) glDeleteShader(program->geometry.handle);
@@ -91,12 +94,14 @@ void setupProgram(_program *program){
 	glBufferData(GL_ARRAY_BUFFER, program->verts.size, program->verts.data, GL_STATIC_DRAW);
 
 	program->verts.draw_size = program->verts.size;
+	program->time.data = &global_time;
 }
 
 inline static void runProgram(_program *program){
-	glUseProgram(program->handle); \
-	glUniformMatrix4fv(program->MVP.handle, 1, GL_TRUE, &(program->MVP.data[0])); \
-	glBindVertexArray(program->verts.vao); \
+	glUseProgram(program->handle);
+	glUniform1f(program->time.handle, *(program->time.data));
+	glUniformMatrix4fv(program->MVP.handle, 1, GL_TRUE, &(program->MVP.data[0]));
+	glBindVertexArray(program->verts.vao);
 	glDrawArrays(GL_POINTS, 0, program->verts.draw_size / sizeof(GLfloat) );
 }
 
