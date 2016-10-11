@@ -59,6 +59,7 @@ int main(void)
 	glfwSetCharCallback(window, key_callback);
 	//glfwSetWindowSizeCallback(window, window_size_callback);
 	glfwSetWindowRefreshCallback(window, window_refresh_callback);
+	glfwSetDropCallback(window, drop_callback);
 
 	while (!glfwWindowShouldClose(window))
 	{

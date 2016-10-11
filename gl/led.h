@@ -1,3 +1,5 @@
+#include <string.h>
+
 _program led;
 
 unsigned int charpos = 0;
@@ -380,21 +382,31 @@ void setupLed(){
 	led.verts.draw_size /= 7;
 }
 
+void write_led(unsigned int codepoint)
+{
+	led.verts.data[7 * charpos + 6] = (float) codepoint;
+	glBindBuffer(GL_ARRAY_BUFFER, led.verts.vbo);
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat) * (7 * charpos + 6), sizeof(GLfloat), &(led.verts.data[7 * charpos + 6]));
+	charpos++;
+	charpos %= led.verts.draw_size / sizeof( GLfloat );
+}
+
 void key_callback(GLFWwindow *window, unsigned int codepoint)
 {
 	if( codepoint >= 32 && codepoint <= 127 )
 	{
-		led.verts.data[7 * charpos + 6] = (float) codepoint;
-		//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, led.verts.vbo);
-		glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat) * (7 * charpos + 6), sizeof(GLfloat), &(led.verts.data[7 * charpos + 6]));
-		charpos++;
-		charpos %= led.verts.draw_size / sizeof( GLfloat );
-	}
-	else if( codepoint == 8 )
-	{
-		if( charpos > 0 )
-			charpos--;
+		write_led(codepoint);
 	}
 }
 
+void drop_callback(GLFWwindow* window, int count, const char** paths)
+{
+	for( int i=0;  i < count;  i++ )
+	{
+		int len = strlen(paths[i]);
+		for( int j=0; j < len; j++ )
+		{
+			write_led(paths[i][j]);
+		}
+	}
+}
