@@ -25,6 +25,7 @@ typedef struct _program {
 	} MVP, time;
 	struct {
 		GLuint size;
+		GLuint draw_size;
 		GLfloat *data;
 		GLuint vao;
 		GLuint vbo;
@@ -88,12 +89,14 @@ void setupProgram(_program *program){
 	glBindVertexArray(program->verts.vao);
 	glBindBuffer(GL_ARRAY_BUFFER, program->verts.vbo);
 	glBufferData(GL_ARRAY_BUFFER, program->verts.size, program->verts.data, GL_STATIC_DRAW);
+
+	program->verts.draw_size = program->verts.size;
 }
 
 inline static void runProgram(_program *program){
 	glUseProgram(program->handle); \
 	glUniformMatrix4fv(program->MVP.handle, 1, GL_TRUE, &(program->MVP.data[0])); \
 	glBindVertexArray(program->verts.vao); \
-	glDrawArrays(GL_POINTS, 0, program->verts.size / sizeof(GLfloat) );
+	glDrawArrays(GL_POINTS, 0, program->verts.draw_size / sizeof(GLfloat) );
 }
 
