@@ -12,6 +12,9 @@
 
 #include "main.h"
 
+#define GLEW_STATIC
+#include <GL/glew.h>
+
 #ifdef __WXMAC__
 #include <GLUT/glut.h>
 #else
@@ -86,26 +89,26 @@ public:
 	
 	void setdefaults();
 	
-	void Render(), InitGL(), Enable2D(), Disable2D(),
-		instColor(int,float),
-		drawPiano(),
-		drawScope(),
-		drawCube(),
-		drawBCR(),
-		drawOsc(),
-		drawLissajous(),
-		drawFilter(),
-		drawEnvelope(),
-		drawDrums(),
-		drawLED(),
-		drawBPM(),
+	void Render(), InitGL(); //Enable2D(), Disable2D(),
+		//instColor(int,float),
+		//drawPiano(),
+		//drawScope(),
+		//drawCube(),
+		//drawBCR(),
+		//drawOsc(),
+		//drawLissajous(),
+		//drawFilter(),
+		//drawEnvelope(),
+		//drawDrums(),
+		//drawLED(),
+		//drawBPM(),
 		//drawLEDchar(char,float,float,float,float)
-		drawLED( char *str, float r, float g, float b, float a )
+		//drawLED( char *str, float r, float g, float b, float a )
 		;
 
-	void drawLED16char(char c, float r, float g, float b, float alpha);
-	GLuint ledVertexBuffer;
-	void setupVertexBuffers();
+	//void drawLED16char(char c, float r, float g, float b, float alpha);
+	//GLuint ledVertexBuffer;
+	//void setupVertexBuffers();
 	
 	void OnTimer(wxTimerEvent &);
 	void OnPaint(wxPaintEvent&);

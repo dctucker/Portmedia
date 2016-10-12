@@ -73,14 +73,29 @@ Canvas3D::Canvas3D( wxWindow *parent ) :
 	setdefaults();
 }
 
-#include "draw_filter.h"
-#include "draw_keys.h"
-#include "draw_bcr.h"
-#include "draw_led.h"
-#include "draw_drums.h"
-#include "draw_signal.h"
-#include "draw_flag.h"
-#include "draw_chord.h"
+#include "shaders/common.h"
+#include "shaders/filter.h"
+#include "shaders/piano.h"
+#include "shaders/bcr.h"
+#include "shaders/led.h"
+//#include "shaders/drums.h"
+#include "shaders/scope.h"
+#include "shaders/adsr.h"
+//#include "shaders/flag.h"
+//#include "shaders/chord.h"
+
+inline static void drawLoop()
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+	global_time++;// = (float)glfwGetTime();
+	runProgram(&adsr);
+	runProgram(&piano);
+	runProgram(&led);
+	runProgram(&bcr);
+	runProgram(&filter);
+	runProgram(&scope);
+	glBindVertexArray(0);
+}
 
 void Canvas3D::setdefaults()
 {
@@ -118,46 +133,37 @@ Canvas3D::~Canvas3D()
 void Canvas3D::InitGL()
 {
 	//SetCurrent();
-	setupVertexBuffers();
+	//setupVertexBuffers();
 	
+	doMessage("!\"#$%&\'()*+,-./0123456789:;<=>?@[\\]^_`{|}~");
+	ledAlpha = 1.0;
+	lissajous_d = 0.0;
+	lissajous_rot = 0;
+/*
 	glClearDepth( 50.0f );
 	glEnable( GL_DEPTH_TEST );
 	glDepthFunc( GL_LEQUAL );
 	glShadeModel(GL_FLAT);
 	//str = "READY.";
-doMessage("!\"#$%&\'()*+,-./0123456789:;<=>?@[\\]^_`{|}~");
-	ledAlpha = 1.0;
-	lissajous_d = 0.0;
-	lissajous_rot = 0;
 
-}
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glViewport(0, 0, 800, 600);
 
-void Canvas3D::setupVertexBuffers()
-{
-	glGenBuffers(1, &ledVertexBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, ledVertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(led16_vertex_data), led16_vertex_data, GL_STATIC_DRAW);
-}
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+*/
 
-void Canvas3D::drawOsc()
-{
-	glPushMatrix();
-	
-		// draw bitmap
-		
-		// draw volume ADSR
-		glPushMatrix();
-		
-		glPopMatrix();
-		
-		// draw LFO settings
-		// draw filter ADSR
-		// draw filters
-		// draw distortion
-		// draw delay
-		// draw volume
-	
-	glPopMatrix();
+	glewExperimental = GL_TRUE;
+	glewInit();
+
+	setupAdsr();
+	setupPiano();
+	setupLed();
+	setupBcr();
+	setupFilter();
+	setupScope();
+
+	glBindVertexArray(0);
 }
 
 void Canvas3D::Render()
@@ -169,6 +175,7 @@ void Canvas3D::Render()
 		InitGL();
 	}
 
+/*
 	glEnable(  GL_RESCALE_NORMAL );
 
 	glClearColor( 0.0, 0.0, 0.05, 1.0 );
@@ -218,66 +225,17 @@ void Canvas3D::Render()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
-	drawCube();
+	//drawCube();
 	
 	//glDisable( GL_LIGHTING );
 
 	//drawLissajous();
 
-	glPushMatrix();
-
-	Enable2D();
-		//drawNumber(4);
-		drawPiano();
-		drawBCR();
-		drawScope();
-		drawLED();
-		drawBPM();
-		//drawChord(&curChord);
-		
-	Disable2D();
-	//drawCubanFlag();
-
-	drawFilter();
-	drawEnvelope();
-	//drawDrums();
-
-	
-	glPopMatrix();
-	
+    drawLoop();
   	
+*/
 	glFlush();
 	SwapBuffers();
-}
-
-void Canvas3D::Enable2D()
-{
-	//int vPort[4];
-	//glGetIntegerv(GL_VIEWPORT, vPort);
-
-	glMatrixMode(GL_PROJECTION);
-	glPushMatrix();
-	//glLoadIdentity();
-
-	//glOrtho(0, vPort[2], 0, vPort[3], -1, 1);
-	//glOrtho( 0.0, 1.0, 1.0, 0.0, 0.0, 1.0 );
-	gluPerspective( 45.0f, 4.0f/3.0f, 0.0, 20.0f );
-
-	//glTranslatef( -0.5, -0.5, 0.0 );
-	glScalef( 1.0, -1.0, 1.0 );
-	glTranslatef( -1.0, -1.0, 0.0 );
-	glScalef( 2.0, 2.0, 1.0 );
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glLoadIdentity();
-}
-
-void Canvas3D::Disable2D()
-{
-   glMatrixMode(GL_PROJECTION);
-   glPopMatrix();   
-   glMatrixMode(GL_MODELVIEW);
-   glPopMatrix();
 }
 
 void Canvas3D::OnPaint(wxPaintEvent& event)
@@ -314,3 +272,47 @@ void Canvas3D::OnTimer(wxTimerEvent &)
 	//Update();
 	Render();
 }
+void Canvas3D::SetMod(float f)
+{
+	mod = f;
+}
+void Canvas3D::SetSustain(float f)
+{
+	// nop
+}
+
+void Canvas3D::SetPitch(float f)
+{
+	pitch = f;
+}
+void Canvas3D::SetFader(float f)
+{
+	vol = f;
+}
+
+void Canvas3D::keyOn(int k)
+{
+	keyon[k] = true;
+}
+
+void Canvas3D::keyOff(int k)
+{
+}
+
+void Canvas3D::updateFilter(int inst, int i, fl y)
+{
+	filt[inst][i] = y;
+	selinst = inst;
+}
+
+void Canvas3D::SetScopeBuffers(float *h, float *l)
+{
+	scope_maxv = h;
+	scope_minv = l;
+}
+
+void Canvas3D::hitDrum(int i)
+{
+	drums[ i % 7 ] = 1.0;
+}
+
