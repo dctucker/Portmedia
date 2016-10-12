@@ -33,21 +33,6 @@ void setupLed(){
 		  7.0, -3.6, 0.0,   0.0, 1.0, 0.0, 'R',
 		  8.0, -3.6, 0.0,   0.0, 1.0, 0.0, 'S',
 		  9.0, -3.6, 0.0,   0.0, 1.0, 0.0, 'T',
-	/*
-		-0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'A',
-		-0.4f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'R',
-		-0.3f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'E',
-		-0.2f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'L',
-		-0.1f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f, 'I',
-		 0.0f, -0.5f, 0.0f,   0.0f, 1.0f, 1.0f, ' ',
-		 0.1f, -0.5f, 0.0f,   1.0f, 0.4f, 0.4f, '\177',
-		 0.2f, -0.5f, 0.0f,   0.0f, 1.0f, 1.0f, ' ',
-		 0.3f, -0.5f, 0.0f,   0.0f, 0.6f, 1.0f, 'C',
-		 0.4f, -0.5f, 0.0f,   0.0f, 0.6f, 1.0f, 'A',
-		 0.5f, -0.5f, 0.0f,   0.0f, 0.6f, 1.0f, 'S',
-		 0.6f, -0.5f, 0.0f,   0.0f, 0.6f, 1.0f, 'E',
-		 0.7f, -0.5f, 0.0f,   0.0f, 0.6f, 1.0f, 'Y'
-	*/
 	};
 	led.MVP.data = projectionMatrix;
 	led.verts.data = vertices;
@@ -336,8 +321,8 @@ void setupLed(){
 			);
 			vec4 scaleVector = vec4(0.04, 0.04, 1.0, 1.0);
 
-			dist = clamp( 0.2 - distance((MVP * (gl_in[0].gl_Position )).xy, mouse ), 0, 0.5);
-			fragColor = vec4(0.15, 0.15, 0.20, 0.4 + 3 * dist);
+			dist = clamp( 0.1 - distance((MVP * (gl_in[0].gl_Position )).xy, mouse ), 0, 0.1);
+			fragColor = vec4(0.15, 0.15, 0.20, 0.3 + 12 * dist);
 			gl_Position = MVP * ( gl_in[0].gl_Position + vec4( -12.5, -12.5, 0.0, 0.0 ) * scaleVector ); EmitVertex();
 			gl_Position = MVP * ( gl_in[0].gl_Position + vec4(  12.5, -12.5, 0.0, 0.0 ) * scaleVector ); EmitVertex();
 			gl_Position = MVP * ( gl_in[0].gl_Position + vec4( -12.5,  12.5, 0.0, 0.0 ) * scaleVector ); EmitVertex();
