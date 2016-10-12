@@ -59,6 +59,24 @@ static void cursor_pos_callback(GLFWwindow* window, double xpos, double ypos)
 	}
 }
 
+void setupGl()
+{
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glViewport(0, 0, WIDTH, HEIGHT);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	setupAdsr();
+	setupPiano();
+	setupLed();
+	setupBcr();
+	setupFilter();
+	setupScope();
+
+	glBindVertexArray(0);
+}
+
 int main(void)
 {
 	glfwInit();
@@ -74,20 +92,9 @@ int main(void)
 	glfwSwapInterval(1);
 	glewExperimental = GL_TRUE;
 	glewInit();
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glViewport(0, 0, WIDTH, HEIGHT);
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	setupGl();
 
-	setupAdsr();
-	setupPiano();
-	setupLed();
-	setupBcr();
-	setupFilter();
-	setupScope();
-
-	glBindVertexArray(0);
 	glfwSetCharCallback(window, key_callback);
 	//glfwSetWindowSizeCallback(window, window_size_callback);
 	glfwSetWindowRefreshCallback(window, window_refresh_callback);
