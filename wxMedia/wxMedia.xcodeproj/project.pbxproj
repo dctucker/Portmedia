@@ -50,6 +50,7 @@
 		C99CE5F01D941D7300FC1A97 /* libwx_baseu-3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CE5ED1D941D7300FC1A97 /* libwx_baseu-3.0.dylib */; };
 		C99CE5F11D941D7300FC1A97 /* libwx_osx_cocoau_core-3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CE5EE1D941D7300FC1A97 /* libwx_osx_cocoau_core-3.0.dylib */; };
 		C99CE5F21D941D7300FC1A97 /* libwx_osx_cocoau_gl-3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C99CE5EF1D941D7300FC1A97 /* libwx_osx_cocoau_gl-3.0.dylib */; };
+		C9A798FD1DADF5DB005BDC50 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A798FC1DADF5DB005BDC50 /* libGLEW.a */; };
 		C9B0D3101D9382000083EE41 /* RtMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9B0D30E1D9382000083EE41 /* RtMidi.cpp */; };
 /* End PBXBuildFile section */
 
@@ -149,16 +150,16 @@
 		C99CE5ED1D941D7300FC1A97 /* libwx_baseu-3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_baseu-3.0.dylib"; path = "../../../../../usr/local/Cellar/wxmac/3.0.2_3/lib/libwx_baseu-3.0.dylib"; sourceTree = "<group>"; };
 		C99CE5EE1D941D7300FC1A97 /* libwx_osx_cocoau_core-3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_core-3.0.dylib"; path = "../../../../../usr/local/Cellar/wxmac/3.0.2_3/lib/libwx_osx_cocoau_core-3.0.dylib"; sourceTree = "<group>"; };
 		C99CE5EF1D941D7300FC1A97 /* libwx_osx_cocoau_gl-3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libwx_osx_cocoau_gl-3.0.dylib"; path = "../../../../../usr/local/Cellar/wxmac/3.0.2_3/lib/libwx_osx_cocoau_gl-3.0.dylib"; sourceTree = "<group>"; };
+		C9A798F51DADEFAF005BDC50 /* adsr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = adsr.h; path = src/shaders/adsr.h; sourceTree = "<group>"; };
+		C9A798F61DADEFAF005BDC50 /* bcr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bcr.h; path = src/shaders/bcr.h; sourceTree = "<group>"; };
+		C9A798F71DADEFAF005BDC50 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = common.h; path = src/shaders/common.h; sourceTree = "<group>"; };
+		C9A798F81DADEFAF005BDC50 /* filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = filter.h; path = src/shaders/filter.h; sourceTree = "<group>"; };
+		C9A798F91DADEFAF005BDC50 /* led.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = led.h; path = src/shaders/led.h; sourceTree = "<group>"; };
+		C9A798FA1DADEFAF005BDC50 /* piano.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = piano.h; path = src/shaders/piano.h; sourceTree = "<group>"; };
+		C9A798FB1DADEFAF005BDC50 /* scope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scope.h; path = src/shaders/scope.h; sourceTree = "<group>"; };
+		C9A798FC1DADF5DB005BDC50 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ../../../../../usr/local/lib/libGLEW.a; sourceTree = "<group>"; };
 		C9B0D30E1D9382000083EE41 /* RtMidi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RtMidi.cpp; path = ../rtmidi/RtMidi.cpp; sourceTree = "<group>"; };
 		C9B0D30F1D9382000083EE41 /* RtMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RtMidi.h; path = ../rtmidi/RtMidi.h; sourceTree = "<group>"; };
-		C9F3244E12501BB600708784 /* draw_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_keys.h; path = src/draw_keys.h; sourceTree = "<group>"; };
-		C9F3244F12501BB600708784 /* draw_flag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_flag.h; path = src/draw_flag.h; sourceTree = "<group>"; };
-		C9F3245012501BB600708784 /* draw_filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_filter.h; path = src/draw_filter.h; sourceTree = "<group>"; };
-		C9F3245112501BB600708784 /* draw_drums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_drums.h; path = src/draw_drums.h; sourceTree = "<group>"; };
-		C9F3245212501BB600708784 /* draw_chord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_chord.h; path = src/draw_chord.h; sourceTree = "<group>"; };
-		C9F3245312501BB600708784 /* draw_bcr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_bcr.h; path = src/draw_bcr.h; sourceTree = "<group>"; };
-		C9F3245412501BB600708784 /* draw_signal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_signal.h; path = src/draw_signal.h; sourceTree = "<group>"; };
-		C9F3245512501BB600708784 /* draw_led.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = draw_led.h; path = src/draw_led.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +171,7 @@
 				C99CE5F11D941D7300FC1A97 /* libwx_osx_cocoau_core-3.0.dylib in Frameworks */,
 				8D0C4E920486CD37000505A6 /* Carbon.framework in Frameworks */,
 				C99CE5F21D941D7300FC1A97 /* libwx_osx_cocoau_gl-3.0.dylib in Frameworks */,
+				C9A798FD1DADF5DB005BDC50 /* libGLEW.a in Frameworks */,
 				C99CE5E21D93AB4100FC1A97 /* System.framework in Frameworks */,
 				B84D69990F5F74BF00F9ABAC /* CoreAudio.framework in Frameworks */,
 				B84D699A0F5F74BF00F9ABAC /* CoreFoundation.framework in Frameworks */,
@@ -266,6 +268,7 @@
 				C99CE58F1D939BD900FC1A97 /* libportaudio.a */,
 				C99CE5ED1D941D7300FC1A97 /* libwx_baseu-3.0.dylib */,
 				C99CE5EE1D941D7300FC1A97 /* libwx_osx_cocoau_core-3.0.dylib */,
+				C9A798FC1DADF5DB005BDC50 /* libGLEW.a */,
 				C99CE5EF1D941D7300FC1A97 /* libwx_osx_cocoau_gl-3.0.dylib */,
 				C99CE5901D939BD900FC1A97 /* libportaudiocpp.a */,
 				C99CE5911D939BD900FC1A97 /* libsamplerate.a */,
@@ -359,19 +362,12 @@
 		B84D6CD20F608FA600F9ABAC /* GUI */ = {
 			isa = PBXGroup;
 			children = (
+				C9A798F41DADEF9E005BDC50 /* modern_gl */,
 				B8F9C56C11F80B8C00D81749 /* Old */,
 				B87F78291191E6260018E6EF /* textures.h */,
 				B87F782A1191E6260018E6EF /* textures.cpp */,
 				B84758F4119A7DEA0049276F /* canvas3d.h */,
 				B84758F3119A7DEA0049276F /* canvas3d.cpp */,
-				C9F3244E12501BB600708784 /* draw_keys.h */,
-				C9F3244F12501BB600708784 /* draw_flag.h */,
-				C9F3245012501BB600708784 /* draw_filter.h */,
-				C9F3245112501BB600708784 /* draw_drums.h */,
-				C9F3245212501BB600708784 /* draw_chord.h */,
-				C9F3245312501BB600708784 /* draw_bcr.h */,
-				C9F3245412501BB600708784 /* draw_signal.h */,
-				C9F3245512501BB600708784 /* draw_led.h */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -398,6 +394,20 @@
 				B84D6C950F60709D00F9ABAC /* midigui.h */,
 			);
 			name = Old;
+			sourceTree = "<group>";
+		};
+		C9A798F41DADEF9E005BDC50 /* modern_gl */ = {
+			isa = PBXGroup;
+			children = (
+				C9A798F51DADEFAF005BDC50 /* adsr.h */,
+				C9A798F61DADEFAF005BDC50 /* bcr.h */,
+				C9A798F71DADEFAF005BDC50 /* common.h */,
+				C9A798F81DADEFAF005BDC50 /* filter.h */,
+				C9A798F91DADEFAF005BDC50 /* led.h */,
+				C9A798FA1DADEFAF005BDC50 /* piano.h */,
+				C9A798FB1DADEFAF005BDC50 /* scope.h */,
+			);
+			name = modern_gl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

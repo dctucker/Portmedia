@@ -64,7 +64,11 @@ Canvas3D::Canvas3D(wxWindow *parent,
 */
 
 
-static int CanvasAttribs[3] = { WX_GL_RGBA, WX_GL_DOUBLEBUFFER, 0};
+static int CanvasAttribs[3] = {
+	WX_GL_RGBA,
+	WX_GL_DOUBLEBUFFER,
+	0
+};
 
 Canvas3D::Canvas3D( wxWindow *parent ) :
 	wxGLCanvas( parent, wxID_ANY, CanvasAttribs, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE )
@@ -145,13 +149,13 @@ void Canvas3D::InitGL()
 	glDepthFunc( GL_LEQUAL );
 	glShadeModel(GL_FLAT);
 	//str = "READY.";
+*/
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glViewport(0, 0, 800, 600);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-*/
 
 	glewExperimental = GL_TRUE;
 	glewInit();
@@ -231,10 +235,10 @@ void Canvas3D::Render()
 
 	//drawLissajous();
 
-    drawLoop();
   	
 */
-	glFlush();
+    drawLoop();
+	//glFlush();
 	SwapBuffers();
 }
 
