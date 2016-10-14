@@ -10,5 +10,6 @@ rtmidi
 libsndfile
 _instrument
 .*.swp
+*.o
 *~
 .DS_Store

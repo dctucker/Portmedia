@@ -11,7 +11,7 @@
 #include <wx/wx.h>
 
 BEGIN_EVENT_TABLE(Canvas3D, wxGLCanvas)
-	EVT_SIZE(Canvas3D::OnSize)
+	//EVT_SIZE(Canvas3D::OnSize)
 	EVT_PAINT(Canvas3D::OnPaint)
 	//EVT_ERASE_BACKGROUND(Canvas3D::OnEraseBackground)
 	//EVT_ENTER_WINDOW( Canvas3D::OnEnterWindow )
@@ -64,9 +64,12 @@ Canvas3D::Canvas3D(wxWindow *parent,
 */
 
 
-static int CanvasAttribs[3] = {
+static int CanvasAttribs[] = {
 	WX_GL_RGBA,
 	WX_GL_DOUBLEBUFFER,
+	WX_GL_MAJOR_VERSION, 3,
+	WX_GL_MINOR_VERSION, 3,
+	WX_GL_CORE_PROFILE,
 	0
 };
 
@@ -255,6 +258,7 @@ void Canvas3D::OnPaint(wxPaintEvent& event)
 }
 
 
+/*
 void Canvas3D::OnSize(wxSizeEvent& event)
 {
 	wxGLCanvas::OnSize(event);
@@ -264,6 +268,7 @@ void Canvas3D::OnSize(wxSizeEvent& event)
 	glViewport( 0, 0, (GLint) w, (GLint) h );
 	
 }
+*/
 
 void Canvas3D::OnEraseBackground(wxEraseEvent& WXUNUSED(event))
 {

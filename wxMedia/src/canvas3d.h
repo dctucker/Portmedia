@@ -112,7 +112,7 @@ public:
 	
 	void OnTimer(wxTimerEvent &);
 	void OnPaint(wxPaintEvent&);
-	void OnSize(wxSizeEvent &);
+	//void OnSize(wxSizeEvent &);
 	void OnEraseBackground(wxEraseEvent&);
 
 	int doMessage(const char *s){
