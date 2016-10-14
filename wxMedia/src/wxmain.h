@@ -22,6 +22,7 @@
 #include <wx/panel.h>
 
 #include "main.h"
+#include "myframe.h"
 
 #include "portaudiocpp/PortAudioCpp.hxx"
 #include "RtMidi.h"
@@ -140,6 +141,8 @@ class MyApp: public wxApp {
 	void OnLoad(wxCommandEvent &);
 	void OnLoadSamples(wxCommandEvent &);
 	void OnQuit(wxCommandEvent &);
+
+	void OnSize(wxSizeEvent &);
 
 public:
 	void OnMIDI (double, std::vector<unsigned char> *, void *);

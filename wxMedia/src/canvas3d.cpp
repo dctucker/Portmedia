@@ -277,7 +277,7 @@ void Canvas3D::OnEraseBackground(wxEraseEvent& WXUNUSED(event))
 
 void Canvas3D::OnTimer(wxTimerEvent &)
 {
-	Refresh(false);
+	//Refresh(false);
 	//Update();
 	Render();
 }

@@ -672,10 +672,9 @@ bool MyApp::OnInit()
 
 
     
-	frame = new wxFrame( NULL, wxID_ANY, wxT("Musical canvas"),
-		wxPoint(250, 100), wxSize(933,700), 
-		( wxDEFAULT_FRAME_STYLE /* | wxFRAME_TOOL_WINDOW */ )
-	);
+	frame = new MyFrame();
+
+	//Bind( wxEVT_SIZE, MyApp::OnSize, frame );
 
 	initMenubar();
 
