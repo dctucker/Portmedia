@@ -27,7 +27,7 @@ typedef struct _program {
 	} verts;
 } _program;
 
-GLfloat global_time;
+GLfloat global_time = 0.0f;
 GLfloat mouse[2];
 
 void setupProgram(_program *program){

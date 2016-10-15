@@ -369,7 +369,6 @@ public:
 	void noteOff(int ch, int k, int v)
 	{
 		Oscillator *osc = NULL;
-		canvas->keyon[k] = false;
 		canvas->keyOff(k);
 
 		if( k < loSplit ) // lower range - sub

@@ -26,17 +26,16 @@ END_EVENT_TABLE()
 #define DEL(X) if(X != NULL) delete X
 IMPLEMENT_APP(MyApp)
 
+float loaded_samples[960000];
+
 void MyApp::OnAbout(wxCommandEvent &event)
 {
 	wxMessageBox(_T("D. Casey Tucker © 2009-2016"), _T("dnbMedia"));
 }
 
-float loaded_samples[960000];
- 
 void MyApp::OnOpen(wxCommandEvent &event)
 {
-	wxFileDialog fd( NULL, _T("Open") , _T("") , _T(""),
-					_T("*.wav") , wxFD_OPEN );
+	wxFileDialog fd( NULL, _T("Open") , _T("") , _T(""), _T("*.wav") , wxFD_OPEN );
 	int r = fd.ShowModal();
 
 	if(r == wxID_OK)
@@ -44,16 +43,11 @@ void MyApp::OnOpen(wxCommandEvent &event)
 		if( waveFrame == NULL )
 		{
 			// setup frame for the waveform editor
-			waveFrame = new wxFrame( NULL, -1, _T("Waveform editor"),
-								wxPoint(100,50), wxSize(400,200),
-								( wxDEFAULT_FRAME_STYLE )
-								& compl wxMAXIMIZE_BOX ); // & wxRESIZE_BORDER );
-			
-			//wavePanel = new WavePanel(waveFrame);
-			//wavePanel->SetMinSize(wxSize(30,30));
-			//waveFrame->SetMinSize(wxSize(30,30));
-			//wavePanel->SetSamples(loaded_samples);
-			//waveFrame->Show();
+			waveFrame = new wxFrame(
+				NULL, -1, _T("Waveform editor"),
+				wxPoint(100,50), wxSize(400,200),
+				( wxDEFAULT_FRAME_STYLE ) & compl wxMAXIMIZE_BOX
+			); // & wxRESIZE_BORDER );
 		}
 		wxString filename = fd.GetPath();
 		SndfileHandle *sf = new SndfileHandle(filename.mb_str(), SFM_READ);
@@ -68,7 +62,6 @@ void MyApp::OnOpen(wxCommandEvent &event)
 
 bool killFrame(wxFrame *&f)
 {
-
 	if(f != NULL and f->IsActive())
 	{
 		f->Close();
@@ -129,10 +122,13 @@ int MyApp::OnExit()
 void MyApp::CloseMIDI(int id)
 {
 	//if( mi[id] != NULL )
-	try {
+	try
+	{
 		mi[id]->closePort();
 		mi[id]->cancelCallback();
-	} catch( RtMidiError *err ) {
+	}
+	catch( RtMidiError *err )
+	{
 		//wxMessageBox( wxString( err->getMessageString(), wxConvUTF8 ) );
 		err->printMessage();
 	}
@@ -153,7 +149,8 @@ void MyApp::killMIDI()
 	DEL(rtmo);
 }
 
-void MyApp::killAudio(){
+void MyApp::killAudio()
+{
 	stream->stop();
 	stream->close();
 	delete stream;
@@ -163,7 +160,6 @@ void MyApp::killAudio(){
 	asys->terminate();
 	//delete asys;
 	stream = NULL;
-
 }
 
 
@@ -263,10 +259,10 @@ void MyApp::OpenAudio(int id)
 		
 		// is this an input or an output device?
 
-		if ( dev.maxOutputChannels() > 0 ) {
-		
-			if( stream == NULL ){
-		
+		if ( dev.maxOutputChannels() > 0 )
+		{
+			if( stream == NULL )
+			{
 				DirectionSpecificStreamParameters
 					outParams(dev, dev.maxOutputChannels(), FLOAT32, false,
 						//dev.defaultLowOutputLatency(), 
@@ -278,20 +274,19 @@ void MyApp::OpenAudio(int id)
 						SAMPLE_RATE, FRAMES_PER_BUFFER, 0 );
 				stream = new MemFunCallbackStream<Bus> (params, *bus, &Bus::generate);
 				//stream = new MemFunCallbackStream<Oscillator> (params, *osc, &Oscillator::generate);
-			
-			} else {
+			}
+			else
+			{
 				stream->stop();
 				stream->close();
 				delete stream;
 				stream = NULL;
 			}
 		} 
-		else
-		if( dev.maxInputChannels() > 0 )
+		else if( dev.maxInputChannels() > 0 )
 		{
 			if( stream_in == NULL)
 			{
-			
 				DirectionSpecificStreamParameters
 					inParams(dev, dev.maxInputChannels(), FLOAT32, false,
 						DESIRED_LATENCY,
@@ -304,9 +299,9 @@ void MyApp::OpenAudio(int id)
 			
 				rec->Rewind();
 				stream_in = new MemFunCallbackStream<Recorder> (params, *rec, &Recorder::consume);
-
-			} else {
-				
+			}
+			else
+			{
 				//wavePanel->SetSamples(rec->GetSamples());
 
 				stream_in->stop();
@@ -314,20 +309,22 @@ void MyApp::OpenAudio(int id)
 				delete stream_in;
 				stream_in = NULL;
 			}
-
 		}
 		
-        if( stream ){
-            stream->start();
-            std::cout << "Output ready.\n";
-        }
-        if( stream_in ){
-            stream_in->start();
-            std::cout << "Input ready.\n";
-        }
+        if( stream )
+		{
+			stream->start();
+			std::cout << "Output ready.\n";
+		}
 
-
-	} catch(PaException err){
+        if( stream_in )
+		{
+			stream_in->start();
+			std::cout << "Input ready.\n";
+		}
+	}
+	catch(PaException err)
+	{
 		wxMessageBox( wxString(err.what(), wxConvUTF8));
 	}
 }
@@ -367,38 +364,47 @@ void MyApp::OpenMIDI(int mdevid)
 		
 	wxString str(mi[mdevid]->getPortName(mdevid).c_str(), wxConvUTF8);
 	
-	if(str.Contains(_T("BCR2000 Port 1"))){
+	if(str.Contains(_T("BCR2000 Port 1")))
+	{
 		rtmo = new RtMidiOut();
 		rtmo->openPort(mdevid);
 		bcr->mo = rtmo;
 		receiver = bcr;
 		std::cout << "Found BCR2000\n";
 	}
-	if(str.Contains(_T("BCR2000 Port 2"))){
+	if(str.Contains(_T("BCR2000 Port 2")))
+	{
 		receiver = drums;
 		std::cout << "Found BCR secondary input for drums\n";
 	}
-	if(str.Contains(_T("CP33"))){
+	if(str.Contains(_T("CP33")))
+	{
 		receiver = key;
 		std::cout << "Found CP33\n";
 	}
-	if(str.Contains(_T("Keystation"))){
+	if(str.Contains(_T("Keystation")))
+	{
 		receiver = key;
 		std::cout << "Found Keystation\n";
 	}
-	if(str.Contains(_T("Little Phatty"))){
+	if(str.Contains(_T("Little Phatty")))
+	{
 		receiver = key;
 		std::cout << "Found Phatty\n";
 	}
-	if(str.Contains(_T("YAMAHA"))){
+	if(str.Contains(_T("YAMAHA")))
+	{
 		receiver = key;
 	}
 	
 	mi[mdevid]->ignoreTypes( true, true, true );
 	mi[mdevid]->setCallback( OnRtMidi, receiver);
-	try {
+	try
+	{
 		mi[mdevid]->openPort( mdevid );
-	} catch( RtMidiError *err ){
+	}
+	catch( RtMidiError *err )
+	{
 		std::cout << "Couldn't open "<< mdevid;
 	}
 	mdevHash[mdevid] = mi.size() - 1;
@@ -409,9 +415,12 @@ void MyApp::OpenMIDI(int mdevid)
 void MyApp::OnMnuMIDI(wxCommandEvent &event)
 {
 	int mdevid = event.GetId() - MDEVID;
-	if( event.IsChecked() ){
+	if( event.IsChecked() )
+	{
 		OpenMIDI(mdevid);
-	} else {
+	}
+	else
+	{
 		CloseMIDI(mdevid);
 	}
 }
@@ -431,39 +440,40 @@ void MyApp::OnMnuTune(wxCommandEvent &event)
 void MyApp::OnMnuSeri(wxCommandEvent &event)
 {
 	// int seri = event.GetId() - SERIID;
-	wxString str( menuDevs->GetLabelText( event.GetId() ) );
+	wxString str( menuSeri->GetLabelText( event.GetId() ) );
 	key->arduino->Init( str.Trim(false) );
 }
 // INIT SECTION
 
 // initialize the MIDI menu, populated by RtMIDI
-void MyApp::initMidi(wxMenu *menuDevs)
+void MyApp::initMidi(wxMenu *menu)
 {
 	TRYMIDI( rtmi = new RtMidiIn(); )
-	wxMenuItem *title = new wxMenuItem(menuDevs, wxID_ANY, _T("MIDI:"), _T("MIDI"));
-	title->Enable(false);
-	menuDevs->Append(title);
+	//wxMenuItem *title = new wxMenuItem(menu, wxID_ANY, _T("MIDI:"), _T("MIDI"));
+	//title->Enable(false);
+	//menu->Append(title);
 	int nPorts = rtmi->getPortCount();
-	for(unsigned i=0; i < nPorts; i++){
+	for(unsigned i=0; i < nPorts; i++)
+	{
 		wxString dname( rtmi->getPortName(i).c_str(), wxConvUTF8 );
 		wxString str(_T("    "));
 		str << i << _T(": ") << dname;
         std::cout << str << "\n";
-		menuDevs->AppendCheckItem(MDEVID + i, str);
+		menu->AppendCheckItem(MDEVID + i, str);
 	}
 	
 	//mi->setCallback( &(MidiController::callback) ); // can't do this unless static
 }
 
 // Initialize the audio menu, populated by PortAudio
-void MyApp::initAudio(wxMenu *menuDevs)
+void MyApp::initAudio(wxMenu *menu)
 { 
 	System::initialize();
 	asys = &( System::instance() );
 	
-	wxMenuItem *title = new wxMenuItem(menuDevs, wxID_ANY, _T("Audio:"), _T("Audio"));
-	title->Enable(false);
-	menuDevs->Append(title);
+	//wxMenuItem *title = new wxMenuItem(menu, wxID_ANY, _T("Audio:"), _T("Audio"));
+	//title->Enable(false);
+	//menu->Append(title);
 	
 	//int nDevs = sys.deviceCount();
 	for (System::DeviceIterator i = asys->devicesBegin(); i != asys->devicesEnd(); ++i)
@@ -471,16 +481,21 @@ void MyApp::initAudio(wxMenu *menuDevs)
 		wxString devname(_T("    "));
 		bool defaultDisplayed = false;
 
-		if (i->isSystemDefaultInputDevice()){
+		if (i->isSystemDefaultInputDevice())
+		{
 			defaultDisplayed = true;
-		} else if ((*i).isHostApiDefaultInputDevice()){
+		}
+		else if ((*i).isHostApiDefaultInputDevice())
+		{
 			defaultDisplayed = true;
 		}
 
-		if (i->isSystemDefaultOutputDevice()) {
+		if (i->isSystemDefaultOutputDevice())
+		{
 			defaultDisplayed = true;
 		}
-		else if (i->isHostApiDefaultOutputDevice()){
+		else if (i->isHostApiDefaultOutputDevice())
+		{
 			defaultDisplayed = true;
 		}
 
@@ -492,24 +507,24 @@ void MyApp::initAudio(wxMenu *menuDevs)
 		devname << i->index() << _T(":") << n3 << _T("[") << n2 << _T("] ") << n1;
 		
 		/* wxMenuItem *adev = */
-		menuDevs->AppendCheckItem(ADEVID + i->index() , devname);
+		menu->AppendCheckItem(ADEVID + i->index() , devname);
 		//if(defaultDisplayed) adev->Check();
     }
 }
 
-void MyApp::initSeri(wxMenu *menuDevs)
+void MyApp::initSeri(wxMenu *menu)
 {
 	int i = 0;
-	wxMenuItem *title = new wxMenuItem(menuDevs, wxID_ANY, _T("Serial:"), _T("Serial"));
-	title->Enable(false);
-	menuDevs->Append(title);
+	//wxMenuItem *title = new wxMenuItem(menu, wxID_ANY, _T("Serial:"), _T("Serial"));
+	//title->Enable(false);
+	//menu->Append(title);
 
 	wxDir dir("/dev");
 	wxString fn;
 	bool cont = dir.GetFirst(&fn, _T("tty.*"));
 	while( cont )
 	{
-		menuDevs->AppendCheckItem(SERIID + i, _T("    /dev/") + fn);
+		menu->AppendCheckItem(SERIID + i, _T("    /dev/") + fn);
 		i++;
 		cont = dir.GetNext(&fn); 
 	}
@@ -576,12 +591,12 @@ void MyApp::initMenubar()
 	menuFile->Append(wxID_PREFERENCES  , _T("Preferences...\tCtrl+."));
 	menuFile->Append(wxID_EXIT         , _T("E&xit\tCtrl+Q"));
 
-	menuDevs = new wxMenu;
-	initAudio(menuDevs);
-	menuDevs->AppendSeparator();
-	initMidi(menuDevs);
-	menuDevs->AppendSeparator();
-	initSeri(menuDevs);
+	menuAsio = new wxMenu;
+	initAudio(menuAsio);
+	menuMidi = new wxMenu;
+	initMidi(menuMidi);
+	menuSeri = new wxMenu;
+	initSeri(menuSeri);
 	
 	menuTune = new wxMenu;
 	initTemps(menuTune);
@@ -594,7 +609,9 @@ void MyApp::initMenubar()
 	menuHelp->Append(wxID_ABOUT, _T("&About"));
 
 	menuBar->Append(menuFile, _T("&File"));
-	menuBar->Append(menuDevs, _T("&Devices"));
+	menuBar->Append(menuAsio, _T("&Audio"));
+	menuBar->Append(menuMidi, _T("&Midi"));
+	menuBar->Append(menuSeri, _T("&Serial"));
 	menuBar->Append(menuTune, _T("&Tuning"));
 	menuBar->Append(menuPres, _T("&Preset"));
 	menuBar->Append(menuHelp, _T("&Help"));
@@ -618,14 +635,9 @@ bool MyApp::OnInit()
 	SetVendorName(_T("D. Casey Tucker"));
 	//_mm_setcsr( _mm_getcsr() | 0x8040 ); // set DAZ and FZ bits
 	
-	/*
-	for(int i=0; i < 100; i++){
-		cout << (double)IntervalTable[i].ratio <<"\n";
-	}
-	*/
+	//for(int i=0; i < 100; i++) cout << (double)IntervalTable[i].ratio <<"\n";
 
 	wxConfigBase::Set( new wxFileConfig(_T("dnbMedia")) );
-	//wxConfigBase::Get()->
 
 	INIT_PD;
 	pd.Pulse(_T("Initializing"));
@@ -636,7 +648,6 @@ bool MyApp::OnInit()
 	waveFrame = NULL;
 	rtmo = NULL;
 	Temperament::nullify();
-
 	
 	pd.Pulse(_T("Loading instruments"));
 	
@@ -653,8 +664,6 @@ bool MyApp::OnInit()
 	//piano = NULL;
 	piano = new Upright;
 	
-	
-	
 	bus = new Bus;
 	bus->add(sine);
 	bus->add(piano);
@@ -666,41 +675,12 @@ bool MyApp::OnInit()
 	bus->add(noise);
 	
 	pd.Pulse(_T("Enumerating Audio / MIDI devices"));
-	
+	frame = new MyFrame();
+	initMenubar();
 
 	pd.Pulse(_T("Initializing GUI"));
 
-
-    
-	frame = new MyFrame();
-
-	//Bind( wxEVT_SIZE, MyApp::OnSize, frame );
-
-	initMenubar();
-
-	
-	//bcrPanel = new BCRPanel(frame, bcr);
-	
-	//bcr->panel = bcrPanel;
-	//bcr->osc = osc;
-
-	/*
-	//setup frame for Keystation 88es
-	keyFrame = new wxFrame( NULL, -1, _T("Keystation 88es"),
-						wxPoint(50,700), wxSize(800, 100),
-						( wxDEFAULT_FRAME_STYLE ) // | wxFRAME_TOOL_WINDOW )
-						& compl wxMAXIMIZE_BOX & compl wxRESIZE_BORDER );
-
-	*/
-
 	key = new MyKeys();
-	/*
-	keyPanel = new KeyboardPanel(keyFrame, key);
-	keyPanel->SetMinSize(wxSize(400, 40));
-	keyFrame->SetMinSize(wxSize(400, 40));
-	keyFrame->SetMaxSize(wxSize(2000, 200));
-	key->panel = keyPanel;
-	*/
 	key->sub   = sine;
 	key->organ = osc;
 	key->piano = piano;
@@ -716,27 +696,11 @@ bool MyApp::OnInit()
 	bcr->myKeys = key;
 	bcr->setControls();
 	
-	
-	//bcr->setLev(&(bus->level));
-
 	drums = new MyDrumIn();
 
-
-/*
-	joyFrame = new wxFrame( NULL, -1, _T("Gamepad"),
-		wxPoint(50, 200), wxSize( 100,100),
-		wxDEFAULT_FRAME_STYLE & compl wxMAXIMIZE_BOX );
-	
-	joy = new MyGamepad(joyFrame);
-	joy->myKeys = key;
-	joyFrame->Show();
-*/
-	
 	glCanvas = new Canvas3D( frame );
-	glCanvas->SetScopeBuffers(bus->maxv, bus->minv);
+	glCanvas->SetScopeBuffer(bus->minmaxv);
 	glCanvas->count = &(bus->count);
-
-	//frame->SetClientSize(400,400);
 
 	for(int i=0; i < 8; i++)
 	{
@@ -746,7 +710,6 @@ bool MyApp::OnInit()
 		glCanvas->ampR[i] = &( key->getOsc(i)->notes[0].ampEnv.R );
 		glCanvas->ampV[i] = &( key->getOsc(i)->amp );
 	}
-
 	
 	key->canvas = glCanvas;
 	drums->canvas = glCanvas;
@@ -754,17 +717,15 @@ bool MyApp::OnInit()
 	glCanvas->bcr = bcr;
 
 	//done! show the frames
-	frame->Show(true);
-	//keyFrame->Show();
-	
-	//compkeyFrame->Show();
 	//pd.Update(100, _T("Done."));
+	frame->Show(true);
 	
 	// open my devices:
+	/*
 	OpenAudio(0);
 	OpenMIDI(0);
 	OpenMIDI(2);
-	
+	*/
 	
 	key->setTemper(0);
 

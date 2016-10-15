@@ -16,7 +16,7 @@ Bus::Bus() :
 	filtLP(new BiQuad(LPF)), filtHP(new BiQuad(HPF)),
 	//compress(new Compress()),
 	numSends( 1 ),
-	pos(0), width(349),
+	pos(0), width(349*2),
 
 	env(0.0),
 	attack_coef(  exp(log(0.01)/( 0.004 * SAMPLE_RATE ) ) ),
@@ -27,7 +27,7 @@ Bus::Bus() :
 {
 
 	for(int i=0; i < SAMPLE_RATE; i++){
-		maxv[i] = minv[i] = 0.0;
+		minmaxv[i] = 0.0;
 	}
 
 	for(int i=0; i < 128; i++){
@@ -297,10 +297,9 @@ int Bus::generate GENERATE(inBuf, outBuf, framesPerBuf, timeInfo, status)
 		{
 			//sc->append(maxo, mino);
 			
-			maxv[pos] = maxo; // sqrtf( maxo);
-			minv[pos] = mino; //-sqrtf(-mino);
+			minmaxv[pos++] = mino; //-sqrtf(-mino);
+			minmaxv[pos++] = maxo; // sqrtf( maxo);
 			
-			++pos;
 			if(pos > width) pos = 0;
 
 			maxo = 0.0;

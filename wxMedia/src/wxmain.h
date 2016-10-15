@@ -84,7 +84,7 @@ class MyApp: public wxApp {
 	void OpenMIDI(int);
 	void CloseMIDI(int);
 
-	wxMenu *menuFile, *menuDevs, *menuTune, *menuPres;
+	wxMenu *menuFile, *menuMidi, *menuAsio, *menuSeri, *menuTune, *menuPres;
 	int numPresets;
 
 	wxString current_preset;

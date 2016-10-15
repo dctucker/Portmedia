@@ -126,7 +126,7 @@ public:
 	}
 
 	
-	float *scope_minv, *scope_maxv, chord_ratio, lissajous_d, lissajous_rot;
+	float *scope_minmaxv, chord_ratio, lissajous_d, lissajous_rot;
 	int scope_pos;
 	float scope_width;
 	chord curChord;
@@ -135,7 +135,7 @@ public:
 	float rot;
 
 	int loSplit, hiSplit;
-	bool keyon[128];
+	float keyon[128];
 
 	BCR2000 *bcr;
 	
@@ -145,7 +145,7 @@ public:
 	void keyOn(int), keyOff(int),
 		SetMod(float), SetPitch(float), SetFader(float), SetSustain(float);
 
-	void SetScopeBuffers(float*,float*);
+	void SetScopeBuffer(float*);
 
 	void gluPerspective(GLfloat fovy, GLfloat aspect, GLfloat zmin, GLfloat zmax)
 	{

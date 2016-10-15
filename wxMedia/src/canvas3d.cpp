@@ -94,13 +94,13 @@ Canvas3D::Canvas3D( wxWindow *parent ) :
 inline static void drawLoop()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
-	global_time++;// = (float)glfwGetTime();
+	global_time+= 0.01;// = (float)glfwGetTime();
 	runProgram(&adsr);
-	runProgram(&piano);
+	//runProgram(&piano);
 	runProgram(&led);
 	runProgram(&bcr);
 	runProgram(&filter);
-	runProgram(&scope);
+	//runProgram(&scope);
 	glBindVertexArray(0);
 }
 
@@ -182,65 +182,32 @@ void Canvas3D::Render()
 		InitGL();
 	}
 
-/*
-	glEnable(  GL_RESCALE_NORMAL );
-
-	glClearColor( 0.0, 0.0, 0.05, 1.0 );
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-		
-	glMatrixMode(GL_PROJECTION);	
-	glLoadIdentity();
-	gluPerspective( 45.f, 4.0f/3.0f, 0.0f, 20.0f );
-	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	
-	
-
-	//glPushMatrix();
-	
-	//glRotatef( -45, 1,0,0 );
-	//glTranslatef( 0.0, 0.0, -5.0 );
-
-	GLfloat lamb[] = { 1.0f, 1.0f, 1.0f, 0 };
-	GLfloat lcol[] = { 1.0f, 0.9f, 0.9f, 1 };
-	GLfloat lpos[] = { 0.0f, 0.0f, 2.0f, 0 };
-	
-	glLightModelfv( GL_LIGHT_MODEL_AMBIENT, lamb );
-	glLightfv( GL_LIGHT0, GL_DIFFUSE, lcol );
-	glLightfv( GL_LIGHT0, GL_POSITION, lpos );
-	
-	glLightf( GL_LIGHT1, GL_SPOT_CUTOFF, 65.0f );
-	
-	glEnable( GL_LIGHTING );
-	glEnable(  GL_LIGHT0  );
-	//glEnable(  GL_LIGHT1  );
-	glEnable(GL_FOG);
-
-
-    GLfloat fogColor[] = {0.5f, 0.5f, 0.5f, 1};
-    glFogfv(GL_FOG_COLOR, fogColor);
-    glFogi(GL_FOG_MODE, GL_LINEAR);
-    glFogf(GL_FOG_START, -0.1f);
-    glFogf(GL_FOG_END, 1.0f);
-	glFogf(GL_FOG_DENSITY, 0.1f);
-	
-	
-	//glPopMatrix();
-	glEnable(GL_COLOR_MATERIAL);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-
-	//drawCube();
-	
-	//glDisable( GL_LIGHTING );
-
-	//drawLissajous();
-
-  	
-*/
     drawLoop();
+
+
+	glUseProgram(piano.handle);
+	glUniform1f(piano.time.handle , *(piano.time.data));
+	glUniform2f(piano.mouse.handle, piano.mouse.data[0], piano.mouse.data[1]);
+	glUniformMatrix4fv(piano.MVP.handle, 1, GL_TRUE, &(piano.MVP.data[0]));
+	glBindVertexArray(piano.verts.vao);
+	glBindBuffer(GL_ARRAY_BUFFER, piano.verts.vbo);
+	glBufferData(GL_ARRAY_BUFFER, piano.verts.size, piano.verts.data, GL_STREAM_DRAW);
+	glDrawArrays(GL_POINTS, 0, piano.verts.draw_size / sizeof(GLfloat) );
+
+
+
+	glUseProgram(scope.handle);
+
+	glUniform1f(scope.time.handle , *(scope.time.data));
+	glUniform2f(scope.mouse.handle, scope.mouse.data[0], scope.mouse.data[1]);
+	glUniformMatrix4fv(scope.MVP.handle, 1, GL_TRUE, &(scope.MVP.data[0]));
+	glBindVertexArray(scope.verts.vao);
+
+	glBindBuffer(GL_ARRAY_BUFFER, scope.verts.vbo);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, scope.verts.size, scope_minmaxv);
+	glDrawArrays(GL_POINTS, 0, scope.verts.draw_size / sizeof(GLfloat) );
+
+
 	//glFlush();
 	SwapBuffers();
 }
@@ -301,11 +268,29 @@ void Canvas3D::SetFader(float f)
 
 void Canvas3D::keyOn(int k)
 {
-	keyon[k] = true;
+	piano.verts.data[k-21] = 1;
+
+/*
+	glBindBuffer(GL_ARRAY_BUFFER, piano.verts.vbo);
+	glBufferSubData(GL_ARRAY_BUFFER,
+		0,
+		piano.verts.size,
+		piano.verts.data
+	); // */
 }
 
 void Canvas3D::keyOff(int k)
 {
+	piano.verts.data[k-21] = 0;
+/*
+	glUseProgram(piano.handle);
+	glBindVertexArray(piano.verts.vao);
+	glBindBuffer(GL_ARRAY_BUFFER, piano.verts.vbo);
+	glBufferSubData(GL_ARRAY_BUFFER,
+		k,
+		sizeof(GLfloat),
+		&(keyon[k])
+	); // */
 }
 
 void Canvas3D::updateFilter(int inst, int i, fl y)
@@ -314,10 +299,9 @@ void Canvas3D::updateFilter(int inst, int i, fl y)
 	selinst = inst;
 }
 
-void Canvas3D::SetScopeBuffers(float *h, float *l)
+void Canvas3D::SetScopeBuffer(float *h)
 {
-	scope_maxv = h;
-	scope_minv = l;
+	scope_minmaxv = h;
 }
 
 void Canvas3D::hitDrum(int i)

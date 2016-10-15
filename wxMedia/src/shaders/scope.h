@@ -3,7 +3,7 @@ _program scope;
 void setupScope(){
 	static GLfloat projectionMatrix[16] = {
 		1.80, 0.00, 0, -0.9,
-		0.00, 0.50, 0,  0.0,
+		0.00, 2.00, 0,  0.0,
 		0.00, 0.00, 1, -2.0,
 		0.00, 0.00, 0,  1.0
 	};
@@ -98,7 +98,7 @@ void setupScope(){
 			//glEnd();
 			
 			//glNormal3f( 0.0, 0.0, 1.0 );
-			float t = time;
+			float t = 0;
 			mat4 rot = mat4(
 				1, 0, 0, 0.0,
 				0, cos(2*t), -sin(2*t), 0.0,

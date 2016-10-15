@@ -111,7 +111,7 @@ public:
 	
 	wxPaintEvent *evt;
 	
-	float minv[SAMPLE_RATE], maxv[SAMPLE_RATE];
+	float minmaxv[SAMPLE_RATE];
 	int pos, width;
 
 };
