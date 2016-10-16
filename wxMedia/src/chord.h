@@ -11,14 +11,14 @@
 #define CHORD_H
 
 
-typedef struct chord {
+typedef struct {
 	int type;
 	int root;
 	int bass;
 	int add1;
 	int add2;
 	int weight;
-};
+} chord;
 
 
 	/*

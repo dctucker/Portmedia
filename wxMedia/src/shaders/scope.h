@@ -47,6 +47,7 @@ void setupScope(){
 	scope.MVP.data = projectionMatrix;
 	scope.verts.data = min_max;
 	scope.verts.size = sizeof(min_max);
+	scope.verts.usage = GL_STREAM_DRAW;
 	
 	scope.vertex.source = GLSL(
 		layout (location = 0) in vec2 in_min_max_0;

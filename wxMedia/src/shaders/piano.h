@@ -22,6 +22,7 @@ void setupPiano(){
 	piano.MVP.data = projectionMatrix;
 	piano.verts.data = velocities;
 	piano.verts.size = sizeof(velocities);
+	piano.verts.usage = GL_DYNAMIC_DRAW;
 
 	piano.vertex.source = GLSL(
 		layout (location = 0) in float velocity;

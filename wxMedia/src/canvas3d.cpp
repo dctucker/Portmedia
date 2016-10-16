@@ -190,8 +190,6 @@ void Canvas3D::Render()
 	glUniform2f(piano.mouse.handle, piano.mouse.data[0], piano.mouse.data[1]);
 	glUniformMatrix4fv(piano.MVP.handle, 1, GL_TRUE, &(piano.MVP.data[0]));
 	glBindVertexArray(piano.verts.vao);
-	glBindBuffer(GL_ARRAY_BUFFER, piano.verts.vbo);
-	glBufferData(GL_ARRAY_BUFFER, piano.verts.size, piano.verts.data, GL_STREAM_DRAW);
 	glDrawArrays(GL_POINTS, 0, piano.verts.draw_size / sizeof(GLfloat) );
 
 
@@ -268,29 +266,26 @@ void Canvas3D::SetFader(float f)
 
 void Canvas3D::keyOn(int k)
 {
-	piano.verts.data[k-21] = 1;
+	int x = k-21;
+	piano.verts.data[x] = 1;
 
-/*
+	SetCurrent(*context);
 	glBindBuffer(GL_ARRAY_BUFFER, piano.verts.vbo);
-	glBufferSubData(GL_ARRAY_BUFFER,
-		0,
-		piano.verts.size,
-		piano.verts.data
-	); // */
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat) * x, sizeof(GLfloat), &(piano.verts.data[x]));
+	//glBufferSubData(GL_ARRAY_BUFFER, 0, piano.verts.size, piano.verts.data);
+	//glBufferData(GL_ARRAY_BUFFER, piano.verts.size, piano.verts.data, GL_STREAM_DRAW);
 }
 
 void Canvas3D::keyOff(int k)
 {
-	piano.verts.data[k-21] = 0;
-/*
-	glUseProgram(piano.handle);
-	glBindVertexArray(piano.verts.vao);
+	int x = k-21;
+	piano.verts.data[x] = 0;
+
+	SetCurrent(*context);
 	glBindBuffer(GL_ARRAY_BUFFER, piano.verts.vbo);
-	glBufferSubData(GL_ARRAY_BUFFER,
-		k,
-		sizeof(GLfloat),
-		&(keyon[k])
-	); // */
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat) * x, sizeof(GLfloat), &(piano.verts.data[x]));
+	//glBufferSubData(GL_ARRAY_BUFFER, 0, piano.verts.size, piano.verts.data);
+	//glBufferData(GL_ARRAY_BUFFER, piano.verts.size, piano.verts.data, GL_STREAM_DRAW);
 }
 
 void Canvas3D::updateFilter(int inst, int i, fl y)

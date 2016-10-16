@@ -24,6 +24,7 @@ typedef struct _program {
 		GLfloat *data;
 		GLuint vao;
 		GLuint vbo;
+		GLuint usage = GL_STATIC_DRAW;
 	} verts;
 } _program;
 
@@ -88,7 +89,7 @@ void setupProgram(_program *program){
 	glGenBuffers(1, &(program->verts.vbo));
 	glBindVertexArray(program->verts.vao);
 	glBindBuffer(GL_ARRAY_BUFFER, program->verts.vbo);
-	glBufferData(GL_ARRAY_BUFFER, program->verts.size, program->verts.data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, program->verts.size, program->verts.data, program->verts.usage);
 
 	program->verts.draw_size = program->verts.size;
 	program->time.data = &global_time;
