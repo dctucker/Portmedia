@@ -21,6 +21,7 @@ void setupBcr(){
 	bcr.MVP.data = projectionMatrix;
 	bcr.verts.data = vertices;
 	bcr.verts.size = sizeof(vertices);
+	bcr.verts.usage = GL_DYNAMIC_DRAW;
 
 	bcr.vertex.source = GLSL(
 		layout (location = 0) in float inVal;

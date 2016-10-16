@@ -228,7 +228,8 @@ void Canvas3D::Render()
 	glBufferSubData(GL_ARRAY_BUFFER, 0, scope.verts.size, scope_minmaxv);
 	glDrawArrays(GL_POINTS, 0, scope.verts.draw_size / sizeof(GLfloat) );
 
-	glFlush();
+	//glFlush();
+	SwapBuffers();
 }
 
 void Canvas3D::OnPaint(wxPaintEvent& event)
@@ -240,8 +241,7 @@ void Canvas3D::OnPaint(wxPaintEvent& event)
 
 	//Context3D & canvas = wxGetApp().GetContext(this);
 	//glViewport(0, 0, 400, 400);
-	Render();
-	SwapBuffers();
+	//Render();
 }
 
 
@@ -264,9 +264,9 @@ void Canvas3D::OnEraseBackground(wxEraseEvent& WXUNUSED(event))
 
 void Canvas3D::OnTimer(wxTimerEvent &)
 {
-	Refresh(false);
+	//Refresh(false);
 	//Update();
-	//Render();
+	Render();
 }
 void Canvas3D::SetMod(float f)
 {
@@ -316,7 +316,8 @@ void Canvas3D::turn(int k, float v)
 	int row = (k / 10) - 1;
 	int x = row * 8 + col;
 
-	bcr.verts.data[x] = v;
+	if( x < bcr.verts.draw_size )
+		bcr.verts.data[x] = v;
 
 	//timer->Stop();
 	SetCurrent(*context);
