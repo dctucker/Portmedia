@@ -115,15 +115,7 @@ public:
 	//void OnSize(wxSizeEvent &);
 	void OnEraseBackground(wxEraseEvent&);
 
-	int doMessage(const char *s){
-		int i;
-		for(i=0; i < strlen(s); i++){
-			str[i] = s[i];
-		}
-		str[i] = '\0';
-		ledAlpha = 1.0; 
-		return 0;
-	}
+	int doMessage(const char *s);
 
 	
 	float *scope_minmaxv, chord_ratio, lissajous_d, lissajous_rot;
@@ -137,12 +129,13 @@ public:
 	int loSplit, hiSplit;
 	float keyon[128];
 
-	BCR2000 *bcr;
+	//BCR2000 *bcr;
 	
 	float ledAlpha;
 	char str[256];
 	
 	void keyOn(int), keyOff(int),
+		turn(int,float),
 		SetMod(float), SetPitch(float), SetFader(float), SetSustain(float);
 
 	void SetScopeBuffer(float*);

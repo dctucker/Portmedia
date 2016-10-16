@@ -137,12 +137,33 @@ Canvas3D::~Canvas3D()
 	delete timer;
 }
 
+int Canvas3D::doMessage(const char *s)
+{
+	int i;
+	for(i=0; i < strlen(s); i++)
+	{
+		str[i] = s[i];
+		if( i < led.verts.draw_size )
+			led.verts.data[ 7 * i + 6 ] = s[i];
+	}
+	str[i] = '\0';
+	for(; i < led.verts.draw_size; i++ )
+		led.verts.data[ 7 * i + 6 ] = ' ';
+		
+	ledAlpha = 1.0; 
+
+	SetCurrent(*context);
+	glBindBuffer(GL_ARRAY_BUFFER, led.verts.vbo);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, led.verts.size, led.verts.data);
+
+	return 0;
+}
+
 void Canvas3D::InitGL()
 {
 	//SetCurrent();
 	//setupVertexBuffers();
 	
-	doMessage("!\"#$%&\'()*+,-./0123456789:;<=>?@[\\]^_`{|}~");
 	ledAlpha = 1.0;
 	lissajous_d = 0.0;
 	lissajous_rot = 0;
@@ -171,6 +192,8 @@ void Canvas3D::InitGL()
 	setupScope();
 
 	glBindVertexArray(0);
+
+	//doMessage("!\"#$%&\'()*+,-./0123456789:;<=>?@[\\]^_`{|}~");
 }
 
 void Canvas3D::Render()
@@ -205,9 +228,7 @@ void Canvas3D::Render()
 	glBufferSubData(GL_ARRAY_BUFFER, 0, scope.verts.size, scope_minmaxv);
 	glDrawArrays(GL_POINTS, 0, scope.verts.draw_size / sizeof(GLfloat) );
 
-
-	//glFlush();
-	SwapBuffers();
+	glFlush();
 }
 
 void Canvas3D::OnPaint(wxPaintEvent& event)
@@ -219,7 +240,8 @@ void Canvas3D::OnPaint(wxPaintEvent& event)
 
 	//Context3D & canvas = wxGetApp().GetContext(this);
 	//glViewport(0, 0, 400, 400);
-
+	Render();
+	SwapBuffers();
 }
 
 
@@ -242,9 +264,9 @@ void Canvas3D::OnEraseBackground(wxEraseEvent& WXUNUSED(event))
 
 void Canvas3D::OnTimer(wxTimerEvent &)
 {
-	//Refresh(false);
+	Refresh(false);
 	//Update();
-	Render();
+	//Render();
 }
 void Canvas3D::SetMod(float f)
 {
@@ -286,6 +308,21 @@ void Canvas3D::keyOff(int k)
 	glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat) * x, sizeof(GLfloat), &(piano.verts.data[x]));
 	//glBufferSubData(GL_ARRAY_BUFFER, 0, piano.verts.size, piano.verts.data);
 	//glBufferData(GL_ARRAY_BUFFER, piano.verts.size, piano.verts.data, GL_STREAM_DRAW);
+}
+
+void Canvas3D::turn(int k, float v)
+{
+	int col = (k - 1) % 10;
+	int row = (k / 10) - 1;
+	int x = row * 8 + col;
+
+	bcr.verts.data[x] = v;
+
+	//timer->Stop();
+	SetCurrent(*context);
+	glBindBuffer(GL_ARRAY_BUFFER, bcr.verts.vbo);
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat) * x, sizeof(GLfloat), &(bcr.verts.data[x]));
+	//timer->Start();
 }
 
 void Canvas3D::updateFilter(int inst, int i, fl y)

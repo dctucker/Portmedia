@@ -714,7 +714,8 @@ bool MyApp::OnInit()
 	key->canvas = glCanvas;
 	drums->canvas = glCanvas;
 	drums->myKeys = key;
-	glCanvas->bcr = bcr;
+	bcr->canvas = glCanvas;
+	//glCanvas->bcr = bcr;
 
 	//done! show the frames
 	//pd.Update(100, _T("Done."));
@@ -734,6 +735,6 @@ bool MyApp::OnInit()
 	bcr->sendValues();
 	bcr->execValues();
 
-	glCanvas->timer->Start(20);
+	glCanvas->timer->Start(100);
     return true;
 }

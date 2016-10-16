@@ -768,6 +768,7 @@ public:
 
 class MyBCR : public BCR2000 { // BCR-2000 implementation
 public:
+	Canvas3D *canvas;
 	//Oscillator *sub, *piano, *organ;
 	MyKeys *myKeys;
 	RtMidiOut *mo;
@@ -786,7 +787,8 @@ public:
 		mo(NULL),
 		myKeys(NULL),
 		curPage(1),
-		loading(false)
+		loading(false),
+		canvas(NULL)
 	{
 		
 		for(int i=0; i < 128; i++)
@@ -1196,6 +1198,7 @@ public:
 	void turn(int k, float v)
 	{
 		turnPage(curPage, k, v);
+		canvas->turn(k, v);
 		update();
 	}
 	
