@@ -735,6 +735,6 @@ bool MyApp::OnInit()
 	bcr->sendValues();
 	bcr->execValues();
 
-	glCanvas->timer->Start(100);
+	glCanvas->timer->Start(50);
     return true;
 }

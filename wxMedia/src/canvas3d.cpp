@@ -143,18 +143,18 @@ int Canvas3D::doMessage(const char *s)
 	for(i=0; i < strlen(s); i++)
 	{
 		str[i] = s[i];
-		if( i < led.verts.draw_size )
-			led.verts.data[ 7 * i + 6 ] = s[i];
+	//	if( i < led.verts.draw_size )
+	//		led.verts.data[ 7 * i + 6 ] = s[i];
 	}
 	str[i] = '\0';
-	for(; i < led.verts.draw_size; i++ )
-		led.verts.data[ 7 * i + 6 ] = ' ';
+	//for(; i < led.verts.draw_size; i++ )
+	//	led.verts.data[ 7 * i + 6 ] = ' ';
 		
 	ledAlpha = 1.0; 
 
-	SetCurrent(*context);
-	glBindBuffer(GL_ARRAY_BUFFER, led.verts.vbo);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, led.verts.size, led.verts.data);
+	//SetCurrent(*context);
+	//glBindBuffer(GL_ARRAY_BUFFER, led.verts.vbo);
+	//glBufferSubData(GL_ARRAY_BUFFER, 0, led.verts.size, led.verts.data);
 
 	return 0;
 }
