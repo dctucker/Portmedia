@@ -98,7 +98,7 @@ inline static void drawLoop()
 	runProgram(&adsr);
 	//runProgram(&piano);
 	runProgram(&led);
-	runProgram(&bcr);
+	//runProgram(&bcr);
 	runProgram(&filter);
 	//runProgram(&scope);
 	glBindVertexArray(0);
@@ -213,22 +213,29 @@ void Canvas3D::Render()
 	glUniform2f(piano.mouse.handle, piano.mouse.data[0], piano.mouse.data[1]);
 	glUniformMatrix4fv(piano.MVP.handle, 1, GL_TRUE, &(piano.MVP.data[0]));
 	glBindVertexArray(piano.verts.vao);
+	glBindBuffer(GL_ARRAY_BUFFER, piano.verts.vbo);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, piano.verts.size, piano.verts.data);
 	glDrawArrays(GL_POINTS, 0, piano.verts.draw_size / sizeof(GLfloat) );
 
+	glUseProgram(bcr.handle);
+	glUniform1f(bcr.time.handle , *(bcr.time.data));
+	glUniform2f(bcr.mouse.handle, bcr.mouse.data[0], bcr.mouse.data[1]);
+	glUniformMatrix4fv(bcr.MVP.handle, 1, GL_TRUE, &(bcr.MVP.data[0]));
+	glBindVertexArray(bcr.verts.vao);
+	glBindBuffer(GL_ARRAY_BUFFER, bcr.verts.vbo);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, bcr.verts.size, bcr.verts.data);
+	glDrawArrays(GL_POINTS, 0, bcr.verts.draw_size / sizeof(GLfloat) );
 
 
 	glUseProgram(scope.handle);
-
 	glUniform1f(scope.time.handle , *(scope.time.data));
 	glUniform2f(scope.mouse.handle, scope.mouse.data[0], scope.mouse.data[1]);
 	glUniformMatrix4fv(scope.MVP.handle, 1, GL_TRUE, &(scope.MVP.data[0]));
 	glBindVertexArray(scope.verts.vao);
-
 	glBindBuffer(GL_ARRAY_BUFFER, scope.verts.vbo);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, scope.verts.size, scope_minmaxv);
 	glDrawArrays(GL_POINTS, 0, scope.verts.draw_size / sizeof(GLfloat) );
 
-	//glFlush();
 	SwapBuffers();
 }
 
@@ -290,24 +297,12 @@ void Canvas3D::keyOn(int k)
 {
 	int x = k-21;
 	piano.verts.data[x] = 1;
-
-	SetCurrent(*context);
-	glBindBuffer(GL_ARRAY_BUFFER, piano.verts.vbo);
-	glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat) * x, sizeof(GLfloat), &(piano.verts.data[x]));
-	//glBufferSubData(GL_ARRAY_BUFFER, 0, piano.verts.size, piano.verts.data);
-	//glBufferData(GL_ARRAY_BUFFER, piano.verts.size, piano.verts.data, GL_STREAM_DRAW);
 }
 
 void Canvas3D::keyOff(int k)
 {
 	int x = k-21;
 	piano.verts.data[x] = 0;
-
-	SetCurrent(*context);
-	glBindBuffer(GL_ARRAY_BUFFER, piano.verts.vbo);
-	glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat) * x, sizeof(GLfloat), &(piano.verts.data[x]));
-	//glBufferSubData(GL_ARRAY_BUFFER, 0, piano.verts.size, piano.verts.data);
-	//glBufferData(GL_ARRAY_BUFFER, piano.verts.size, piano.verts.data, GL_STREAM_DRAW);
 }
 
 void Canvas3D::turn(int k, float v)
@@ -318,12 +313,6 @@ void Canvas3D::turn(int k, float v)
 
 	if( x < bcr.verts.draw_size )
 		bcr.verts.data[x] = v;
-
-	//timer->Stop();
-	SetCurrent(*context);
-	glBindBuffer(GL_ARRAY_BUFFER, bcr.verts.vbo);
-	glBufferSubData(GL_ARRAY_BUFFER, sizeof(GLfloat) * x, sizeof(GLfloat), &(bcr.verts.data[x]));
-	//timer->Start();
 }
 
 void Canvas3D::updateFilter(int inst, int i, fl y)
