@@ -136,6 +136,7 @@ public:
 	
 	void keyOn(int), keyOff(int),
 		turn(int,float),
+		turnPage(int, int, float),
 		SetMod(float), SetPitch(float), SetFader(float), SetSustain(float);
 
 	void SetScopeBuffer(float*);

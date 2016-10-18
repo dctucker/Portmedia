@@ -210,8 +210,6 @@ void MyApp::OnLoad(wxCommandEvent &event)
 	
 	menuname = menuPres->GetLabelText( event.GetId() );
 	current_preset = menuname;
-	
-	glCanvas->doMessage( menuname.Upper().mb_str(wxConvUTF8) );
 	 
 #ifdef FILEPRESETS
 	fn << _T(PRESET_PATH);
@@ -228,8 +226,6 @@ void MyApp::OnLoad(wxCommandEvent &event)
 		myfile >> *bcr;
 		myfile.close();
 		bcr->sendValues();
-		bcr->execValues();
-		
 	}
 #else
 	wxConfigBase *config = wxConfigBase::Get();
@@ -241,6 +237,9 @@ void MyApp::OnLoad(wxCommandEvent &event)
 #endif
 
 	bcr->press(101, 1);
+	bcr->execValues();
+	
+	glCanvas->doMessage( menuname.Upper().mb_str(wxConvUTF8) );
 }
 
 void MyApp::OnLoadSamples(wxCommandEvent &event)
@@ -733,7 +732,7 @@ bool MyApp::OnInit()
 	key->arduino = new MyArduino();
 
 	bcr->sendValues();
-	bcr->execValues();
+	bcr->execValues(true);
 
 	glCanvas->timer->Start(50);
     return true;

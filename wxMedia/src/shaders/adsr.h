@@ -22,6 +22,7 @@ void setupAdsr(){
 	adsr.MVP.data = adsrMVP;
 	adsr.verts.data = adsrVerts;
 	adsr.verts.size = sizeof(adsrVerts);
+	adsr.verts.usage = GL_DYNAMIC_DRAW;
 
 	adsr.vertex.source = GLSL(
 		uniform mat4 MVP;

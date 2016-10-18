@@ -91,19 +91,6 @@ Canvas3D::Canvas3D( wxWindow *parent ) :
 //#include "shaders/flag.h"
 //#include "shaders/chord.h"
 
-inline static void drawLoop()
-{
-	glClear(GL_COLOR_BUFFER_BIT);
-	global_time+= 0.01;// = (float)glfwGetTime();
-	runProgram(&adsr);
-	//runProgram(&piano);
-	runProgram(&led);
-	//runProgram(&bcr);
-	runProgram(&filter);
-	//runProgram(&scope);
-	glBindVertexArray(0);
-}
-
 void Canvas3D::setdefaults()
 {
     m_init = false;
@@ -135,6 +122,13 @@ Canvas3D::~Canvas3D()
 {
 	timer->Stop();
 	delete timer;
+
+	teardownProgram(&adsr);
+	teardownProgram(&piano);
+	teardownProgram(&led);
+	teardownProgram(&bcr);
+	teardownProgram(&filter);
+	teardownProgram(&scope);
 }
 
 int Canvas3D::doMessage(const char *s)
@@ -143,12 +137,12 @@ int Canvas3D::doMessage(const char *s)
 	for(i=0; i < strlen(s); i++)
 	{
 		str[i] = s[i];
-	//	if( i < led.verts.draw_size )
-	//		led.verts.data[ 7 * i + 6 ] = s[i];
+		if( i < led.verts.draw_size )
+			led.verts.data[ 7 * i + 6 ] = s[i];
 	}
 	str[i] = '\0';
-	//for(; i < led.verts.draw_size; i++ )
-	//	led.verts.data[ 7 * i + 6 ] = ' ';
+	for(; i < led.verts.draw_size; i++ )
+		led.verts.data[ 7 * i + 6 ] = ' ';
 		
 	ledAlpha = 1.0; 
 
@@ -192,7 +186,8 @@ void Canvas3D::InitGL()
 	setupScope();
 
 	glBindVertexArray(0);
-
+	
+	scope.verts.data = scope_minmaxv;
 	//doMessage("!\"#$%&\'()*+,-./0123456789:;<=>?@[\\]^_`{|}~");
 }
 
@@ -205,37 +200,16 @@ void Canvas3D::Render()
 		InitGL();
 	}
 
-    drawLoop();
-
-
-	glUseProgram(piano.handle);
-	glUniform1f(piano.time.handle , *(piano.time.data));
-	glUniform2f(piano.mouse.handle, piano.mouse.data[0], piano.mouse.data[1]);
-	glUniformMatrix4fv(piano.MVP.handle, 1, GL_TRUE, &(piano.MVP.data[0]));
-	glBindVertexArray(piano.verts.vao);
-	glBindBuffer(GL_ARRAY_BUFFER, piano.verts.vbo);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, piano.verts.size, piano.verts.data);
-	glDrawArrays(GL_POINTS, 0, piano.verts.draw_size / sizeof(GLfloat) );
-
-	glUseProgram(bcr.handle);
-	glUniform1f(bcr.time.handle , *(bcr.time.data));
-	glUniform2f(bcr.mouse.handle, bcr.mouse.data[0], bcr.mouse.data[1]);
-	glUniformMatrix4fv(bcr.MVP.handle, 1, GL_TRUE, &(bcr.MVP.data[0]));
-	glBindVertexArray(bcr.verts.vao);
-	glBindBuffer(GL_ARRAY_BUFFER, bcr.verts.vbo);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, bcr.verts.size, bcr.verts.data);
-	glDrawArrays(GL_POINTS, 0, bcr.verts.draw_size / sizeof(GLfloat) );
-
-
-	glUseProgram(scope.handle);
-	glUniform1f(scope.time.handle , *(scope.time.data));
-	glUniform2f(scope.mouse.handle, scope.mouse.data[0], scope.mouse.data[1]);
-	glUniformMatrix4fv(scope.MVP.handle, 1, GL_TRUE, &(scope.MVP.data[0]));
-	glBindVertexArray(scope.verts.vao);
-	glBindBuffer(GL_ARRAY_BUFFER, scope.verts.vbo);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, scope.verts.size, scope_minmaxv);
-	glDrawArrays(GL_POINTS, 0, scope.verts.draw_size / sizeof(GLfloat) );
-
+	glClear(GL_COLOR_BUFFER_BIT);
+	global_time+= 0.01;// = (float)glfwGetTime();
+	runProgram(&adsr);
+	runProgram(&piano);
+	runProgram(&led);
+	runProgram(&bcr);
+	runProgram(&filter);
+	runProgram(&scope);
+	glBindVertexArray(0);
+	
 	SwapBuffers();
 }
 
@@ -331,3 +305,25 @@ void Canvas3D::hitDrum(int i)
 	drums[ i % 7 ] = 1.0;
 }
 
+void Canvas3D::turnPage(int inst, int pn, float v)
+{
+	switch( pn )
+	{
+		case 0x41706D41:  // AmpA
+			adsr.verts.data[ 8 * inst + 0 ] = v;
+			break;
+		case 0x44706D41:  // AmpD
+			adsr.verts.data[ 8 * inst + 1 ] = v;
+			break;
+		case 0x53706D41:  // AmpS
+			adsr.verts.data[ 8 * inst + 2 ] = v;
+			break;
+		case 0x52706D41:  // AmpR
+			adsr.verts.data[ 8 * inst + 3 ] = v;
+			break;
+		case 0x56706D41:  // AmpV
+			adsr.verts.data[ 8 * inst + 4 ] = v;
+			break;
+		default: break;
+	}
+}

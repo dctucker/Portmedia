@@ -930,9 +930,9 @@ public:
 		}
 	}
 	
-	void execValues()
+	void execValues(bool is_loading = false)
 	{
-		loading = true;
+		loading = is_loading;
 		
 		for(int p=0;  p <=4; p++)
 		{
@@ -1181,16 +1181,20 @@ public:
 			myKeys->updateFilter( inst );
 		
 		
-		if( not loading and ks >= 0 and ks < 7 and inst >=0 and inst < 8)
+		if( ks >= 0 and ks < 7 and inst >=0 and inst < 8)
 		{
-			wxString str(instNames[inst], wxConvUTF8);
-			wxString str1(names[p][ks], wxConvUTF8);
-			str << _T(" ");
-			str << str1;
-			str << _T(": ");
-			str << v;
-		
-			myKeys->canvas->doMessage( str.mb_str(wxConvUTF8) );
+			if( not loading )
+			{
+				wxString str(instNames[inst], wxConvUTF8);
+				wxString str1(names[p][ks], wxConvUTF8);
+				str << _T(" ");
+				str << str1;
+				str << _T(": ");
+				str << v;
+
+				myKeys->canvas->doMessage( str.mb_str(wxConvUTF8) );
+				//if( pm ) myKeys->canvas->turnPage(inst, pm->name.v, v);
+			}
 		}
 
 	}

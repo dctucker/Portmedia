@@ -86,8 +86,8 @@ void setupProgram(_program *program){
 	if( program->fragment.source ) glDeleteShader(program->fragment.handle);
 
 	glGenVertexArrays(1, &(program->verts.vao));
-	glGenBuffers(1, &(program->verts.vbo));
 	glBindVertexArray(program->verts.vao);
+	glGenBuffers(1, &(program->verts.vbo));
 	glBindBuffer(GL_ARRAY_BUFFER, program->verts.vbo);
 	glBufferData(GL_ARRAY_BUFFER, program->verts.size, program->verts.data, program->verts.usage);
 
@@ -101,11 +101,16 @@ void teardownProgram(_program *program){
 	glDeleteBuffers(     1, &(program->verts.vbo));
 }
 
-inline static void runProgram(_program *program){
+inline static void runProgram(_program *program, bool copy=false){
 	glUseProgram(program->handle);
 	glUniform1f(program->time.handle , *(program->time.data));
 	glUniform2f(program->mouse.handle, program->mouse.data[0], program->mouse.data[1]);
 	glUniformMatrix4fv(program->MVP.handle, 1, GL_TRUE, &(program->MVP.data[0]));
+	if( copy ){
+		glBindBuffer(GL_ARRAY_BUFFER, program->verts.vbo);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, program->verts.size, program->verts.data);
+	}
 	glBindVertexArray(program->verts.vao);
 	glDrawArrays(GL_POINTS, 0, program->verts.draw_size / sizeof(GLfloat) );
+	glBindVertexArray(0);
 }
