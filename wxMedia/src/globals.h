@@ -1,5 +1,4 @@
-#ifndef DCT_GLOBALS
-#define DCT_GLOBALS
+#pragma once
 
 #include <iostream>
 #include <fstream>
@@ -56,5 +55,3 @@ using namespace portaudio;
 
 
 #define NUM_OSCS 8
-
-#endif

@@ -7,12 +7,10 @@
  *
  */
 
-#ifndef HAMMOND_H
-#define HAMMOND_H
+#pragma once
 
 #include <sndfile.hh>
 #include <samplerate.h>
 #include "oscillator.h"
 
 OSCSUB( Hammond )
-#endif

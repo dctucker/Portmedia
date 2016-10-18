@@ -6,9 +6,7 @@
  *  Copyright 2010 UNCW. All rights reserved.
  *
  */
-
-#ifndef PARAM_H
-#define PARAM_H
+#pragma once
 
 #include "wx/fileconf.h"
 #define PN(s) *((int*)s)
@@ -201,5 +199,3 @@ public:
 	}
 
 };
-
-#endif

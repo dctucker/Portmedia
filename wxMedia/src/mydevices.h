@@ -1,9 +1,5 @@
 #include "chord.h"
 
-
-
-
-
 //using namespace std;
 
 /*

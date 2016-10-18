@@ -6,9 +6,7 @@
  *  Copyright 2010 UNCW. All rights reserved.
  *
  */
-
-#ifndef SCOPE_H
-#define	SCOPE_H
+#pragma once
 
 //#include <wx/window.h>
 #include <wx/wx.h>
@@ -39,5 +37,3 @@ public:
 	DECLARE_EVENT_TABLE();
 
 };
-
-#endif

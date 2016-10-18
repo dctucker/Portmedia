@@ -1,5 +1,4 @@
-#ifndef MYARDUINO_H
-#define MYARDUINO_H
+#pragma once
 
 #include "globals.h"
 
@@ -18,5 +17,3 @@ public:
 	void filter(float pos);
 	void sustain(int sus);
 };
-
-#endif

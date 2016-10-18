@@ -6,9 +6,7 @@
  *  Copyright 2010. All rights reserved.
  *
  */
-
-#ifndef FILTER_H
-#define FILTER_H
+#pragma once
 
 #ifndef M_LN2
 #define M_LN2	   0.69314718055994530942
@@ -81,5 +79,3 @@ inline static fl lpRes1 (fl y){ return ( sqrt(y - 0.2) - 0.5) / 2.; }
 inline static fl hpRes1 (fl y){ return lpRes1(y); }
 
 };
-
-#endif

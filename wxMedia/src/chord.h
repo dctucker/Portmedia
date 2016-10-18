@@ -6,10 +6,7 @@
  *  Copyright 2010. All rights reserved.
  *
  */
-
-#ifndef CHORD_H
-#define CHORD_H
-
+#pragma once
 
 typedef struct {
 	int type;
@@ -21,16 +18,14 @@ typedef struct {
 } chord;
 
 
-	/*
-	const char *note_name[12] = {
-		"C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"
-	};
-	const char *type_name[4] = {
-		"",
-		"m",
-		"dim",
-		"aug"
-	};
-	*/
-
-#endif
+/*
+const char *note_name[12] = {
+	"C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"
+};
+const char *type_name[4] = {
+	"",
+	"m",
+	"dim",
+	"aug"
+};
+*/

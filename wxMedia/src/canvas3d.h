@@ -6,9 +6,7 @@
  *  Copyright 2010 UNCW. All rights reserved.
  *
  */
-
-#ifndef CANVAS3D_H
-#define CANVAS3D_H
+#pragma once
 
 #include "main.h"
 
@@ -161,5 +159,3 @@ protected:
  
 //gluPerspective(45.0f, GLfloat(view_width/view_height), 1.0f, 500.0f);
 
-
-#endif

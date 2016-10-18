@@ -6,9 +6,7 @@
  *  Copyright 2010 UNCW. All rights reserved.
  *
  */
-
-#ifndef BIQUAD_H
-#define BIQUAD_H
+#pragma once
 
 /* Simple implementation of Biquad filters -- Tom St Denis
  *
@@ -105,7 +103,3 @@ public:
 	smp_type query(smp_type s){ return bq1.query(s) + bq2.query(s); }
 	
 };
-
-
-#endif
-

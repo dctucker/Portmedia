@@ -6,9 +6,7 @@
  *  Copyright 2010 UNCW. All rights reserved.
  *
  */
-
-#ifndef PIANO_H
-#define PIANO_H
+#pragma once
 
 #include "wx/progdlg.h"
 #include <samplerate.h>
@@ -89,5 +87,3 @@ protected:
 	BrassLoader *load;
 	
 };
-
-#endif

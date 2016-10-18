@@ -1,7 +1,6 @@
-#include <iostream>
+#pragma once
 
-#ifndef TEMPERAMENT_H
-#define TEMPERAMENT_H
+#include <iostream>
 
 class Temperament 
 {
@@ -58,8 +57,3 @@ SUBTEMPER( Kirnberger) ENDSUB
 */
 
 using namespace std;
-
-
-#endif
-
-

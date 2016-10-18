@@ -6,9 +6,7 @@
  *  Copyright 2010 UNCW. All rights reserved.
  *
  */
- 
-#ifndef COMPRESS_H
-#define COMPRESS_H
+#pragma once 
 
 #include "main.h"
 
@@ -52,5 +50,3 @@ public:
 	void operator()(long unsigned int , float **);
 
 };
-
-#endif

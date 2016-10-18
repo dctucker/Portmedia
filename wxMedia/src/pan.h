@@ -6,6 +6,7 @@
  *  Copyright 2016. All rights reserved.
  *
  */
+#pragma once
 
 #include "main.h"
 #include "param.h"

@@ -6,9 +6,7 @@
  *  Copyright 2010 UNCW. All rights reserved.
  *
  */
-
-#ifndef REESE_H
-#define REESE_H
+#pragma once
 
 #include "oscillator.h"
 
@@ -45,6 +43,3 @@ public:
 	void mark(double);
 	void duck();
 };
-
-
-#endif

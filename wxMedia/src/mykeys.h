@@ -1,6 +1,4 @@
-#ifndef MYKEYS_H
-#define MYKEYS_H
-
+#pragma once
 
 #include "globals.h"
 #include "myarduino.h"
@@ -82,5 +80,3 @@ public:
 	
 	void inferChord();
 };
-
-#endif

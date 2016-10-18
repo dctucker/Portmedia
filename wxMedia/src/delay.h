@@ -6,8 +6,7 @@
  *  Copyright 2010 UNCW. All rights reserved.
  *
  */
-//#ifndef DELAY_H
-//#define DELAY_H
+#pragma once
 
 #include <cmath>
 #include "main.h"
@@ -32,5 +31,3 @@ public:
 	static fl square( fl f ){ return f * f; }
 	static fl root( fl f ){ return sqrt(f); }
 };
-
-//#endif

@@ -1,5 +1,4 @@
-#ifndef OSCILLATOR_H
-#define OSCILLATOR_H
+#pragma once
 
 //#include <omp.h>
 //#include <vector>
@@ -259,5 +258,3 @@ OSCTBL( TriangleTbl, TriangleOsc )
 OSCTBL( SquareTbl,   SquareOsc  )
 OSCTBL( SawTbl,      SawOsc )
 OSCTBL( NoiseTbl,    NoiseOsc )
-
-#endif

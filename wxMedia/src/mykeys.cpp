@@ -15,9 +15,8 @@ MyKeys::MyKeys() :
 
 	//loAssign[2] = true;
 	//hiAssign[3] = true;
-	
-
 }
+
 void MyKeys::setOscs()
 {
 	for(int i=0; i < NUM_OSCS; i++)
@@ -160,7 +159,8 @@ void MyKeys::updateEnvelope(int ins)
 	
 }
 
-void MyKeys::setShelf(float f){
+void MyKeys::setShelf(float f)
+{
 	shelf = f;
 }
 
@@ -264,6 +264,7 @@ void MyKeys::noteOn(int ch, int k, int v)
 	
 	//std::cout << k;
 }
+
 void MyKeys::noteOff(int ch, int k, int v)
 {
 	Oscillator *osc = NULL;
@@ -340,6 +341,7 @@ void MyKeys::noteOff(int ch, int k, int v)
 
 	update();
 }
+
 void MyKeys::cc(int ch, int c, int v)
 {
 	switch(c)
@@ -388,6 +390,7 @@ void MyKeys::cc(int ch, int c, int v)
 	update();
 	//osc->setCutoff((v+1) / 129.);
 }
+
 void MyKeys::bend(int ch, int b)
 {
 	pitch = (b - 8192) / 8192.;
@@ -549,5 +552,4 @@ void MyKeys::inferChord() // needs to be heavily optimized
 	poss[i].bass = bass_note;
 	canvas->curChord = poss[i];
 }	
-
 

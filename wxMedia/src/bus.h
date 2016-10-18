@@ -6,8 +6,7 @@
  *  Copyright 2010 UNCW. All rights reserved.
  *
  */
-#ifndef BUS_H
-#define BUS_H
+#pragma once
 
 #include <cmath> 
 
@@ -115,6 +114,3 @@ public:
 	int pos, width;
 
 };
-
-
-#endif

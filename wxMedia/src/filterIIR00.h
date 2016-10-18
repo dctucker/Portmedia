@@ -6,8 +6,7 @@
  *  Copyright 2010 UNCW. All rights reserved.
  *
  */
-#ifndef FILTERIIR00_H
-#define FILTERIIR00_H
+#pragma once
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -220,5 +219,3 @@ private:
 	float *histories[128];
 	int cutoffs[128], targets[128];
 };
-
-#endif
