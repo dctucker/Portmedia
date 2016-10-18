@@ -11,7 +11,7 @@ CXXFLAGS=`$(WXCONFIG) --cxxflags` -I../../rtmidi -I/usr/local/include
 LD=`$(WXCONFIG) --ld`
 LIBS=`$(WXCONFIG) --libs --gl-libs`
 
-CXX_FILES=$(notdir $(wildcard ../src/*.cpp))
+CXX_FILES=$(notdir $(wildcard ../src/*.cpp)) $(addprefix shaders/,$(notdir $(wildcard ../src/shaders/*.cpp)))
 OBJECTS=$(CXX_FILES:.cpp=.o)
 
 VPATH=../src
