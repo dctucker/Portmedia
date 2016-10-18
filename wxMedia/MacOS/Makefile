@@ -7,7 +7,7 @@ LD_LIBRARY_PATH=$(WXTREE)/lib
 #:/usr/local/lib
 
 CXX=`$(WXCONFIG) --cxx`
-CXXFLAGS=`$(WXCONFIG) --cxxflags` -I../../rtmidi -I/usr/local/include
+CXXFLAGS=`$(WXCONFIG) --cxxflags` -I../../rtmidi -I/usr/local/include -Wno-c++11-extensions
 LD=`$(WXCONFIG) --ld`
 LIBS=`$(WXCONFIG) --libs --gl-libs`
 
@@ -70,5 +70,5 @@ run:
 	open -W "../$(APPNAME).app"
 
 clean:
-	rm -f ../$(TARGET) *.o
+	rm -f ../$(TARGET) *.o shaders/*.o
 

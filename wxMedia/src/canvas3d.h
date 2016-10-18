@@ -29,6 +29,13 @@
 
 #include "chord.h"
 
+#include "shaders/shader.h"
+#include "shaders/adsr_shader.h"
+#include "shaders/bcr_shader.h"
+#include "shaders/filter_shader.h"
+#include "shaders/led_shader.h"
+#include "shaders/piano_shader.h"
+#include "shaders/scope_shader.h"
 
 
 class Canvas3D: public wxGLCanvas 
@@ -60,6 +67,14 @@ public:
 
 	Canvas3D(wxWindow *parent );
 	virtual ~Canvas3D();
+
+	AdsrShader adsr;
+	BcrShader bcr;
+	FilterShader filter;
+	LedShader led;
+	PianoShader piano;
+	ScopeShader scope;
+
 	
 	bool m_init;
 	

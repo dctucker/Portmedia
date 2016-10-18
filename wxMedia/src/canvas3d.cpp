@@ -35,6 +35,7 @@ Canvas3D::Canvas3D( wxWindow *parent ) :
 	setdefaults();
 }
 
+/*
 #include "shaders/common.h"
 #include "shaders/filter.h"
 #include "shaders/piano.h"
@@ -45,6 +46,7 @@ Canvas3D::Canvas3D( wxWindow *parent ) :
 #include "shaders/adsr.h"
 //#include "shaders/flag.h"
 //#include "shaders/chord.h"
+*/
 
 void Canvas3D::setdefaults()
 {
@@ -78,13 +80,6 @@ Canvas3D::~Canvas3D()
 {
 	timer->Stop();
 	delete timer;
-
-	teardownProgram(&adsr);
-	teardownProgram(&piano);
-	teardownProgram(&led);
-	teardownProgram(&bcr);
-	teardownProgram(&filter);
-	teardownProgram(&scope);
 }
 
 int Canvas3D::doMessage(const char *s)
@@ -134,12 +129,20 @@ void Canvas3D::InitGL()
 	glewExperimental = GL_TRUE;
 	glewInit();
 
+	adsr.Setup();
+	piano.Setup();
+	led.Setup();
+	bcr.Setup();
+	filter.Setup();
+	scope.Setup();
+	/*
 	setupAdsr();
 	setupPiano();
 	setupLed();
 	setupBcr();
 	setupFilter();
 	setupScope();
+	*/
 
 	glBindVertexArray(0);
 	
@@ -157,13 +160,21 @@ void Canvas3D::Render()
 	}
 
 	glClear(GL_COLOR_BUFFER_BIT);
-	global_time+= 0.01;// = (float)glfwGetTime();
+	ShaderProgram::global_time+= 0.01;// = (float)glfwGetTime();
+	/*
 	runProgram(&adsr,true);
 	runProgram(&piano,true);
 	runProgram(&led,true);
 	runProgram(&bcr,true);
 	runProgram(&filter,true);
 	runProgram(&scope,true);
+	*/
+	adsr.Run(true);
+	piano.Run(true);
+	led.Run(true);
+	bcr.Run(true);
+	filter.Run(true);
+	scope.Run(true);
 	glBindVertexArray(0);
 	
 	SwapBuffers();
