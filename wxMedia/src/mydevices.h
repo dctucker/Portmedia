@@ -1193,7 +1193,7 @@ public:
 				str << v;
 
 				myKeys->canvas->doMessage( str.mb_str(wxConvUTF8) );
-				//if( pm ) myKeys->canvas->turnPage(inst, pm->name.v, v);
+				if( pm ) myKeys->canvas->turnPage(inst, pm->name.v, v);
 			}
 		}
 

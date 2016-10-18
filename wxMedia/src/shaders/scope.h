@@ -141,6 +141,6 @@ void setupScope(){
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
 
-	scope.verts.draw_size -= sizeof(GLfloat);
+	//scope.verts.draw_size -= sizeof(GLfloat);
 	scope.verts.draw_size /= 2;
 }

@@ -246,8 +246,9 @@ FilterIIR77::FilterIIR77()
 
 FilterIIR77::~FilterIIR77()
 {
-	for(int i = 0; i < 128; ++i){
-		delete histories[i];
+	for(int i = 0; i < 128; ++i)
+	{
+		delete[] histories[i];
 	}
 	//delete histories;
 }

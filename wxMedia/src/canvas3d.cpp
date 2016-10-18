@@ -137,11 +137,11 @@ int Canvas3D::doMessage(const char *s)
 	for(i=0; i < strlen(s); i++)
 	{
 		str[i] = s[i];
-		if( i < led.verts.draw_size )
+		if( i < 20 )
 			led.verts.data[ 7 * i + 6 ] = s[i];
 	}
 	str[i] = '\0';
-	for(; i < led.verts.draw_size; i++ )
+	for(; i < 20; i++ )
 		led.verts.data[ 7 * i + 6 ] = ' ';
 		
 	ledAlpha = 1.0; 
@@ -202,12 +202,12 @@ void Canvas3D::Render()
 
 	glClear(GL_COLOR_BUFFER_BIT);
 	global_time+= 0.01;// = (float)glfwGetTime();
-	runProgram(&adsr);
-	runProgram(&piano);
-	runProgram(&led);
-	runProgram(&bcr);
+	runProgram(&adsr,true);
+	runProgram(&piano,true);
+	runProgram(&led,true);
+	runProgram(&bcr,true);
 	runProgram(&filter);
-	runProgram(&scope);
+	runProgram(&scope,true);
 	glBindVertexArray(0);
 	
 	SwapBuffers();
