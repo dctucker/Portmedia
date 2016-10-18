@@ -293,6 +293,8 @@ void Canvas3D::updateFilter(int inst, int i, fl y)
 {
 	filt[inst][i] = y;
 	selinst = inst;
+
+	//filter.verts.data[ i ] = y;
 }
 
 void Canvas3D::SetScopeBuffer(float *h)
