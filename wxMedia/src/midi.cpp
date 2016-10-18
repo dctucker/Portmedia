@@ -41,7 +41,7 @@ BCR2000::BCR2000 (){
 	}
 }
 BCR2000::~BCR2000(){
-	delete knob, maxKnob, minKnob, button;
+	delete knob; delete maxKnob; delete minKnob; delete button;
 }
 
 float BCR2000::getButton(int k) const { return button[k]; }

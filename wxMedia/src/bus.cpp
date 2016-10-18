@@ -53,9 +53,10 @@ Bus::Bus() :
 Bus::~Bus()
 {
 	//delete delay;
-	delete filtLP, filtHP;
+	delete filtLP; delete filtHP;
 	//delete compress;
-	delete buf[0], buf[1], acc[0], acc[1];
+	delete buf[0]; delete buf[1];
+	delete acc[0]; delete acc[1];
 }
 
 void Bus::setDelay(float d, float v)
@@ -165,45 +166,19 @@ int Bus::generate GENERATE(inBuf, outBuf, framesPerBuf, timeInfo, status)
 		if( gen[k]->active )
 		{
 			gen[k]->generate(NULL, buf, framesPerBuf, timeInfo, status);
-			/*
-			// Clipping code
-			for(int i = 0; i < framesPerBuf; ++i){
-				o = buf[0][i];
-				ao = fabs(o);
-				if( ao > clip[k] ){
-					if( o == ao )
-						buf[0][i] = clip[k];
-					else
-						buf[0][i] = -clip[k];
-				}
-			}
-			*/
 
-/*
-			if( k == 0 )
+			for(int i=0; i < framesPerBuf; i++)
 			{
-				for(int i=0; i < framesPerBuf; i++)
-				{
-					acc[1][i] += buf[0][i];
-				}
-			}
-			else
-			{
-*/
-				for(int i=0; i < framesPerBuf; i++)
-				{
+				acc[0][i] += buf[0][i]; // atten[k];
+				acc[1][i] += buf[1][i]; // atten[k];
 
-					acc[0][i] += buf[0][i]; // atten[k];
-					acc[1][i] += buf[1][i]; // atten[k];
-					
-					// SENDS
-					//for(int j=0; j < numSends; j++){
-					//	sendacc[j][0][i] += send[k][j] * buf[0][i];
-					//}
-					
-					//acc[1][i] += buf[1][i]; // atten[k];
-				}
-			//}
+				// SENDS
+				//for(int j=0; j < numSends; j++){
+				//	sendacc[j][0][i] += send[k][j] * buf[0][i];
+				//}
+
+				//acc[1][i] += buf[1][i]; // atten[k];
+			}
 		}
 
 	}
@@ -214,7 +189,7 @@ int Bus::generate GENERATE(inBuf, outBuf, framesPerBuf, timeInfo, status)
 			acc[0][i] += delay->process(sendacc[j][0][i]);
 		}
 	}
-	//*/
+	// */
 	
 	asm("# Generators done");
 	
@@ -296,10 +271,10 @@ int Bus::generate GENERATE(inBuf, outBuf, framesPerBuf, timeInfo, status)
 		if( i % 10 == 0 )
 		{
 			//sc->append(maxo, mino);
-			
+
 			minmaxv[pos++] = mino; //-sqrtf(-mino);
 			minmaxv[pos++] = maxo; // sqrtf( maxo);
-			
+
 			if(pos > width) pos = 0;
 
 			maxo = 0.0;

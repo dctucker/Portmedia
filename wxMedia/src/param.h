@@ -38,7 +38,7 @@ public:
 		value = 0;
 		func = NULL; func1 = NULL;
 	}
-	Param( fl *v, char *c=0, void (*f)(fl) =0 )
+	Param( fl *v, const char *c=0, void (*f)(fl) =0 )
 	{
 		integer = 0;
 		value = v;
@@ -46,7 +46,7 @@ public:
 		if( f != 0 ) Callback = f;
 		func = NULL; func1 = NULL;
 	}
-	Param( int *i, char *c=0, void (*f)(fl) =0 )
+	Param( int *i, const char *c=0, void (*f)(fl) =0 )
 	{
 		integer = i;
 		value = 0;
@@ -58,7 +58,7 @@ public:
 	{
 		name.v = n.v;
 	}
-	void SetParamName( char *c )
+	void SetParamName( const char *c )
 	{
 		for(int i=0; i < 4; i++)
 			name.c[i] = c[i];
@@ -88,19 +88,19 @@ public:
 	Set() : Param() { scount = 0; pcount = 0; }
 	
 	
-	void AddSet(Set *s, char *c=0 )
+	void AddSet(Set *s, const char *c=0 )
 	{
 		if( c != 0 ) s->SetParamName( c );
 		set[scount++] = s;
 	}
-	virtual void AddParam( fl *v, char *c=0, void (*f)(fl)=0 )
+	virtual void AddParam( fl *v, const char *c=0, void (*f)(fl)=0 )
 	{
 		Param *p = new Param(v, c, f );
 		p->parent = this;
 		if( c != 0 ) p->SetParamName( c );
 		param[pcount++] = p;
 	}
-	virtual void AddParam( int *i, char *c=0, void (*f)(fl)=0 )
+	virtual void AddParam( int *i, const char *c=0, void (*f)(fl)=0 )
 	{
 		Param *p = new Param(i, c, f );
 		p->parent = this;

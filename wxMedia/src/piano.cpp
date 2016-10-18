@@ -47,7 +47,7 @@ void UprightLoader::loadSample(int i){
 		 0.0,  0.0,  0.0,  0.0
 	};
 	*/
-	char *note_name[12] = {
+	const char *note_name[12] = {
 		"A ", "A#",
 		"B ",
 		"C ", "C#",

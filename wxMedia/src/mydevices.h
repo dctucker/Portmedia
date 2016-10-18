@@ -1124,7 +1124,7 @@ public:
 	void turnPage( int p, int k, float v)
 	{
 	
-		char *instNames[] =
+		const char *instNames[] =
 		{
 			"BASS ",
 			"PIANO",
