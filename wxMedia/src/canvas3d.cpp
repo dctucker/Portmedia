@@ -19,51 +19,6 @@ BEGIN_EVENT_TABLE(Canvas3D, wxGLCanvas)
 END_EVENT_TABLE()
 
 
-
-	/*
-//holy hell why is this necessary?!
-wxVisualAttributes wxWindow::GetDefaultAttributes() const
-{
-	return GetClassDefaultAttributes(GetWindowVariant());
-}
-*/
-
-	/*
-Canvas3D::Canvas3D( wxFrame *parent, wxWindowID id,
-	const wxPoint& pos, const wxSize& size,
-	long style, const wxString& name)
-	: wxGLCanvas(parent, (wxGLCanvas *) NULL, id, pos, size,
-		style | wxFULL_REPAINT_ON_RESIZE, name )
-{
-	setdefaults();
-}
-
-Canvas3D::Canvas3D(wxFrame *parent, const Canvas3D *other,
-    wxWindowID id, const wxPoint& pos, const wxSize& size, long style,
-    const wxString& name )
-    : wxGLCanvas(parent, other->GetContext(), id, pos, size,
-	style | wxFULL_REPAINT_ON_RESIZE, name )
-{
-	setdefaults();
-}
-*/
-
-	/*
-Canvas3D::Canvas3D(wxWindow *parent,
-			wxWindowID id,
-			int* attribList,
-			const wxPoint& pos,
-			const wxSize& size,
-			long style,
-			const wxString& name,
-			const wxPalette& palette)
-	: wxGLCanvas(parent, id, pos, size,
-		style | wxFULL_REPAINT_ON_RESIZE, name )
-{
-}
-*/
-
-
 static int CanvasAttribs[] = {
 	WX_GL_RGBA,
 	WX_GL_DOUBLEBUFFER,
@@ -93,6 +48,7 @@ Canvas3D::Canvas3D( wxWindow *parent ) :
 
 void Canvas3D::setdefaults()
 {
+	filter.verts.data = &(filt[3][0]);
     m_init = false;
 	scope_width = 0.4;
 	mod = 0.0;
@@ -206,7 +162,7 @@ void Canvas3D::Render()
 	runProgram(&piano,true);
 	runProgram(&led,true);
 	runProgram(&bcr,true);
-	runProgram(&filter);
+	runProgram(&filter,true);
 	runProgram(&scope,true);
 	glBindVertexArray(0);
 	
@@ -294,7 +250,7 @@ void Canvas3D::updateFilter(int inst, int i, fl y)
 	filt[inst][i] = y;
 	selinst = inst;
 
-	//filter.verts.data[ i ] = y;
+	filter.verts.data[ i % 128 ] = y;
 }
 
 void Canvas3D::SetScopeBuffer(float *h)

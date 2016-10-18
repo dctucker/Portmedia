@@ -29,6 +29,7 @@ void setupFilter(){
 	filter.verts.data = filter_db;
 	filter.verts.size = sizeof(filter_db);
 	filter.MVP.data = projectionMatrix;
+	filter.verts.usage = GL_DYNAMIC_DRAW;
 
 	filter.vertex.source = GLSL(
 		uniform float time;
@@ -98,5 +99,5 @@ void setupFilter(){
 	glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (GLvoid*)(1 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
 
-	filter.verts.draw_size -= 1;
+	filter.verts.draw_size -= sizeof(GLfloat);
 }
