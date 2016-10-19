@@ -80,6 +80,13 @@ Canvas3D::~Canvas3D()
 {
 	timer->Stop();
 	delete timer;
+
+	adsr.Teardown();
+	piano.Teardown();
+	led.Teardown();
+	bcr.Teardown();
+	filter.Teardown();
+	scope.Teardown();
 }
 
 int Canvas3D::doMessage(const char *s)
