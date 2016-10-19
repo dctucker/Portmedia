@@ -15,7 +15,7 @@ Delay::Delay() : pos(0), delay(SAMPLE_RATE/3), feedback(0.5)
 		buffer[i] = 0.0;
 	}
 	
-	AddParam( &delay, "Time" );
+	AddParam( &delay,    "Time" );
 	AddParam( &feedback, "Fdbk" );
 }
 
@@ -30,7 +30,8 @@ float Delay::process(float s)
 	return r;
 }
 
-void Delay::process(float **s, int N){
+void Delay::process(float **s, int N)
+{
 	int n = pos;
 	for(int i=0; i < N; ++i){
 		s[0][i] += process(s[0][i]);
@@ -38,7 +39,8 @@ void Delay::process(float **s, int N){
 	pos = n;
 }
 
-void Delay::advance(int N){
+void Delay::advance(int N)
+{
 	pos += N;
 }
 
@@ -46,16 +48,17 @@ void Delay::SetParam( int n, fl v )
 {
 	switch( n )
 	{
-		case 0x656D6954:  // Time
+		case P_Time:
 			delay = v;
 			break;
-		case 0x6B626446:  // Fdbk
+		case P_Fdbk:
 			feedback = v;
 			break;
 	}
 }
 
-void Delay::set(float d, float f){
+void Delay::set(float d, float f)
+{
 	if( d != -1 ) delay = SAMPLE_RATE * d;
 	if( f != -1 ) feedback = f;
 }

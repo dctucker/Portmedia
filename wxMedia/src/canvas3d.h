@@ -26,6 +26,7 @@
 #include <cmath>           // header for math calculations
 
 #include "midi.h"
+#include "myparams.h"
 
 #include "chord.h"
 
@@ -69,6 +70,7 @@ public:
 	virtual ~Canvas3D();
 
 	AdsrShader adsr;
+	AdsrShader fadsr;
 	BcrShader bcr;
 	FilterShader filter;
 	LedShader led;

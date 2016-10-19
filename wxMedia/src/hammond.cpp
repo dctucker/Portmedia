@@ -44,7 +44,7 @@ Hammond::Hammond()
 		src_simple(&sd, SRC_SINC_BEST_QUALITY, 1);
 
 	} else {
-		exit(2);
+		//exit(2);
 	}
 	
 	wf = (Waveform *) wt1;

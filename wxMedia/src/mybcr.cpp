@@ -64,10 +64,6 @@ void MyBCR::setControls()
 		
 		SETCTRL(4, 41+i, myKeys->oscs[i]->pan, "PanB" );
 
-		#define PARAMFUNC( obj, prm, eff, eff1 ) \
-			obj->FindParam( PN(prm) )->func = eff; \
-			obj->FindParam( PN(prm) )->func1 = eff1
-			
 		PARAMFUNC( myKeys->oscs[i], "AmpV", Delay::square, Delay::root );
 		PARAMFUNC( myKeys->oscs[i], "Dist", distParam, distParam1 );
 		PARAMFUNC( myKeys->oscs[i]->delay, "Fdbk", Delay::square, Delay::root);

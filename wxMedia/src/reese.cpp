@@ -21,7 +21,7 @@ void Reese::SetParam( int n, fl v )
 {
 	switch( n )
 	{
-		case 0x75746544:  // Detu
+		case P_Detu:
 			setDetune( v );
 			break;
 		default:

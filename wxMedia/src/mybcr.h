@@ -24,6 +24,11 @@ public:
 
 	#define SETCTRL( pg, kn, obj, prm ) \
 		set[pg][kn] = obj; param[pg][kn] = obj-> FindParam( PN(prm) )
+
+	#define PARAMFUNC( obj, prm, eff, eff1 ) \
+		obj->FindParam( PN(prm) )->func = eff; \
+		obj->FindParam( PN(prm) )->func1 = eff1
+		
 	
 	static fl distParam (fl v){ return  1.0f - v * 0.9f; }
 	static fl distParam1(fl y){ return (1.0f - y )/0.9f;  }

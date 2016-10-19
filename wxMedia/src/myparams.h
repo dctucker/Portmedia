@@ -1,0 +1,29 @@
+#pragma once
+
+#define P_AmpV 0x56706D41
+#define P_AmpA 0x41706D41
+#define P_AmpD 0x44706D41
+#define P_AmpS 0x53706D41
+#define P_AmpR 0x52706D41
+#define P_FltA 0x41746C46
+#define P_FltD 0x44746C46
+#define P_FltS 0x53746C46
+#define P_FltR 0x52746C46	
+#define P_Dist 0x74736944
+#define P_EnLP 0x504C6E45
+#define P_LFLP 0x504C464C
+#define P_LFOF 0x464F464C
+#define P_LFOA 0x414F464C
+#define P_HiAs 0x73416948
+#define P_LoAs 0x73416F4C
+#define P_LoSp 0x70536F4C
+#define P_HiSp 0x70536948
+#define P_Shlf 0x666C6853
+#define P_Time 0x656D6954
+#define P_Fdbk 0x6B626446
+#define P_Detu 0x75746544
+#define P_Mix  0x78694D
+#define P_PanB 0x426e6150
+#define P_Freq 0x71657246
+#define P_Reso 0x6F736552
+#define P_Gain 0x6E696147

@@ -163,7 +163,7 @@ void Upright::SetParam( int f, fl v )
 {
 	switch( f )
 	{
-		case 0x78694D:  // Mix
+		case P_Mix:
 			setMix( v );
 			break;
 		default:

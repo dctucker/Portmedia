@@ -87,7 +87,7 @@ void Pan::SetParam( int n, fl v )
 {
 	switch( n )
 	{
-		case 0x426e6150:  // PanB
+		case P_PanB:
 			setPan( v );
 			break;
 	}

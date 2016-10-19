@@ -52,15 +52,15 @@ public:
 	{
 		switch(n)
 		{
-			case 0x71657246:  // Freq
+			case P_Freq:
 				freq = v;
 				set(v);
 				break;
-			case 0x6F736552:  // Reso
+			case P_Reso:
 				reso = v;
 				set(-1,v);
 				break;
-			case 0x6E696147:  // Gain	
+			case P_Gain:
 				gain = v;
 				set(-1,-1,v);
 				break;

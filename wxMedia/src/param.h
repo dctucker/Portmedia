@@ -8,6 +8,7 @@
  */
 #pragma once
 
+#include "myparams.h"
 #include "wx/fileconf.h"
 #define PN(s) *((int*)s)
 

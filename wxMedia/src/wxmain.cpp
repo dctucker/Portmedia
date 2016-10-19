@@ -648,6 +648,7 @@ bool MyApp::OnInit()
 	rtmo = NULL;
 	Temperament::nullify();
 	
+	//std::cout << "Init\n";
 	pd.Pulse(_T("Loading instruments"));
 	
 	sine   = new SubSineOsc();

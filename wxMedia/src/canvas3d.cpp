@@ -30,7 +30,7 @@ static int CanvasAttribs[] = {
 
 Canvas3D::Canvas3D( wxWindow *parent ) :
 	wxGLCanvas( parent, wxID_ANY, CanvasAttribs, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE ),
-	adsr(), bcr(), filter(), led(), piano(), scope()	
+	adsr(), fadsr(), bcr(), filter(), led(), piano(), scope()
 {
 	context = new wxGLContext(this);
 
@@ -71,6 +71,7 @@ Canvas3D::~Canvas3D()
 	delete timer;
 
 	adsr.Teardown();
+	fadsr.Teardown();
 	bcr.Teardown();
 	filter.Teardown();
 	led.Teardown();
@@ -126,6 +127,7 @@ void Canvas3D::InitGL()
 	glewInit();
 
 	adsr.Setup();
+	fadsr.Setup();
 	piano.Setup();
 	led.Setup();
 	bcr.Setup();
@@ -151,6 +153,7 @@ void Canvas3D::Render()
 	ShaderProgram::global_time+= 0.01;// = (float)glfwGetTime();
 
 	adsr.Run(true);
+	//fadsr.Run(true);
 	piano.Run(true);
 	led.Run(true);
 	bcr.Run(true);
@@ -272,20 +275,68 @@ void Canvas3D::turnPage(int inst, int pn, float v)
 {
 	switch( pn )
 	{
-		case 0x41706D41:  // AmpA
+		case P_AmpV: // Volume
+			adsr.verts.data[ 8 * inst + 4 ] = v;
+			break;
+		case P_AmpA:
 			adsr.verts.data[ 8 * inst + 0 ] = v;
 			break;
-		case 0x44706D41:  // AmpD
+		case P_AmpD:
 			adsr.verts.data[ 8 * inst + 1 ] = v;
 			break;
-		case 0x53706D41:  // AmpS
+		case P_AmpS:
 			adsr.verts.data[ 8 * inst + 2 ] = v;
 			break;
-		case 0x52706D41:  // AmpR
+		case P_AmpR:
 			adsr.verts.data[ 8 * inst + 3 ] = v;
 			break;
-		case 0x56706D41:  // AmpV
-			adsr.verts.data[ 8 * inst + 4 ] = v;
+		case P_FltA:
+			fadsr.verts.data[ 8 * inst + 0 ] = v;
+			break;
+		case P_FltD:
+			fadsr.verts.data[ 8 * inst + 1 ] = v;
+			break;
+		case P_FltS:
+			fadsr.verts.data[ 8 * inst + 2 ] = v;
+			break;
+		case P_FltR:
+			fadsr.verts.data[ 8 * inst + 3 ] = v;
+			break;
+		case P_Dist: // Distortion
+			break;
+		case P_EnLP: // Env to Lowpass
+			break;
+		case P_LFLP: // LFO to Lowpass
+			break;
+		case P_LFOF: // LFO Frequency
+			break;
+		case P_LFOA: // LFO to Amp
+			break;
+		case P_HiAs: // High Assign
+			break;
+		case P_LoAs: // Low Assign
+			break;
+		case P_PanB: // Pan Balance
+			break;
+		case P_LoSp: // Lower Split
+			break;
+		case P_HiSp: // High Split
+			break;
+		case P_Shlf: // Lower Shelf
+			break;
+		case P_Detu: // Detune
+			break;
+		case P_Mix:  // Piano Octave Mix
+			break;
+		case P_Time: // Delay Time
+			break;
+		case P_Fdbk: // Delay Feedback
+			break;
+		case P_Freq: // Filter Frequency
+			break;
+		case P_Reso: // Filter Resonance
+			break;
+		case P_Gain: // Filter Gain
 			break;
 		default: break;
 	}

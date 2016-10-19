@@ -44,13 +44,13 @@ void MyKeys::SetParam( int n, fl v )
 {
 	switch( n )
 	{
-		case 0x70536F4C:  // LoSp
+		case P_LoSp:
 			setLoRange( v );
 			break;
-		case 0x70536948:  // HiSp
+		case P_HiSp:
 			setHiRange( v );
 			break;
-		case 0x666C6853:  // Shlf
+		case P_Shlf:
 			setShelf( v );
 			break;
 	}

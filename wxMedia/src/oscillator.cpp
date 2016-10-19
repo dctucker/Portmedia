@@ -1,4 +1,3 @@
-
 #include "oscillator.h"
 
 //inline int max(int a, int b){ return a > b ? a : b; }
@@ -89,52 +88,52 @@ void Oscillator::SetParam( int n, fl v )
 {
 	switch(n)
 	{
-		case 0x41706D41:  // AmpA
-			setADSR( v );
-			break;
-		case 0x44706D41:  // AmpD
-			setADSR( -1, v );
-			break;
-		case 0x53706D41:  // AmpS
-			setADSR( -1, -1, v );
-			break;
-		case 0x52706D41:  // AmpR
-			setADSR( -1, -1, -1, v );
-			break;
-		case 0x41746C46:  // FltA
-			setFilterADSR( v );
-			break;
-		case 0x44746C46:  // FltD
-			setFilterADSR( -1, v );
-			break;
-		case 0x53746C46:  // FltS
-			setFilterADSR( -1, -1, v );
-			break;
-		case 0x52746C46:  // FltR	
-			setFilterADSR( -1, -1, -1, v );
-			break;
-		case 0x74736944:  // Dist
-			setDist( v );
-			break;
-		case 0x56706D41:  // AmpV
+		case P_AmpV:
 			setAmp( v );
 			break;
-		case 0x504C6E45:  // EnLP
+		case P_AmpA:
+			setADSR( v );
+			break;
+		case P_AmpD:
+			setADSR( -1, v );
+			break;
+		case P_AmpS:
+			setADSR( -1, -1, v );
+			break;
+		case P_AmpR:
+			setADSR( -1, -1, -1, v );
+			break;
+		case P_FltA:
+			setFilterADSR( v );
+			break;
+		case P_FltD:
+			setFilterADSR( -1, v );
+			break;
+		case P_FltS:
+			setFilterADSR( -1, -1, v );
+			break;
+		case P_FltR:
+			setFilterADSR( -1, -1, -1, v );
+			break;
+		case P_Dist:
+			setDist( v );
+			break;
+		case P_EnLP:
 			setEnv2LP( v );
 			break;
-		case 0x504C464C:  // LFLP			
+		case P_LFLP:
 			setLFO2LP( v );
 			break;
-		case 0x464F464C:  // LFOF
+		case P_LFOF:
 			setLFO( -1, v );
 			break;
-		case 0x414F464C:  // LFOA
+		case P_LFOA:
 			setLFO2Amp( v );
 			break;
-		case 0x73416948:  // HiAs
+		case P_HiAs:
 			hiAssign = v;
 			break;
-		case 0x73416F4C:  // LoAs
+		case P_LoAs:
 			loAssign = v;
 			break;
 

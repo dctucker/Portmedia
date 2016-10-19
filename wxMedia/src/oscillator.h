@@ -15,6 +15,7 @@
 #include "delay.h"
 
 #include "param.h"
+#include "myparams.h"
 //#include "bus.h"
 #include "adsr.h"
 #include "pan.h"

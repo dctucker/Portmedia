@@ -1,5 +1,4 @@
-#ifndef MAIN_H
-#define MAIN_H
+#pragma once
 
 #define MIDIPORT			0
 #define SAMPLE_RATE			96000
@@ -19,5 +18,3 @@ int prog_main();
 #endif
 
 typedef float fl;
-
-#endif
