@@ -32,6 +32,14 @@ Canvas3D::Canvas3D( wxWindow *parent ) :
 	wxGLCanvas( parent, wxID_ANY, CanvasAttribs, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE )
 {
 	context = new wxGLContext(this);
+
+	adsr = new AdsrShader;
+	bcr = new BcrShader;
+	filter = new FilterShader;
+	//led = new LedShader;
+	piano = new PianoShader;
+	scope = new ScopeShader;
+	
 	setdefaults();
 }
 
@@ -50,7 +58,7 @@ Canvas3D::Canvas3D( wxWindow *parent ) :
 
 void Canvas3D::setdefaults()
 {
-	filter.verts.data = &(filt[3][0]);
+	filter->verts.data = &(filt[3][0]);
     m_init = false;
 	scope_width = 0.4;
 	mod = 0.0;
@@ -81,12 +89,19 @@ Canvas3D::~Canvas3D()
 	timer->Stop();
 	delete timer;
 
-	adsr.Teardown();
-	piano.Teardown();
+	adsr->Teardown();
+	bcr->Teardown();
+	filter->Teardown();
 	led.Teardown();
-	bcr.Teardown();
-	filter.Teardown();
-	scope.Teardown();
+	piano->Teardown();
+	scope->Teardown();
+
+	delete adsr;
+	delete bcr;
+	delete filter;
+	//delete led;
+	delete piano;
+	delete scope;
 }
 
 int Canvas3D::doMessage(const char *s)
@@ -136,12 +151,12 @@ void Canvas3D::InitGL()
 	glewExperimental = GL_TRUE;
 	glewInit();
 
-	adsr.Setup();
-	piano.Setup();
+	adsr->Setup();
+	piano->Setup();
 	led.Setup();
-	bcr.Setup();
-	filter.Setup();
-	scope.Setup();
+	bcr->Setup();
+	filter->Setup();
+	scope->Setup();
 	/*
 	setupAdsr();
 	setupPiano();
@@ -153,7 +168,7 @@ void Canvas3D::InitGL()
 
 	glBindVertexArray(0);
 	
-	scope.verts.data = scope_minmaxv;
+	scope->verts.data = scope_minmaxv;
 	//doMessage("!\"#$%&\'()*+,-./0123456789:;<=>?@[\\]^_`{|}~");
 }
 
@@ -176,12 +191,12 @@ void Canvas3D::Render()
 	runProgram(&filter,true);
 	runProgram(&scope,true);
 	*/
-	adsr.Run(true);
-	piano.Run(true);
+	adsr->Run(true);
+	piano->Run(true);
 	led.Run(true);
-	bcr.Run(true);
-	filter.Run(true);
-	scope.Run(true);
+	bcr->Run(true);
+	filter->Run(true);
+	scope->Run(true);
 	glBindVertexArray(0);
 	
 	SwapBuffers();
@@ -244,13 +259,13 @@ void Canvas3D::SetFader(float f)
 void Canvas3D::keyOn(int k)
 {
 	int x = k-21;
-	piano.verts.data[x] = 1;
+	piano->verts.data[x] = 1;
 }
 
 void Canvas3D::keyOff(int k)
 {
 	int x = k-21;
-	piano.verts.data[x] = 0;
+	piano->verts.data[x] = 0;
 }
 
 void Canvas3D::turn(int k, float v)
@@ -259,8 +274,8 @@ void Canvas3D::turn(int k, float v)
 	int row = (k / 10) - 1;
 	int x = row * 8 + col;
 
-	if( x < bcr.verts.draw_size )
-		bcr.verts.data[x] = v;
+	if( x < bcr->verts.draw_size )
+		bcr->verts.data[x] = v;
 }
 
 void Canvas3D::updateFilter(int inst, int i, fl y)
@@ -268,7 +283,7 @@ void Canvas3D::updateFilter(int inst, int i, fl y)
 	filt[inst][i] = y;
 	selinst = inst;
 
-	filter.verts.data[ i % 128 ] = y;
+	filter->verts.data[ i % 128 ] = y;
 }
 
 void Canvas3D::SetScopeBuffer(float *h)
@@ -286,19 +301,19 @@ void Canvas3D::turnPage(int inst, int pn, float v)
 	switch( pn )
 	{
 		case 0x41706D41:  // AmpA
-			adsr.verts.data[ 8 * inst + 0 ] = v;
+			adsr->verts.data[ 8 * inst + 0 ] = v;
 			break;
 		case 0x44706D41:  // AmpD
-			adsr.verts.data[ 8 * inst + 1 ] = v;
+			adsr->verts.data[ 8 * inst + 1 ] = v;
 			break;
 		case 0x53706D41:  // AmpS
-			adsr.verts.data[ 8 * inst + 2 ] = v;
+			adsr->verts.data[ 8 * inst + 2 ] = v;
 			break;
 		case 0x52706D41:  // AmpR
-			adsr.verts.data[ 8 * inst + 3 ] = v;
+			adsr->verts.data[ 8 * inst + 3 ] = v;
 			break;
 		case 0x56706D41:  // AmpV
-			adsr.verts.data[ 8 * inst + 4 ] = v;
+			adsr->verts.data[ 8 * inst + 4 ] = v;
 			break;
 		default: break;
 	}

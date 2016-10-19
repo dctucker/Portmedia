@@ -1,10 +1,12 @@
 #include "bcr_shader.h"
 
-void BcrShader::LoadShaders()
+void BcrShader::Setup()
 {
-	MVP.data = projectionMatrix;
-	verts.data = vertices;
-	verts.size = sizeof(vertices);
+	Defaults();
+
+	MVP.data = bcr_projection;
+	verts.data = bcr_vertices;
+	verts.size = sizeof(bcr_vertices);
 	verts.usage = GL_DYNAMIC_DRAW;
 
 	vertex.source = GLSL(
@@ -83,10 +85,9 @@ void BcrShader::LoadShaders()
 			outColor = fragColor;
 		}
 	);
-}
 
-void BcrShader::SetAttribs()
-{
+	ShaderProgram::Setup();	
+
 	glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 }

@@ -1,8 +1,10 @@
 #include "scope_shader.h"
 
-void ScopeShader::LoadShaders()
+void ScopeShader::Setup()
 {
-	MVP.data = projectionMatrix;
+	Defaults();
+
+	MVP.data = scope_projection;
 	verts.data = min_max;
 	verts.size = sizeof(min_max);
 	verts.usage = GL_STREAM_DRAW;
@@ -90,10 +92,9 @@ void ScopeShader::LoadShaders()
 			outColor = fragColor;
 		}
 	);
-}
 
-void ScopeShader::SetAttribs()
-{
+	ShaderProgram::Setup();
+
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 

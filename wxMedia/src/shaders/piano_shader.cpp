@@ -1,10 +1,12 @@
 #include "piano_shader.h"
 
-void PianoShader::LoadShaders()
+void PianoShader::Setup()
 {
-	MVP.data = projectionMatrix;
-	verts.data = velocities;
-	verts.size = sizeof(velocities);
+	Defaults();
+
+	MVP.data = piano_projection;
+	verts.data = piano_velocities;
+	verts.size = sizeof(piano_velocities);
 	verts.usage = GL_DYNAMIC_DRAW;
 
 	vertex.source = GLSL(
@@ -145,10 +147,9 @@ void PianoShader::LoadShaders()
 			outColor = vec4( fragColor, 1.0 );
 		}
 	);
-}
 
-void PianoShader::SetAttribs()
-{
+	ShaderProgram::Setup();
+
 	glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 }

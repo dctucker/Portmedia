@@ -1,7 +1,9 @@
 #include "biquad_shader.h"
 
-void BiquadShader::LoadShaders()
+void BiquadShader::Setup()
 {
+	Defaults();
+
 	verts.data = biquad_coeffs;
 	verts.size = sizeof(biquad_coeffs);
 	MVP.data = projectionMatrix;
@@ -103,10 +105,9 @@ void BiquadShader::LoadShaders()
 		}
 	);
 
-}
 
-void BiquadShader::SetAttribs()
-{
+	ShaderProgram::Setup();
+
 	glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 	

@@ -4,13 +4,13 @@
 
 class LedShader : public ShaderProgram
 {
-	GLfloat projectionMatrix[16] = {
+	GLfloat led_projection[16] = {
 		0.10, 0.00, 0.00, 0.00,
 		0.00, 0.20, 0.00, 0.00,
 		0.00, 0.00, 1.00, 0.00,
 		0.00, 0.00, 0.00, 1.00
 	};
-	GLfloat vertices[140] = {
+	GLfloat led_vertices[140] = {
 		/*   Positions            Colors */
 		-10.0, -3.6, 0.0,   0.0, 1.0, 0.0, 'A',
 		 -9.0, -3.6, 0.0,   0.0, 1.0, 0.0, 'B',
@@ -33,7 +33,6 @@ class LedShader : public ShaderProgram
 		  8.0, -3.6, 0.0,   0.0, 1.0, 0.0, 'S',
 		  9.0, -3.6, 0.0,   0.0, 1.0, 0.0, 'T',
 	};
-
-	void LoadShaders();
-	void SetAttribs();
+public:
+	void Setup();
 };

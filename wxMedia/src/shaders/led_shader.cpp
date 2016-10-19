@@ -1,10 +1,12 @@
 #include "led_shader.h"
 
-void LedShader::LoadShaders()
+void LedShader::Setup()
 {
-	MVP.data = projectionMatrix;
-	verts.data = vertices;
-	verts.size = sizeof(vertices);
+	Defaults();
+
+	MVP.data = led_projection;
+	verts.data = led_vertices;
+	verts.size = sizeof(led_vertices);
 
 	vertex.source = GLSL(
 		layout (location = 0) in vec3 position;
@@ -315,6 +317,7 @@ void LedShader::LoadShaders()
 			}
 		}
 	);
+
 	fragment.source = GLSL(
 		in vec4 fragColor;
 		in float dist;
@@ -323,11 +326,9 @@ void LedShader::LoadShaders()
 			outColor = vec4( fragColor.rgb, fragColor.a );
 		}
 	);
-	
-}
 
-void LedShader::SetAttribs()
-{
+	ShaderProgram::Setup();
+	
 	// Position attribute
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);

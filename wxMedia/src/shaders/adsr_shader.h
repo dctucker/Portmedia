@@ -21,6 +21,6 @@ public:
 		0.05, 0.1, 0.7, 0.1, 0.1, 0.6, 0.5, 0.5,
 	};
 
-	void LoadShaders();
+	void Setup();
 	void SetAttribs();
 };

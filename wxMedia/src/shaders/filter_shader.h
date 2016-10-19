@@ -4,7 +4,8 @@
 
 class FilterShader : public ShaderProgram
 {
-	GLfloat projectionMatrix[16] = {
+public:
+	GLfloat filter_projection[16] = {
 		0.5,0,0,0.4,
 		0,0.5,0,0.5,
 		0,0,1,0,
@@ -29,6 +30,5 @@ class FilterShader : public ShaderProgram
 		-4, -5, -10, -11, -16, -20, -30, -44
 	};
 
-	void LoadShaders();
-	void SetAttribs();
+	void Setup();
 };

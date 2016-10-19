@@ -1,7 +1,13 @@
 #include "adsr_shader.h"
 
-void AdsrShader::LoadShaders()
+void AdsrShader::Setup()
 {
+	Defaults();
+
+	MVP.data = adsrMVP;
+	verts.data = adsrVerts;
+	verts.size = sizeof(adsrVerts);
+
 	vertex.source = GLSL(
 		uniform mat4 MVP;
 		layout (location = 0) in vec4 in_adsr;
@@ -67,10 +73,9 @@ void AdsrShader::LoadShaders()
 			outColor = fragColor;
 		}
 	);
-}
+	
+	ShaderProgram::Setup();
 
-void AdsrShader::SetAttribs()
-{
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 

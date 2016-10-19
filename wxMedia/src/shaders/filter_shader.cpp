@@ -1,10 +1,12 @@
 #include "filter_shader.h"
 
-void FilterShader::LoadShaders()
+void FilterShader::Setup()
 {
+	Defaults();
+
 	verts.data = filter_db;
 	verts.size = sizeof(filter_db);
-	MVP.data = projectionMatrix;
+	MVP.data = filter_projection;
 	verts.usage = GL_DYNAMIC_DRAW;
 
 	vertex.source = GLSL(
@@ -67,10 +69,8 @@ void FilterShader::LoadShaders()
 		}
 	);
 
-}
+	ShaderProgram::Setup();
 
-void FilterShader::SetAttribs()
-{
 	glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 	

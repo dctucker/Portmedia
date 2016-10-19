@@ -4,7 +4,8 @@
 
 class ScopeShader : public ShaderProgram
 {
-	GLfloat projectionMatrix[16] = {
+public:
+	GLfloat scope_projection[16] = {
 		1.80, 0.00, 0, -0.9,
 		0.00, 2.00, 0,  0.0,
 		0.00, 0.00, 1, -2.0,
@@ -48,6 +49,5 @@ class ScopeShader : public ShaderProgram
 		-0.6, -0.6, -0.7, -0.7, -0.8, -0.8, -0.9, -0.9, -0.8, -0.8, -0.7, -0.7, -0.6, -0.6, -0.5, -0.5
 	};
 
-	void LoadShaders();
-	void SetAttribs();
+	void Setup();
 };

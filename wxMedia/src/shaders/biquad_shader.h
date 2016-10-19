@@ -22,6 +22,5 @@ class BiquadShader : public ShaderProgram
 		0,0,0,0,0,0,  0.6, 0.5, 0.5,
 	};
 
-	void LoadShaders();
-	void SetAttribs();
+	void Setup();
 };

@@ -68,12 +68,12 @@ public:
 	Canvas3D(wxWindow *parent );
 	virtual ~Canvas3D();
 
-	AdsrShader adsr;
-	BcrShader bcr;
-	FilterShader filter;
+	AdsrShader *adsr;
+	BcrShader *bcr;
+	FilterShader *filter;
 	LedShader led;
-	PianoShader piano;
-	ScopeShader scope;
+	PianoShader *piano;
+	ScopeShader *scope;
 
 	
 	bool m_init;

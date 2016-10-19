@@ -2,14 +2,14 @@
 
 class PianoShader : public ShaderProgram
 {
-
-	GLfloat projectionMatrix[16] = {
+public:
+	GLfloat piano_projection[16] = {
 		2,0,0,-1,
 		0,0.25,0,-1,
 		0,0,1,0,
 		0,0,0,1
 	};
-	GLfloat velocities[88] = {
+	GLfloat piano_velocities[88] = {
 		0.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
@@ -21,6 +21,5 @@ class PianoShader : public ShaderProgram
 		0.0f,
 	};
 
-	void LoadShaders();
-	void SetAttribs();
+	void Setup();
 };
