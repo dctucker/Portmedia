@@ -1,7 +1,6 @@
 #pragma once
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <iostream>
 
 #define GLEW_STATIC
 #include <GL/glew.h>

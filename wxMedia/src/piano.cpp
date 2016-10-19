@@ -259,7 +259,7 @@ void Upright::setMix(float v)
 	mix1 = fmax(0.25f, mix1);
 	mix0 *= 2.0f;
 	
-	cout << mix0 << "\t" << mix1 << "\t" << mix2 << "\n";
+	//cout << mix0 << "\t" << mix1 << "\t" << mix2 << "\n";
 	
 }
 

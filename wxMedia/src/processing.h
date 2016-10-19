@@ -12,7 +12,7 @@ inline void fill(int r,int g ,int b){
 	maindc->SetBrush(wxColor(r,g,b));
 }
 inline void rect(int x1,int y1,int x2, int y2){
-	std::cout << "rect";
+	//std::cout << "rect";
 	maindc->DrawRectangle(x1, y1, x2, y2);
 }
 inline void textFont(wxFont *f){

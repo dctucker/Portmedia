@@ -152,7 +152,7 @@ void Oscillator::setLFO( float a, float f )
 	if( f != -1 )
 	{
 		lfof = (1 + 19. * f);
-		std::cout << "LFO " << lfof << "\n";
+		//std::cout << "LFO " << lfof << "\n";
 		//lfoNote.freq = calcFreq(f);
 		lfoNote.phase *= calcFreq(lfof);
 	}

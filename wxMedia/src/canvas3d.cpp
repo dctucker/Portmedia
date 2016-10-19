@@ -36,7 +36,8 @@ Canvas3D::Canvas3D( wxWindow *parent ) :
 	adsr = new AdsrShader;
 	bcr = new BcrShader;
 	filter = new FilterShader;
-	//led = new LedShader;
+	biquad = new BiquadShader;
+	led = new LedShader;
 	piano = new PianoShader;
 	scope = new ScopeShader;
 	
@@ -91,15 +92,16 @@ Canvas3D::~Canvas3D()
 
 	adsr->Teardown();
 	bcr->Teardown();
+	biquad->Teardown();
 	filter->Teardown();
-	led.Teardown();
+	led->Teardown();
 	piano->Teardown();
 	scope->Teardown();
 
 	delete adsr;
 	delete bcr;
 	delete filter;
-	//delete led;
+	delete led;
 	delete piano;
 	delete scope;
 }
@@ -111,11 +113,11 @@ int Canvas3D::doMessage(const char *s)
 	{
 		str[i] = s[i];
 		if( i < 20 )
-			led.verts.data[ 7 * i + 6 ] = s[i];
+			led->verts.data[ 7 * i + 6 ] = s[i];
 	}
 	str[i] = '\0';
 	for(; i < 20; i++ )
-		led.verts.data[ 7 * i + 6 ] = ' ';
+		led->verts.data[ 7 * i + 6 ] = ' ';
 		
 	ledAlpha = 1.0; 
 
@@ -153,18 +155,11 @@ void Canvas3D::InitGL()
 
 	adsr->Setup();
 	piano->Setup();
-	led.Setup();
+	led->Setup();
 	bcr->Setup();
 	filter->Setup();
+	biquad->Setup();
 	scope->Setup();
-	/*
-	setupAdsr();
-	setupPiano();
-	setupLed();
-	setupBcr();
-	setupFilter();
-	setupScope();
-	*/
 
 	glBindVertexArray(0);
 	
@@ -183,20 +178,15 @@ void Canvas3D::Render()
 
 	glClear(GL_COLOR_BUFFER_BIT);
 	ShaderProgram::global_time+= 0.01;// = (float)glfwGetTime();
-	/*
-	runProgram(&adsr,true);
-	runProgram(&piano,true);
-	runProgram(&led,true);
-	runProgram(&bcr,true);
-	runProgram(&filter,true);
-	runProgram(&scope,true);
-	*/
+
 	adsr->Run(true);
 	piano->Run(true);
-	led.Run(true);
+	led->Run(true);
 	bcr->Run(true);
-	filter->Run(true);
+	//filter->Run(true);
+	biquad->Run(true);
 	scope->Run(true);
+
 	glBindVertexArray(0);
 	
 	SwapBuffers();
@@ -284,6 +274,16 @@ void Canvas3D::updateFilter(int inst, int i, fl y)
 	selinst = inst;
 
 	filter->verts.data[ i % 128 ] = y;
+}
+
+void Canvas3D::setBiquad(int inst,float a0, float a1, float a2, float b0, float b1, float b2)
+{
+	biquad->verts.data[ 9 * inst + 0 ] = a0;	
+	biquad->verts.data[ 9 * inst + 1 ] = a1;	
+	biquad->verts.data[ 9 * inst + 2 ] = a2;	
+	biquad->verts.data[ 9 * inst + 3 ] = b0;	
+	biquad->verts.data[ 9 * inst + 4 ] = b1;	
+	biquad->verts.data[ 9 * inst + 5 ] = b2;	
 }
 
 void Canvas3D::SetScopeBuffer(float *h)

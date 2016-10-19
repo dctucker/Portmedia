@@ -60,12 +60,13 @@ public:
 	virtual void reset();
 	virtual smp_type query(smp_type);
 
+    smp_type a0, a1, a2, b0, b1, b2;
+
 protected:
 	bool on;
 	smp_type a0_, a1_, a2_, a3_, a4_;
 	smp_type x1_, x2_, y1_, y2_;
 	smp_type x1r_, x2r_, y1r_, y2r_;
-    smp_type a0, a1, a2, b0, b1, b2;
     smp_type A, omega, sn, cs, alpha, beta;
 	//smp_type freq, reso, gain;
 	int type;

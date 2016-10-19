@@ -149,7 +149,7 @@ public:
 			for(int i=0; i < 4 and set[s]->name.c[i] !=0; i++)
 				path << (wxChar)(set[s]->name.c[i]);
 			
-			std::cout << path.mb_str() << "\n";
+			//std::cout << path.mb_str() << "\n";
 
 			config->SetPath( path );
 			set[s]->Save();
@@ -161,7 +161,7 @@ public:
 			for(int i=0; i < 4 and param[p]->name.c[i] !=0; i++)
 				parm << (wxChar)(param[p]->name.c[i]);
 			
-			std::cout << "\t" << parm.mb_str() << "\t" << param[p]->GetValue() << "\n";
+			//std::cout << "\t" << parm.mb_str() << "\t" << param[p]->GetValue() << "\n";
 
 			config->Write( parm, param[p]->GetValue() );
 		}
@@ -175,7 +175,7 @@ public:
 			for(int i=0; i < 4 and set[s]->name.c[i] !=0; i++)
 				path << (wxChar)(set[s]->name.c[i]);
 			
-			std::cout << path.mb_str() << "\n";
+			//std::cout << path.mb_str() << "\n";
 
 			config->SetPath( path );
 			set[s]->Load();
@@ -187,7 +187,7 @@ public:
 			for(int i=0; i < 4 and param[p]->name.c[i] !=0; i++)
 				parm << (wxChar)(param[p]->name.c[i]);
 			
-			std::cout << "\t" << parm.mb_str() << "\t" << param[p]->GetValue() << "\n";
+			//std::cout << "\t" << parm.mb_str() << "\t" << param[p]->GetValue() << "\n";
 			
 			double v;
 			if( config->Read( parm, &v ) )

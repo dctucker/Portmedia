@@ -50,7 +50,7 @@ void ShaderProgram::Compile(Shader shader)
 		if (!success)
 		{
 			glGetShaderInfoLog(shader.handle, INFOLOG_LEN, NULL, infoLog);
-			printf("ERROR::SHADER::COMPILATION_FAILED\n%s\n", infoLog);
+			std::cout << "ERROR::SHADER::COMPILATION_FAILED\n%s\n" << infoLog;
 		}
 		glAttachShader(handle, shader.handle);
 	}
@@ -90,8 +90,8 @@ void ShaderProgram::BindBuffers()
 	glBufferData(GL_ARRAY_BUFFER, verts.size, verts.data, verts.usage);
 
 	verts.draw_size = verts.size;
-	//time.data = &( ShaderProgram::global_time );
-	//mouse.data = ShaderProgram::global_mouse;
+	time.data = &( ShaderProgram::global_time );
+	mouse.data = ShaderProgram::global_mouse;
 }
 
 
@@ -99,8 +99,8 @@ void ShaderProgram::BindBuffers()
 void ShaderProgram::Run(bool copy)
 {
 	glUseProgram(handle);
-	//glUniform1f(time.handle , *(time.data));
-	//glUniform2f(mouse.handle, mouse.data[0], mouse.data[1]);
+	glUniform1f(time.handle , *(time.data));
+	glUniform2f(mouse.handle, mouse.data[0], mouse.data[1]);
 	glUniformMatrix4fv(MVP.handle, 1, GL_TRUE, &(MVP.data[0]));
 	if( copy )
 	{

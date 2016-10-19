@@ -126,8 +126,8 @@ public:
 class Oscillator : public Generator, public Set
 {
 public:
-	Filter *filtLP1, *filtHP1;
-	Filter *filtLP2, *filtHP2;
+	BiQuad2 *filtLP1, *filtHP1;
+	BiQuad2 *filtLP2, *filtHP2;
 	Delay *delay;
 	Pan *pan;
 

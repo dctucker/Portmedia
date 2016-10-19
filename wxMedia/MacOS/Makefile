@@ -67,7 +67,8 @@ bundle:
 		-p @executable_path/../Frameworks
 
 run:
-	open -W "../$(APPNAME).app"
+	#open -W "../$(APPNAME).app"
+	cd ../$(APPNAME).app/Contents ; MacOS/$(APPNAME)
 
 clean:
 	rm -f ../$(TARGET) *.o shaders/*.o

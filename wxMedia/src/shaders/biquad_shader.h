@@ -4,6 +4,7 @@
 
 class BiquadShader : public ShaderProgram
 {
+public:
 	GLfloat projectionMatrix[16] = {
 		0.5,0,0,0.4,
 		0,0.5,0,0.5,
