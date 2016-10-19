@@ -32,7 +32,6 @@
 #include "shaders/shader.h"
 #include "shaders/adsr_shader.h"
 #include "shaders/bcr_shader.h"
-#include "shaders/biquad_shader.h"
 #include "shaders/filter_shader.h"
 #include "shaders/led_shader.h"
 #include "shaders/piano_shader.h"
@@ -69,13 +68,12 @@ public:
 	Canvas3D(wxWindow *parent );
 	virtual ~Canvas3D();
 
-	AdsrShader *adsr;
-	BcrShader *bcr;
-	FilterShader *filter;
-	BiquadShader *biquad;
-	LedShader *led;
-	PianoShader *piano;
-	ScopeShader *scope;
+	AdsrShader adsr;
+	BcrShader bcr;
+	FilterShader filter;
+	LedShader led;
+	PianoShader piano;
+	ScopeShader scope;
 
 	
 	bool m_init;
@@ -98,7 +96,7 @@ public:
 	float filt[128][128];
 	bool active[128];
 	void updateFilter(int inst, int i, fl y);
-	void setBiquad(int,float, float, float, float, float, float);
+	//void setBiquad(int,float, float, float, float, float, float);
 	//void updateEnvelope(int inst, fl a, fl d, fl s, fl r);
 	
 	fl *ampA[128], *ampD[128], *ampS[128], *ampR[128], *ampV[128];

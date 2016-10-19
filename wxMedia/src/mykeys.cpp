@@ -133,6 +133,7 @@ void MyKeys::updateFilter(int ins)
 			canvas->updateFilter(ins, i, -36);
 		}
 
+		/*
 		canvas->setBiquad( ins,
 			osc->filtLP1->bq1.a0,
 			osc->filtLP1->bq1.a1,
@@ -141,6 +142,7 @@ void MyKeys::updateFilter(int ins)
 			osc->filtLP1->bq1.b1,
 			osc->filtLP1->bq1.b2
 		);
+		*/
 		//std::cout << "\n";
 	} 
 	else 

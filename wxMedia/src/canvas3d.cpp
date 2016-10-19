@@ -29,37 +29,17 @@ static int CanvasAttribs[] = {
 };
 
 Canvas3D::Canvas3D( wxWindow *parent ) :
-	wxGLCanvas( parent, wxID_ANY, CanvasAttribs, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE )
+	wxGLCanvas( parent, wxID_ANY, CanvasAttribs, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE ),
+	adsr(), bcr(), filter(), led(), piano(), scope()	
 {
 	context = new wxGLContext(this);
 
-	adsr = new AdsrShader;
-	bcr = new BcrShader;
-	filter = new FilterShader;
-	biquad = new BiquadShader;
-	led = new LedShader;
-	piano = new PianoShader;
-	scope = new ScopeShader;
-	
 	setdefaults();
 }
 
-/*
-#include "shaders/common.h"
-#include "shaders/filter.h"
-#include "shaders/piano.h"
-#include "shaders/bcr.h"
-#include "shaders/led.h"
-//#include "shaders/drums.h"
-#include "shaders/scope.h"
-#include "shaders/adsr.h"
-//#include "shaders/flag.h"
-//#include "shaders/chord.h"
-*/
-
 void Canvas3D::setdefaults()
 {
-	filter->verts.data = &(filt[3][0]);
+	filter.verts.data = &(filt[3][0]);
     m_init = false;
 	scope_width = 0.4;
 	mod = 0.0;
@@ -90,20 +70,12 @@ Canvas3D::~Canvas3D()
 	timer->Stop();
 	delete timer;
 
-	adsr->Teardown();
-	bcr->Teardown();
-	biquad->Teardown();
-	filter->Teardown();
-	led->Teardown();
-	piano->Teardown();
-	scope->Teardown();
-
-	delete adsr;
-	delete bcr;
-	delete filter;
-	delete led;
-	delete piano;
-	delete scope;
+	adsr.Teardown();
+	bcr.Teardown();
+	filter.Teardown();
+	led.Teardown();
+	piano.Teardown();
+	scope.Teardown();
 }
 
 int Canvas3D::doMessage(const char *s)
@@ -113,11 +85,11 @@ int Canvas3D::doMessage(const char *s)
 	{
 		str[i] = s[i];
 		if( i < 20 )
-			led->verts.data[ 7 * i + 6 ] = s[i];
+			led.verts.data[ 7 * i + 6 ] = s[i];
 	}
 	str[i] = '\0';
 	for(; i < 20; i++ )
-		led->verts.data[ 7 * i + 6 ] = ' ';
+		led.verts.data[ 7 * i + 6 ] = ' ';
 		
 	ledAlpha = 1.0; 
 
@@ -153,17 +125,16 @@ void Canvas3D::InitGL()
 	glewExperimental = GL_TRUE;
 	glewInit();
 
-	adsr->Setup();
-	piano->Setup();
-	led->Setup();
-	bcr->Setup();
-	filter->Setup();
-	biquad->Setup();
-	scope->Setup();
+	adsr.Setup();
+	piano.Setup();
+	led.Setup();
+	bcr.Setup();
+	filter.Setup();
+	scope.Setup();
 
 	glBindVertexArray(0);
 	
-	scope->verts.data = scope_minmaxv;
+	scope.verts.data = scope_minmaxv;
 	//doMessage("!\"#$%&\'()*+,-./0123456789:;<=>?@[\\]^_`{|}~");
 }
 
@@ -179,13 +150,12 @@ void Canvas3D::Render()
 	glClear(GL_COLOR_BUFFER_BIT);
 	ShaderProgram::global_time+= 0.01;// = (float)glfwGetTime();
 
-	adsr->Run(true);
-	piano->Run(true);
-	led->Run(true);
-	bcr->Run(true);
-	//filter->Run(true);
-	biquad->Run(true);
-	scope->Run(true);
+	adsr.Run(true);
+	piano.Run(true);
+	led.Run(true);
+	bcr.Run(true);
+	filter.Run(true);
+	scope.Run(true);
 
 	glBindVertexArray(0);
 	
@@ -249,13 +219,13 @@ void Canvas3D::SetFader(float f)
 void Canvas3D::keyOn(int k)
 {
 	int x = k-21;
-	piano->verts.data[x] = 1;
+	piano.verts.data[x] = 1;
 }
 
 void Canvas3D::keyOff(int k)
 {
 	int x = k-21;
-	piano->verts.data[x] = 0;
+	piano.verts.data[x] = 0;
 }
 
 void Canvas3D::turn(int k, float v)
@@ -264,8 +234,8 @@ void Canvas3D::turn(int k, float v)
 	int row = (k / 10) - 1;
 	int x = row * 8 + col;
 
-	if( x < bcr->verts.draw_size )
-		bcr->verts.data[x] = v;
+	if( x < bcr.verts.draw_size )
+		bcr.verts.data[x] = v;
 }
 
 void Canvas3D::updateFilter(int inst, int i, fl y)
@@ -273,9 +243,10 @@ void Canvas3D::updateFilter(int inst, int i, fl y)
 	filt[inst][i] = y;
 	selinst = inst;
 
-	filter->verts.data[ i % 128 ] = y;
+	filter.verts.data[ i % 128 ] = y;
 }
 
+/*
 void Canvas3D::setBiquad(int inst,float a0, float a1, float a2, float b0, float b1, float b2)
 {
 	biquad->verts.data[ 9 * inst + 0 ] = a0;	
@@ -285,6 +256,7 @@ void Canvas3D::setBiquad(int inst,float a0, float a1, float a2, float b0, float 
 	biquad->verts.data[ 9 * inst + 4 ] = b1;	
 	biquad->verts.data[ 9 * inst + 5 ] = b2;	
 }
+*/
 
 void Canvas3D::SetScopeBuffer(float *h)
 {
@@ -301,19 +273,19 @@ void Canvas3D::turnPage(int inst, int pn, float v)
 	switch( pn )
 	{
 		case 0x41706D41:  // AmpA
-			adsr->verts.data[ 8 * inst + 0 ] = v;
+			adsr.verts.data[ 8 * inst + 0 ] = v;
 			break;
 		case 0x44706D41:  // AmpD
-			adsr->verts.data[ 8 * inst + 1 ] = v;
+			adsr.verts.data[ 8 * inst + 1 ] = v;
 			break;
 		case 0x53706D41:  // AmpS
-			adsr->verts.data[ 8 * inst + 2 ] = v;
+			adsr.verts.data[ 8 * inst + 2 ] = v;
 			break;
 		case 0x52706D41:  // AmpR
-			adsr->verts.data[ 8 * inst + 3 ] = v;
+			adsr.verts.data[ 8 * inst + 3 ] = v;
 			break;
 		case 0x56706D41:  // AmpV
-			adsr->verts.data[ 8 * inst + 4 ] = v;
+			adsr.verts.data[ 8 * inst + 4 ] = v;
 			break;
 		default: break;
 	}
