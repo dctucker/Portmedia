@@ -26,7 +26,7 @@
 #include <cmath>           // header for math calculations
 
 #include "midi.h"
-#include "myparams.h"
+#include "param.h"
 
 #include "chord.h"
 
@@ -153,6 +153,7 @@ public:
 	void keyOn(int), keyOff(int),
 		turn(int,float),
 		SetParam(int, int, float),
+		LoadSet(Set *, int),
 		SetMod(float), SetPitch(float), SetFader(float), SetSustain(float);
 
 	void SetScopeBuffer(float*);

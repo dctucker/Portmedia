@@ -272,6 +272,18 @@ void Canvas3D::hitDrum(int i)
 	drums[ i % 7 ] = 1.0;
 }
 
+void Canvas3D::LoadSet(Set *set, int inst)
+{
+	for(int s=0; s < set->scount; ++s)
+	{
+		LoadSet(set->set[s], inst);
+	}
+	for(int p=0; p < set->pcount; p++)
+	{
+		SetParam(inst, set->param[p]->name.v, set->param[p]->GetValue());
+	}
+}
+
 void Canvas3D::SetParam(int inst, int pn, float v)
 {
 	switch( pn )
