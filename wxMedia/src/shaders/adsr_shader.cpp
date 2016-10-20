@@ -4,7 +4,7 @@ void AdsrShader::Setup()
 {
 	Defaults();
 
-	MVP.data = adsrMVP;
+	MVP.data = mvp.a;
 	verts.data = adsrVerts;
 	verts.size = sizeof(adsrVerts);
 

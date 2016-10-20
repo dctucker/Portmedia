@@ -186,11 +186,13 @@ void MyApp::OnStore(wxCommandEvent &event)
 	{
 		current_preset = diag.GetValue();
 		
+/*
 		wxString fn = _T(PRESET_PATH);
 		fn << diag.GetValue();
 		myfile.open( fn.mb_str() );
 		myfile << *bcr;
 		myfile.close();
+*/
 		numPresets++;
 		menuPres->Append( LOADID + numPresets, diag.GetValue() );
 		
@@ -202,8 +204,6 @@ void MyApp::OnStore(wxCommandEvent &event)
 	}
 }
 
-//#define FILEPRESETS
-
 void MyApp::OnLoad(wxCommandEvent &event)
 {
 	wxString fn, menuname;
@@ -211,6 +211,7 @@ void MyApp::OnLoad(wxCommandEvent &event)
 	menuname = menuPres->GetLabelText( event.GetId() );
 	current_preset = menuname;
 	 
+/*
 #ifdef FILEPRESETS
 	fn << _T(PRESET_PATH);
 	fn << menuname;
@@ -227,17 +228,17 @@ void MyApp::OnLoad(wxCommandEvent &event)
 		myfile.close();
 		bcr->sendValues();
 	}
-#else
+#else */
 	wxConfigBase *config = wxConfigBase::Get();
 	config->SetPath( _T("/Presets/") + menuname );
 	key->Load();
 	config->SetPath( _T("/") );
 	for(int i=0; i < NUM_OSCS; i++)
 		key->updateFilter(i);
-#endif
+//#endif
 
-	bcr->press(101, 1);
-	bcr->execValues();
+	//bcr->execValues();
+	//bcr->press(101, 1);
 	
 	glCanvas->doMessage( menuname.Upper().mb_str(wxConvUTF8) );
 }
@@ -551,6 +552,7 @@ void MyApp::initPres(wxMenu *mnu)
 	// put menu items in from file list
 	numPresets = 0;
 	
+/*
 #ifdef FILEPRESETS
 	wxDir dir( _T(PRESET_PATH));
 	wxString fn;
@@ -561,7 +563,7 @@ void MyApp::initPres(wxMenu *mnu)
 		mnu->Append(LOADID + numPresets, fn);
 		c = dir.GetNext(&fn);
 	}
-#else
+#else */
 	int i=0;
 	long dummy;
 	wxString str;
@@ -575,7 +577,7 @@ void MyApp::initPres(wxMenu *mnu)
 		numPresets = config->GetNextGroup(str, dummy);
 	}
 	numPresets = config->GetNumberOfGroups();
-#endif
+//#endif
 }
 
 void MyApp::initMenubar()

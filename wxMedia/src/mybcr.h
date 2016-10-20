@@ -33,6 +33,7 @@ public:
 	static fl distParam (fl v){ return  1.0f - v * 0.9f; }
 	static fl distParam1(fl y){ return (1.0f - y )/0.9f;  }
 	
+/*
 	friend ostream &operator<<(ostream &stream, MyBCR &bcr)
 	{
 		for(int p=0; p <= 4; ++p){
@@ -71,6 +72,7 @@ public:
 		bcr.myKeys->setHiRange( bcr.myKeys->hiSplit );
 		return stream;
 	}
+*/
 
 	void setControls();
 	void send(unsigned char a, unsigned char b, unsigned char c);

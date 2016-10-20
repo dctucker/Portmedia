@@ -3,7 +3,7 @@
 class AdsrShader : public ShaderProgram
 {
 public:
-	GLfloat adsrMVP[16] = {
+	Mat44 mvp = {
 		0.5,0,0,-0.3,
 		0,0.5,0,0.5,
 		0,0,1,0,

@@ -11,6 +11,17 @@
 #define GLSL(shader) ("#version 330 core\n" #shader)
 #define HEREDOC(var) #var
 
+union Mat44 {
+	struct {
+		GLfloat
+			xx, xy, xz, xw,
+			yx, yy, yz, yw,
+			zx, zy, zz, zw,
+			wx, wy, wz, ww
+		;
+	};
+	GLfloat a[16];
+};
 
 class ShaderProgram
 {

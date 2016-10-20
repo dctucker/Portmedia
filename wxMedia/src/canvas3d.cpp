@@ -40,6 +40,7 @@ Canvas3D::Canvas3D( wxWindow *parent ) :
 void Canvas3D::setdefaults()
 {
 	filter.verts.data = &(filt[3][0]);
+	fadsr.mvp.yw = 0.0;
     m_init = false;
 	scope_width = 0.4;
 	mod = 0.0;
@@ -153,7 +154,7 @@ void Canvas3D::Render()
 	ShaderProgram::global_time+= 0.01;// = (float)glfwGetTime();
 
 	adsr.Run(true);
-	//fadsr.Run(true);
+	fadsr.Run(true);
 	piano.Run(true);
 	led.Run(true);
 	bcr.Run(true);
