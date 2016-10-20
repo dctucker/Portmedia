@@ -302,40 +302,53 @@ void Canvas3D::turnPage(int inst, int pn, float v)
 		case P_FltR:
 			fadsr.verts.data[ 8 * inst + 3 ] = v;
 			break;
-		case P_Dist: // Distortion
-			break;
 		case P_EnLP: // Env to Lowpass
-			break;
-		case P_LFLP: // LFO to Lowpass
+			fadsr.verts.data[ 8 * inst + 4 ] = v;
 			break;
 		case P_LFOF: // LFO Frequency
+			// lfo.verts.data[ 4 * inst + 0 ] = v;
+			// lfo.verts.data[ 4 * inst + 2 ] = v;
 			break;
 		case P_LFOA: // LFO to Amp
+			// lfo.verts.data[ 4 * inst + 1 ] = v;
 			break;
-		case P_HiAs: // High Assign
+		case P_LFLP: // LFO to Lowpass
+			// lfo.verts.data[ 4 * inst + 3 ] = v;
 			break;
 		case P_LoAs: // Low Assign
+			// assign.verts.data[5 * inst + 0] = v;
 			break;
-		case P_PanB: // Pan Balance
+		case P_HiAs: // High Assign
+			// assign.verts.data[5 * inst + 1] = v;
 			break;
 		case P_LoSp: // Lower Split
+			// assign.verts.data[5 * inst + 2] = v;
 			break;
 		case P_HiSp: // High Split
+			// assign.verts.data[5 * inst + 3] = v;
 			break;
 		case P_Shlf: // Lower Shelf
+			// assign.verts.data[5 * inst + 4] = v;
+			break;
+		case P_PanB: // Pan Balance
+			// shape.verts.data[ 3 * inst + 0 ] = v;
+			break;
+		case P_Dist: // Distortion
+			// shape.verts.data[ 3 * inst + 1 ] = v;
 			break;
 		case P_Detu: // Detune
+			// shape.verts.data[ 3 * inst + 2 ] = v;
 			break;
 		case P_Mix:  // Piano Octave Mix
 			break;
-		case P_Time: // Delay Time
-			break;
 		case P_Fdbk: // Delay Feedback
+			// delay.verts.data[ 2 * inst + 0 ] = v;
+			break;
+		case P_Time: // Delay Time
+			// delay.verts.data[ 2 * inst + 1 ] = v;
 			break;
 		case P_Freq: // Filter Frequency
-			break;
 		case P_Reso: // Filter Resonance
-			break;
 		case P_Gain: // Filter Gain
 			break;
 		default: break;
