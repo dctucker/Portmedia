@@ -363,7 +363,7 @@ void MyBCR::turnPage( int p, int k, float v)
 			str << v;
 
 			myKeys->canvas->doMessage( str.mb_str(wxConvUTF8) );
-			if( pm ) myKeys->canvas->turnPage(inst, pm->name.v, v);
+			if( pm ) myKeys->canvas->SetParam(inst, pm->name.v, v);
 		}
 	}
 

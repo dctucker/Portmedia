@@ -272,7 +272,7 @@ void Canvas3D::hitDrum(int i)
 	drums[ i % 7 ] = 1.0;
 }
 
-void Canvas3D::turnPage(int inst, int pn, float v)
+void Canvas3D::SetParam(int inst, int pn, float v)
 {
 	switch( pn )
 	{

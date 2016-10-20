@@ -235,6 +235,7 @@ void MyApp::OnLoad(wxCommandEvent &event)
 	config->SetPath( _T("/") );
 	for(int i=0; i < NUM_OSCS; i++)
 		key->updateFilter(i);
+	key->updateCanvas();
 //#endif
 
 	//bcr->execValues();

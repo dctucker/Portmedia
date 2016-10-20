@@ -59,6 +59,7 @@ public:
 	
 	void duckSub();
 	void update();
+	void updateCanvas();
 	void updateFilter(int ins);
 	void updateEnvelope(int ins);
 

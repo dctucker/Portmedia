@@ -97,6 +97,32 @@ void MyKeys::duckSub()
 	sub->duck();
 }
 
+void MyKeys::updateCanvas()
+{
+	register int parm;
+	register float val;
+
+	for(int i=0; i < NUM_OSCS; ++i)
+	{
+		Oscillator *osc = getOsc(i);
+		for(int s=0; s < osc->scount; s++)
+		{
+			for(int p=0; p < osc->set[s]->pcount; p++)
+			{
+				parm = osc->set[s]->param[p]->name.v;
+				val  = osc->set[s]->param[p]->GetValue();
+				canvas->SetParam(i, parm, val);
+			}
+		}
+		for(int p=0; p < osc->pcount; p++)
+		{
+			parm = osc->param[p]->name.v;
+			val  = osc->param[p]->GetValue();
+			canvas->SetParam(i, parm, val);
+		}
+	}
+}
+
 void MyKeys::update()
 {
 	if(!updating)
