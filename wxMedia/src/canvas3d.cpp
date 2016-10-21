@@ -9,6 +9,7 @@
 
 #include "canvas3d.h"
 #include <wx/wx.h>
+#include <wx/time.h>
 
 BEGIN_EVENT_TABLE(Canvas3D, wxGLCanvas)
 	//EVT_SIZE(Canvas3D::OnSize)
@@ -144,7 +145,8 @@ void Canvas3D::Render()
 	}
 
 	glClear(GL_COLOR_BUFFER_BIT);
-	ShaderProgram::global_time+= 0.05;// = (float)glfwGetTime();
+	ShaderProgram::global_time = (float)( ( wxGetLocalTimeMillis().GetLo() % 1000 ) / 1000.0 );
+std::cout << ShaderProgram::global_time << "\n";
 
 	adsr.Run(true);
 	fadsr.Run(true);

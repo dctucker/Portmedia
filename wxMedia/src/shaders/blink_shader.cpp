@@ -33,7 +33,7 @@ void BlinkShader::Setup()
 		in vec3 color[];
 		out vec4 fragColor;
 		void main(){
-			fragColor = vec4( color[0], 0.5 + ( 0.5 * cos( time * (1 + 19 * afp[0].y) / 3.1415926531 ) ) );
+			fragColor = vec4( color[0], 0.5 + ( 0.5 * cos( time * (1 + 19 * afp[0].y) * 6.28318530718 ) ) );
 			gl_Position = MVP * vec4( pos[0].x-0.5, pos[0].y+0.5, 1.0, 1.0 ); EmitVertex();
 			gl_Position = MVP * vec4( pos[0].x+0.5, pos[0].y+0.5, 1.0, 1.0 ); EmitVertex();
 			gl_Position = MVP * vec4( pos[0].x-0.5, pos[0].y-0.5, 1.0, 1.0 ); EmitVertex();
