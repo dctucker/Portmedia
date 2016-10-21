@@ -79,11 +79,13 @@ int Canvas3D::doMessage(const char *s)
 	{
 		str[i] = s[i];
 		if( i < 20 )
-			led.verts.data[ 7 * i + 6 ] = s[i];
+			led.leds[i]->ch = s[i];
+			//led.verts.data[ 7 * i + 6 ] = s[i];
 	}
 	str[i] = '\0';
 	for(; i < 20; i++ )
-		led.verts.data[ 7 * i + 6 ] = ' ';
+		led.leds[i]->ch = ' ';
+		//led.verts.data[ 7 * i + 6 ] = ' ';
 		
 	ledAlpha = 1.0; 
 
@@ -281,45 +283,65 @@ void Canvas3D::SetParam(int inst, int pn, float v)
 	switch( pn )
 	{
 		case P_AmpV: // Volume
-			adsr.verts.data[ 8 * inst + 4 ] = v;
+			//adsr.verts.data[ 8 * inst + 4 ] = v;
+			adsr.adsrs[inst]->v = v;
 			break;
 		case P_AmpA:
-			adsr.verts.data[ 8 * inst + 0 ] = v;
+			//adsr.verts.data[ 8 * inst + 0 ] = v;
+			adsr.adsrs[inst]->a = v;
 			break;
 		case P_AmpD:
-			adsr.verts.data[ 8 * inst + 1 ] = v;
+			//adsr.verts.data[ 8 * inst + 1 ] = v;
+			adsr.adsrs[inst]->d = v;
 			break;
 		case P_AmpS:
-			adsr.verts.data[ 8 * inst + 2 ] = v;
+			//adsr.verts.data[ 8 * inst + 2 ] = v;
+			adsr.adsrs[inst]->s = v;
 			break;
 		case P_AmpR:
-			adsr.verts.data[ 8 * inst + 3 ] = v;
+			//adsr.verts.data[ 8 * inst + 3 ] = v;
+			adsr.adsrs[inst]->r = v;
 			break;
+
 		case P_FltA:
-			fadsr.verts.data[ 8 * inst + 0 ] = v;
+			//fadsr.verts.data[ 8 * inst + 0 ] = v;
+			fadsr.adsrs[inst]->a = v;
 			break;
 		case P_FltD:
-			fadsr.verts.data[ 8 * inst + 1 ] = v;
+			//fadsr.verts.data[ 8 * inst + 1 ] = v;
+			fadsr.adsrs[inst]->d = v;
 			break;
 		case P_FltS:
-			fadsr.verts.data[ 8 * inst + 2 ] = v;
+			//fadsr.verts.data[ 8 * inst + 2 ] = v;
+			fadsr.adsrs[inst]->s = v;
 			break;
 		case P_FltR:
-			fadsr.verts.data[ 8 * inst + 3 ] = v;
+			//fadsr.verts.data[ 8 * inst + 3 ] = v;
+			fadsr.adsrs[inst]->r = v;
 			break;
 		case P_EnLP: // Env to Lowpass
 			fadsr.verts.data[ 8 * inst + 4 ] = v;
+			fadsr.adsrs[inst]->v = v;
 			break;
+
 		case P_LFOF: // LFO Frequency
-			// lfo.verts.data[ 4 * inst + 0 ] = v;
-			// lfo.verts.data[ 4 * inst + 2 ] = v;
+			// blink.verts.data[ 9 * inst + 0 ] = v;
+			// blink.verts.data[ 9 * inst + 3 ] = v;
 			break;
+		case P_Time: // Delay Time
+			// blink.verts.data[ 9 * inst + 6 ] = v;
+			break;
+
 		case P_LFOA: // LFO to Amp
-			// lfo.verts.data[ 4 * inst + 1 ] = v;
+			// blink.verts.data[ 9 * inst + 1 ] = v;
 			break;
 		case P_LFLP: // LFO to Lowpass
-			// lfo.verts.data[ 4 * inst + 3 ] = v;
+			// blink.verts.data[ 9 * inst + 4 ] = v;
 			break;
+		case P_Fdbk: // Delay Feedback
+			// blink.verts.data[ 9 * inst + 5 ] = v;
+			break;
+
 		case P_LoAs: // Low Assign
 			// assign.verts.data[5 * inst + 0] = v;
 			break;
@@ -345,12 +367,6 @@ void Canvas3D::SetParam(int inst, int pn, float v)
 			// shape.verts.data[ 3 * inst + 2 ] = v;
 			break;
 		case P_Mix:  // Piano Octave Mix
-			break;
-		case P_Fdbk: // Delay Feedback
-			// delay.verts.data[ 2 * inst + 0 ] = v;
-			break;
-		case P_Time: // Delay Time
-			// delay.verts.data[ 2 * inst + 1 ] = v;
 			break;
 		case P_Freq: // Filter Frequency
 		case P_Reso: // Filter Resonance

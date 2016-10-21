@@ -20,6 +20,13 @@ public:
 		0.05, 0.1, 0.7, 0.1, 0.1, 1.0, 0.0, 1.0,
 		0.05, 0.1, 0.7, 0.1, 0.1, 0.6, 0.5, 0.5,
 	};
+	struct ADSR {
+		GLfloat a, d, s, r, v;
+		struct Color {
+			GLfloat r, g, b;
+		};
+	};
+	ADSR *adsrs[8];
 
 	void Setup();
 	void SetAttribs();

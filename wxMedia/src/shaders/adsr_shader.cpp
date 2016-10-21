@@ -7,6 +7,10 @@ void AdsrShader::Setup()
 	MVP.data = mvp.a;
 	verts.data = adsrVerts;
 	verts.size = sizeof(adsrVerts);
+	for(int i=0; i < 8; i++)
+	{
+		adsrs[i] = (ADSR *) &(adsrVerts[i*8]);
+	}
 
 	vertex.source = GLSL(
 		uniform mat4 MVP;
@@ -38,7 +42,7 @@ void AdsrShader::Setup()
 			float d =  clamp( adsr[0].y + a, 0, 1);
 			float s =  clamp( adsr[0].z * v, 0, 1); //max( 0.0, ( 40. + 20. * log( adsr[0].z * vol[0] )/log(10.0) ) * 0.025 ) ;
 			float r =  clamp( adsr[0].w + d, 0, 1);
-			float r0=  clamp( adsr[0].w + d - 1, 0, 1);
+			float r0=  clamp( adsr[0].w + d - 1, 0, s);
 
 			float alpha = 0.4;
 			//if( selinst == i ) alpha = 0.6;

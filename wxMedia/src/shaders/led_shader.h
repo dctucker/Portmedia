@@ -4,6 +4,7 @@
 
 class LedShader : public ShaderProgram
 {
+public:
 	GLfloat led_projection[16] = {
 		0.10, 0.00, 0.00, 0.00,
 		0.00, 0.20, 0.00, 0.00,
@@ -33,6 +34,10 @@ class LedShader : public ShaderProgram
 		  8.0, -3.6, 0.0,   0.0, 1.0, 0.0, 'S',
 		  9.0, -3.6, 0.0,   0.0, 1.0, 0.0, 'T',
 	};
-public:
+
+	struct LED {
+		GLfloat x, y, z, r, g, b, ch;
+	};
+	LED *leds[20];
 	void Setup();
 };
