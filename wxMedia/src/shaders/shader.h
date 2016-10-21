@@ -1,5 +1,3 @@
-#pragma once
-
 #include <iostream>
 
 #define GLEW_STATIC
@@ -11,7 +9,26 @@
 #define GLSL(shader) ("#version 330 core\n" #shader)
 #define HEREDOC(var) #var
 
-union Mat44 {
+#pragma once
+
+union vec2 {
+	struct { GLfloat x, y; };
+	GLfloat f[2];
+};
+
+union vec3 {
+	struct { GLfloat x, y, z; };
+	struct { GLfloat r, g, b; };
+	GLfloat f[3];
+};
+
+union vec4 {
+	struct { GLfloat x,y,z,w; };
+	struct { GLfloat r,g,b,a; };
+	GLfloat f[4];
+};
+
+union mat4 {
 	struct {
 		GLfloat
 			xx, xy, xz, xw,
@@ -20,8 +37,19 @@ union Mat44 {
 			wx, wy, wz, ww
 		;
 	};
-	GLfloat a[16];
+	struct {
+		vec4 x, y, z, w;
+	};
+	GLfloat f[16];
 };
+
+static const GLchar *default_fragment_source = GLSL(
+	in vec4 fragColor;
+	out vec4 outColor;
+	void main() {
+		outColor = fragColor;
+	}
+);
 
 class ShaderProgram
 {
@@ -52,7 +80,7 @@ public:
 	} verts;
 
 	static GLfloat global_time;
-	static GLfloat global_mouse[2];
+	static vec2 global_mouse;
 
 	ShaderProgram();
 	void Defaults();

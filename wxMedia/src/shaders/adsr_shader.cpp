@@ -4,13 +4,9 @@ void AdsrShader::Setup()
 {
 	Defaults();
 
-	MVP.data = mvp.a;
-	verts.data = adsrVerts;
-	verts.size = sizeof(adsrVerts);
-	for(int i=0; i < 8; i++)
-	{
-		adsrs[i] = (ADSR *) &(adsrVerts[i*8]);
-	}
+	MVP.data = mvp.f;
+	verts.data = (GLfloat *) adsrs;
+	verts.size = sizeof(adsrs);
 
 	vertex.source = GLSL(
 		uniform mat4 MVP;
@@ -70,13 +66,7 @@ void AdsrShader::Setup()
 			EndPrimitive();
 		}
 	);
-	fragment.source = GLSL(
-		in vec4 fragColor;
-		out vec4 outColor;
-		void main() {
-			outColor = fragColor;
-		}
-	);
+	fragment.source = default_fragment_source;
 	
 	ShaderProgram::Setup();
 

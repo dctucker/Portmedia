@@ -6,7 +6,7 @@ void FilterShader::Setup()
 
 	verts.data = filter_db;
 	verts.size = sizeof(filter_db);
-	MVP.data = filter_projection;
+	MVP.data = filter_projection.f;
 	verts.usage = GL_DYNAMIC_DRAW;
 
 	vertex.source = GLSL(
@@ -61,13 +61,7 @@ void FilterShader::Setup()
 			EndPrimitive();
 		}
 	);
-	fragment.source = GLSL(
-		in vec4 fragColor;
-		out vec4 outColor;
-		void main() {
-			outColor = fragColor;
-		}
-	);
+	fragment.source = default_fragment_source;
 
 	ShaderProgram::Setup();
 

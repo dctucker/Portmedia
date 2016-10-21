@@ -4,7 +4,7 @@ void BcrShader::Setup()
 {
 	Defaults();
 
-	MVP.data = bcr_projection;
+	MVP.data = bcr_projection.f;
 	verts.data = bcr_vertices;
 	verts.size = sizeof(bcr_vertices);
 	verts.usage = GL_DYNAMIC_DRAW;
@@ -77,14 +77,7 @@ void BcrShader::Setup()
 			//drawValues();
 		}
 	);
-	fragment.source = GLSL(
-		in vec4 fragColor;
-		out vec4 outColor;
-
-		void main() {
-			outColor = fragColor;
-		}
-	);
+	fragment.source = default_fragment_source;
 
 	ShaderProgram::Setup();	
 

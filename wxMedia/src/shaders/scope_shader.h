@@ -5,7 +5,7 @@
 class ScopeShader : public ShaderProgram
 {
 public:
-	GLfloat scope_projection[16] = {
+	mat4 scope_projection = {
 		1.80, 0.00, 0, -0.9,
 		0.00, 2.00, 0,  0.0,
 		0.00, 0.00, 1, -2.0,

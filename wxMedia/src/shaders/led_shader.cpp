@@ -4,11 +4,9 @@ void LedShader::Setup()
 {
 	Defaults();
 
-	MVP.data = led_projection;
-	verts.data = led_vertices;
-	verts.size = sizeof(led_vertices);
-	for(int i=0; i < 20; i++)
-		leds[i] = (LED *) &(led_vertices[i*7]);
+	MVP.data = led_projection.f;
+	verts.data = (GLfloat *) leds;
+	verts.size = sizeof(leds);
 
 	vertex.source = GLSL(
 		layout (location = 0) in vec3 position;

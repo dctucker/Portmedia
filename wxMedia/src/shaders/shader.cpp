@@ -1,7 +1,7 @@
 #include "shader.h"
 
 GLfloat ShaderProgram::global_time;
-GLfloat ShaderProgram::global_mouse[2];
+vec2 ShaderProgram::global_mouse;
 
 ShaderProgram::ShaderProgram()
 {
@@ -91,7 +91,7 @@ void ShaderProgram::BindBuffers()
 
 	verts.draw_size = verts.size;
 	time.data = &( ShaderProgram::global_time );
-	mouse.data = ShaderProgram::global_mouse;
+	mouse.data = ShaderProgram::global_mouse.f;
 }
 
 

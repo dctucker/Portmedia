@@ -4,7 +4,7 @@ void PianoShader::Setup()
 {
 	Defaults();
 
-	MVP.data = piano_projection;
+	MVP.data = piano_projection.f;
 	verts.data = piano_velocities;
 	verts.size = sizeof(piano_velocities);
 	verts.usage = GL_DYNAMIC_DRAW;

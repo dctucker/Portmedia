@@ -4,9 +4,9 @@ void BiquadShader::Setup()
 {
 	Defaults();
 
-	verts.data = biquad_coeffs;
+	verts.data = (GLfloat *) biquad_coeffs;
 	verts.size = sizeof(biquad_coeffs);
-	MVP.data = projectionMatrix;
+	MVP.data = projectionMatrix.f;
 	verts.usage = GL_DYNAMIC_DRAW;
 
 	vertex.source = GLSL(
@@ -98,13 +98,7 @@ void BiquadShader::Setup()
 			}
 		}
 	);
-	fragment.source = GLSL(
-		in vec4 fragColor;
-		out vec4 outColor;
-		void main() {
-			outColor = fragColor;
-		}
-	);
+	fragment.source = default_fragment_source;
 
 
 	ShaderProgram::Setup();

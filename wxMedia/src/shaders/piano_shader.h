@@ -3,7 +3,7 @@
 class PianoShader : public ShaderProgram
 {
 public:
-	GLfloat piano_projection[16] = {
+	mat4 piano_projection = {
 		2,0,0,-1,
 		0,0.25,0,-1,
 		0,0,1,0,

@@ -5,7 +5,7 @@
 class FilterShader : public ShaderProgram
 {
 public:
-	GLfloat filter_projection[16] = {
+	mat4 filter_projection = {
 		0.5,0,0,0.4,
 		0,0.5,0,0.5,
 		0,0,1,0,

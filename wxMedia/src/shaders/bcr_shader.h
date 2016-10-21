@@ -5,7 +5,7 @@
 class BcrShader : public ShaderProgram
 {
 public:
-	GLfloat bcr_projection[16] = {
+	mat4 bcr_projection = {
 		0.5,0,0,-0.95,
 		0,0.5,0, 0.45,
 		0,0,1,0,

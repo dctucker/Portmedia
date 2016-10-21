@@ -33,6 +33,7 @@
 #include "shaders/shader.h"
 #include "shaders/adsr_shader.h"
 #include "shaders/bcr_shader.h"
+#include "shaders/blink_shader.h"
 #include "shaders/filter_shader.h"
 #include "shaders/led_shader.h"
 #include "shaders/piano_shader.h"
@@ -72,6 +73,7 @@ public:
 	AdsrShader adsr;
 	AdsrShader fadsr;
 	BcrShader bcr;
+	BlinkShader blink;
 	FilterShader filter;
 	LedShader led;
 	PianoShader piano;

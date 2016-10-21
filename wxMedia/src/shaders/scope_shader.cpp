@@ -4,7 +4,7 @@ void ScopeShader::Setup()
 {
 	Defaults();
 
-	MVP.data = scope_projection;
+	MVP.data = scope_projection.f;
 	verts.data = min_max;
 	verts.size = sizeof(min_max);
 	verts.usage = GL_STREAM_DRAW;
@@ -85,13 +85,7 @@ void ScopeShader::Setup()
 			EndPrimitive();
 		}
 	);
-	fragment.source = GLSL(
-		in vec4 fragColor;
-		out vec4 outColor;
-		void main() {
-			outColor = fragColor;
-		}
-	);
+	fragment.source = default_fragment_source;
 
 	ShaderProgram::Setup();
 

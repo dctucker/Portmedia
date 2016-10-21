@@ -30,7 +30,7 @@ static int CanvasAttribs[] = {
 
 Canvas3D::Canvas3D( wxWindow *parent ) :
 	wxGLCanvas( parent, wxID_ANY, CanvasAttribs, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE ),
-	adsr(), fadsr(), bcr(), filter(), led(), piano(), scope()
+	adsr(), fadsr(), blink(), bcr(), filter(), led(), piano(), scope()
 {
 	context = new wxGLContext(this);
 
@@ -79,13 +79,11 @@ int Canvas3D::doMessage(const char *s)
 	{
 		str[i] = s[i];
 		if( i < 20 )
-			led.leds[i]->ch = s[i];
-			//led.verts.data[ 7 * i + 6 ] = s[i];
+			led.leds[i].ch = s[i];
 	}
 	str[i] = '\0';
 	for(; i < 20; i++ )
-		led.leds[i]->ch = ' ';
-		//led.verts.data[ 7 * i + 6 ] = ' ';
+		led.leds[i].ch = ' ';
 		
 	ledAlpha = 1.0; 
 
@@ -126,6 +124,7 @@ void Canvas3D::InitGL()
 	piano.Setup();
 	led.Setup();
 	bcr.Setup();
+	blink.Setup();
 	filter.Setup();
 	scope.Setup();
 
@@ -145,13 +144,14 @@ void Canvas3D::Render()
 	}
 
 	glClear(GL_COLOR_BUFFER_BIT);
-	ShaderProgram::global_time+= 0.01;// = (float)glfwGetTime();
+	ShaderProgram::global_time+= 0.1;// = (float)glfwGetTime();
 
 	adsr.Run(true);
 	fadsr.Run(true);
 	piano.Run(true);
 	led.Run(true);
 	bcr.Run(true);
+	blink.Run(true);
 	filter.Run(true);
 	scope.Run(true);
 
@@ -283,63 +283,53 @@ void Canvas3D::SetParam(int inst, int pn, float v)
 	switch( pn )
 	{
 		case P_AmpV: // Volume
-			//adsr.verts.data[ 8 * inst + 4 ] = v;
-			adsr.adsrs[inst]->v = v;
+			adsr.adsrs[inst].v = v;
 			break;
 		case P_AmpA:
-			//adsr.verts.data[ 8 * inst + 0 ] = v;
-			adsr.adsrs[inst]->a = v;
+			adsr.adsrs[inst].a = v;
 			break;
 		case P_AmpD:
-			//adsr.verts.data[ 8 * inst + 1 ] = v;
-			adsr.adsrs[inst]->d = v;
+			adsr.adsrs[inst].d = v;
 			break;
 		case P_AmpS:
-			//adsr.verts.data[ 8 * inst + 2 ] = v;
-			adsr.adsrs[inst]->s = v;
+			adsr.adsrs[inst].s = v;
 			break;
 		case P_AmpR:
-			//adsr.verts.data[ 8 * inst + 3 ] = v;
-			adsr.adsrs[inst]->r = v;
+			adsr.adsrs[inst].r = v;
 			break;
 
 		case P_FltA:
-			//fadsr.verts.data[ 8 * inst + 0 ] = v;
-			fadsr.adsrs[inst]->a = v;
+			fadsr.adsrs[inst].a = v;
 			break;
 		case P_FltD:
-			//fadsr.verts.data[ 8 * inst + 1 ] = v;
-			fadsr.adsrs[inst]->d = v;
+			fadsr.adsrs[inst].d = v;
 			break;
 		case P_FltS:
-			//fadsr.verts.data[ 8 * inst + 2 ] = v;
-			fadsr.adsrs[inst]->s = v;
+			fadsr.adsrs[inst].s = v;
 			break;
 		case P_FltR:
-			//fadsr.verts.data[ 8 * inst + 3 ] = v;
-			fadsr.adsrs[inst]->r = v;
+			fadsr.adsrs[inst].r = v;
 			break;
 		case P_EnLP: // Env to Lowpass
-			fadsr.verts.data[ 8 * inst + 4 ] = v;
-			fadsr.adsrs[inst]->v = v;
+			fadsr.adsrs[inst].v = v;
 			break;
 
 		case P_LFOF: // LFO Frequency
-			// blink.verts.data[ 9 * inst + 0 ] = v;
-			// blink.verts.data[ 9 * inst + 3 ] = v;
+			blink.blinks.amplfo[inst].freq = v;
+			blink.blinks.filtlfo[inst].freq = v;
 			break;
 		case P_Time: // Delay Time
-			// blink.verts.data[ 9 * inst + 6 ] = v;
+			blink.blinks.delay[inst].freq = v;
 			break;
 
 		case P_LFOA: // LFO to Amp
-			// blink.verts.data[ 9 * inst + 1 ] = v;
+			blink.blinks.amplfo[inst].amp = v;
 			break;
 		case P_LFLP: // LFO to Lowpass
-			// blink.verts.data[ 9 * inst + 4 ] = v;
+			blink.blinks.filtlfo[inst].amp = v;
 			break;
 		case P_Fdbk: // Delay Feedback
-			// blink.verts.data[ 9 * inst + 5 ] = v;
+			blink.blinks.delay[inst].amp = v;
 			break;
 
 		case P_LoAs: // Low Assign
