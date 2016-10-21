@@ -144,7 +144,7 @@ void Canvas3D::Render()
 	}
 
 	glClear(GL_COLOR_BUFFER_BIT);
-	ShaderProgram::global_time+= 0.1;// = (float)glfwGetTime();
+	ShaderProgram::global_time+= 0.05;// = (float)glfwGetTime();
 
 	adsr.Run(true);
 	fadsr.Run(true);
