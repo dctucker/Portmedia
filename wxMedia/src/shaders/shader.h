@@ -90,7 +90,7 @@ public:
 	void GetUniforms();
 	void BindBuffers();
 
-	void Run(bool copy=false);
+	virtual void Run(bool copy=false);
 
 	~ShaderProgram();
 	void Teardown();

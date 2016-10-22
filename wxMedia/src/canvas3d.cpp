@@ -146,7 +146,7 @@ void Canvas3D::Render()
 
 	glClear(GL_COLOR_BUFFER_BIT);
 	ShaderProgram::global_time = (float)( ( wxGetLocalTimeMillis().GetLo() % 1000 ) / 1000.0 );
-std::cout << ShaderProgram::global_time << "\n";
+//std::cout << ShaderProgram::global_time << "\n";
 
 	adsr.Run(true);
 	fadsr.Run(true);
@@ -220,6 +220,14 @@ void Canvas3D::keyOn(int k)
 {
 	int x = k-21;
 	piano.verts.data[x] = 1;
+
+	/*
+	for( int i=0; i < 8; i++ )
+	{
+		blink.blinks.amplfo[i].phase = ShaderProgram::global_time;
+		blink.blinks.filtlfo[i].phase = ShaderProgram::global_time;
+	}
+	*/
 }
 
 void Canvas3D::keyOff(int k)
@@ -319,6 +327,8 @@ void Canvas3D::SetParam(int inst, int pn, float v)
 		case P_LFOF: // LFO Frequency
 			blink.blinks.amplfo[inst].freq = v;
 			blink.blinks.filtlfo[inst].freq = v;
+			blink.blinks.amplfo[inst].phase = ShaderProgram::global_time;
+			blink.blinks.filtlfo[inst].phase = ShaderProgram::global_time;
 			break;
 		case P_Time: // Delay Time
 			blink.blinks.delay[inst].freq = v;

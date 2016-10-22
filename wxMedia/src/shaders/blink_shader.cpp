@@ -33,7 +33,10 @@ void BlinkShader::Setup()
 		in vec3 color[];
 		out vec4 fragColor;
 		void main(){
-			fragColor = vec4( color[0], 0.5 + ( 0.5 * cos( time * (1 + 19 * afp[0].y) * 6.28318530718 ) ) );
+			const float PI = 3.1415926535897932384626433832795;
+			float theta = (time - afp[0].z) * (1 + 19 * afp[0].y) * PI * 2;
+			float val = ( 0.5 - ( afp[0].x * 0.5 * cos( theta ) ) );
+			fragColor = vec4( color[0], val );
 			gl_Position = MVP * vec4( pos[0].x-0.5, pos[0].y+0.5, 1.0, 1.0 ); EmitVertex();
 			gl_Position = MVP * vec4( pos[0].x+0.5, pos[0].y+0.5, 1.0, 1.0 ); EmitVertex();
 			gl_Position = MVP * vec4( pos[0].x-0.5, pos[0].y-0.5, 1.0, 1.0 ); EmitVertex();
@@ -56,3 +59,17 @@ void BlinkShader::Setup()
 
 	verts.draw_size /= 8;
 }
+
+/*
+void BlinkShader::Run(bool copy)
+{
+	ShaderProgram::Run(copy);
+
+	for(int i=0; i < 8; i++)
+	{
+		blinks.amplfo[i].phase = 0;
+		blinks.filtlfo[i].phase = 0;
+		blinks.delay[i].phase = 0;
+	}
+}
+*/

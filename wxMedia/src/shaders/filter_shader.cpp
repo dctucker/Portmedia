@@ -43,7 +43,9 @@ void FilterShader::Setup()
 			int z = 1; //inst / 8.0f;
 			vec3 scaleVector = vec3( 1.0/128.0, 1.0/(maxdb-mindb), 1 );
 			
-			fragColor = vec4(0.0, 1.0, 0.0, alpha * (1+0.5*sin(time*3.14)) );
+			//float a = alpha * (1+0.5*sin(time*3.14)) ;
+			float a = 0.8;
+			fragColor = vec4(0.0, 1.0, 0.0, a );
 			
 			//glNormal3f( 0.0, 0.0, 1.0 );
 
