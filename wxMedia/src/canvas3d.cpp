@@ -31,7 +31,7 @@ static int CanvasAttribs[] = {
 
 Canvas3D::Canvas3D( wxWindow *parent ) :
 	wxGLCanvas( parent, wxID_ANY, CanvasAttribs, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE ),
-	adsr(), fadsr(), blink(), bcr(), filter(), led(), piano(), scope()
+	adsr(), fadsr(), blink(), bcr(), filter(), led(), pan(), piano(), scope()
 {
 	context = new wxGLContext(this);
 
@@ -124,6 +124,7 @@ void Canvas3D::InitGL()
 	fadsr.Setup();
 	piano.Setup();
 	led.Setup();
+	pan.Setup();
 	bcr.Setup();
 	blink.Setup();
 	filter.Setup();
@@ -152,6 +153,7 @@ void Canvas3D::Render()
 	fadsr.Run(true);
 	piano.Run(true);
 	led.Run(true);
+	pan.Run(true);
 	bcr.Run(true);
 	blink.Run(true);
 	filter.Run(true);
@@ -360,7 +362,7 @@ void Canvas3D::SetParam(int inst, int pn, float v)
 			// assign.verts.data[5 * inst + 4] = v;
 			break;
 		case P_PanB: // Pan Balance
-			// shape.verts.data[ 3 * inst + 0 ] = v;
+			pan.pans[inst].pan = v;
 			break;
 		case P_Dist: // Distortion
 			// shape.verts.data[ 3 * inst + 1 ] = v;

@@ -36,6 +36,7 @@
 #include "shaders/blink_shader.h"
 #include "shaders/filter_shader.h"
 #include "shaders/led_shader.h"
+#include "shaders/pan_shader.h"
 #include "shaders/piano_shader.h"
 #include "shaders/scope_shader.h"
 
@@ -76,6 +77,7 @@ public:
 	BlinkShader blink;
 	FilterShader filter;
 	LedShader led;
+	PanShader pan;
 	PianoShader piano;
 	ScopeShader scope;
 
