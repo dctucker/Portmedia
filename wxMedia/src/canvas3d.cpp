@@ -40,7 +40,7 @@ Canvas3D::Canvas3D( wxWindow *parent ) :
 
 void Canvas3D::setdefaults()
 {
-	filter.verts.data = &(filt[3][0]);
+	//filter.verts.data = &(filt[3][0]);
 	fadsr.mvp.yw = 0.0;
     m_init = false;
 	scope_width = 0.4;
@@ -253,7 +253,7 @@ void Canvas3D::updateFilter(int inst, int i, fl y)
 	filt[inst][i] = y;
 	selinst = inst;
 
-	filter.verts.data[ i % 128 ] = y;
+	filter.verts.data[ (inst * 128) + (i % 128) ] = y;
 }
 
 /*

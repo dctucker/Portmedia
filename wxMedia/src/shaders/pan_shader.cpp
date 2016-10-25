@@ -18,7 +18,7 @@ void PanShader::Setup()
 		out float alg;
 		out vec3 color;
 		void main(){
-			pos = vec3( 0.0, gl_VertexID * 1.1, 0.0 );
+			pos = vec3( 0.0, 7.7 - gl_VertexID * 1.1, 0.0 );
 			//pos = vec3( 0.0, 0.0, 0.0 );
 			pan = in_pan;
 			alg = in_alg;

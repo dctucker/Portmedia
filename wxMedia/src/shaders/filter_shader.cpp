@@ -4,7 +4,7 @@ void FilterShader::Setup()
 {
 	Defaults();
 
-	verts.data = filter_db;
+	verts.data = filter_db[0];
 	verts.size = sizeof(filter_db);
 	MVP.data = filter_projection.f;
 	verts.usage = GL_DYNAMIC_DRAW;
@@ -34,6 +34,17 @@ void FilterShader::Setup()
 		in int index[];
 		out vec4 fragColor;
 
+		const vec3[8] colors = vec3[](
+			vec3(1.0, 0.0, 0.0),
+			vec3(0.8, 0.8, 8.0),
+			vec3(1.0, 1.0, 0.0),
+			vec3(0.0, 1.0, 0.0),
+			vec3(0.2, 0.3, 1.0),
+			vec3(0.0, 1.0, 1.0),
+			vec3(1.0, 0.0, 1.0),
+			vec3(0.6, 0.5, 0.5)
+		);
+
 		void main(){
 			float alpha = 0.4;
 			int mindb = -36;
@@ -45,12 +56,13 @@ void FilterShader::Setup()
 			
 			//float a = alpha * (1+0.5*sin(time*3.14)) ;
 			float a = 0.8;
-			fragColor = vec4(0.0, 1.0, 0.0, a );
 			
 			//glNormal3f( 0.0, 0.0, 1.0 );
 
-			int i = index[0];
+			int i = index[0] % 128;
+			int inst = index[0] / 128;
 
+			fragColor = vec4(colors[inst], a );
 			//glTranslatef( -0.02, -0.35, 0.0 );
 
 			float f_0 = clamp( f0[0], mindb, maxdb );
