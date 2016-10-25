@@ -294,37 +294,19 @@ void Canvas3D::SetParam(int inst, int pn, float v)
 {
 	switch( pn )
 	{
-		case P_AmpV: // Volume
-			adsr.adsrs[inst].v = v;
-			break;
-		case P_AmpA:
-			adsr.adsrs[inst].a = v;
-			break;
-		case P_AmpD:
-			adsr.adsrs[inst].d = v;
-			break;
-		case P_AmpS:
-			adsr.adsrs[inst].s = v;
-			break;
-		case P_AmpR:
-			adsr.adsrs[inst].r = v;
-			break;
+		// Amp ADSR
+		case P_AmpV: adsr.adsrs[inst].v = v; break;
+		case P_AmpA: adsr.adsrs[inst].a = v; break;
+		case P_AmpD: adsr.adsrs[inst].d = v; break;
+		case P_AmpS: adsr.adsrs[inst].s = v; break;
+		case P_AmpR: adsr.adsrs[inst].r = v; break;
 
-		case P_FltA:
-			fadsr.adsrs[inst].a = v;
-			break;
-		case P_FltD:
-			fadsr.adsrs[inst].d = v;
-			break;
-		case P_FltS:
-			fadsr.adsrs[inst].s = v;
-			break;
-		case P_FltR:
-			fadsr.adsrs[inst].r = v;
-			break;
-		case P_EnLP: // Env to Lowpass
-			fadsr.adsrs[inst].v = v;
-			break;
+		// Filt ADSR
+		case P_EnLP: fadsr.adsrs[inst].v = v; break;
+		case P_FltA: fadsr.adsrs[inst].a = v; break;
+		case P_FltD: fadsr.adsrs[inst].d = v; break;
+		case P_FltS: fadsr.adsrs[inst].s = v; break;
+		case P_FltR: fadsr.adsrs[inst].r = v; break;
 
 		case P_LFOF: // LFO Frequency
 			blink.blinks.amplfo[inst].freq = v;
