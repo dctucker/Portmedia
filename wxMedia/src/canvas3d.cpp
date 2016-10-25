@@ -346,30 +346,33 @@ void Canvas3D::SetParam(int inst, int pn, float v)
 			blink.blinks.delay[inst].amp = v;
 			break;
 
-		case P_LoAs: // Low Assign
-			// assign.verts.data[5 * inst + 0] = v;
-			break;
-		case P_HiAs: // High Assign
-			// assign.verts.data[5 * inst + 1] = v;
-			break;
-		case P_LoSp: // Lower Split
-			// assign.verts.data[5 * inst + 2] = v;
-			break;
-		case P_HiSp: // High Split
-			// assign.verts.data[5 * inst + 3] = v;
-			break;
-		case P_Shlf: // Lower Shelf
-			// assign.verts.data[5 * inst + 4] = v;
-			break;
 		case P_PanB: // Pan Balance
 			pan.pans[inst].pan = v;
 			break;
+
+		case P_LoAs: // Low Assign
+			// assign.data[inst].lo_on = v;
+			break;
+		case P_HiAs: // High Assign
+			// assign.data[inst].hi_on = v;
+			break;
+		case P_LoSp: // Lower Split
+			// assign.data[inst].lo_split = v;
+			break;
+		case P_HiSp: // High Split
+			// assign.data[inst].hi_split = v;
+			break;
+		case P_Shlf: // Lower Shelf
+			// assign.data[inst].lo_shelf = v;
+			break;
+
 		case P_Dist: // Distortion
-			// shape.verts.data[ 3 * inst + 1 ] = v;
+			// shape.data[inst].distortion = v;
 			break;
 		case P_Detu: // Detune
-			// shape.verts.data[ 3 * inst + 2 ] = v;
+			// shape.data[inst].detune = v;
 			break;
+
 		case P_Mix:  // Piano Octave Mix
 			break;
 		case P_Freq: // Filter Frequency

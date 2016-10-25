@@ -47,15 +47,12 @@ void PanShader::Setup()
 			gl_Position = MVP * vec4( pos[0] + vec3( -ampL, 0.0, 1.0 ), 1.0 ); EmitVertex();
 			fragColor = vec4( color[0], 0.5 );
 			gl_Position = MVP * vec4( pos[0] + vec3(   0.0, 0.0, 1.0 ), 1.0 ); EmitVertex();
-			EndPrimitive();
-			fragColor = vec4( color[0], 0.0 );
-			gl_Position = MVP * vec4( pos[0] + vec3(  ampR, 1.0, 1.0 ), 1.0 ); EmitVertex();
-			fragColor = vec4( color[0], 0.8 );
-			gl_Position = MVP * vec4( pos[0] + vec3(   0.0, 1.0, 1.0 ), 1.0 ); EmitVertex();
 			fragColor = vec4( color[0], 0.8 );
 			gl_Position = MVP * vec4( pos[0] + vec3(  ampR, 0.0, 1.0 ), 1.0 ); EmitVertex();
-			fragColor = vec4( color[0], 0.5 );
-			gl_Position = MVP * vec4( pos[0] + vec3(   0.0, 0.0, 1.0 ), 1.0 ); EmitVertex();
+			fragColor = vec4( color[0], 0.8 );
+			gl_Position = MVP * vec4( pos[0] + vec3(   0.0, 1.0, 1.0 ), 1.0 ); EmitVertex();
+			fragColor = vec4( color[0], 0.0 );
+			gl_Position = MVP * vec4( pos[0] + vec3(  ampR, 1.0, 1.0 ), 1.0 ); EmitVertex();
 			EndPrimitive();
 		}
 	);
